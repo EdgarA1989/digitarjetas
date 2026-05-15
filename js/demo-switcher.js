@@ -137,5 +137,8 @@ function initDemoCommercialCta() {
   }
 
   const back = document.querySelector("[data-demo-back]");
-  if (back) back.href = "../../../";
+  if (back) {
+    back.href = "../../../#plantillas";
+    back.textContent = "Otras demos";
+  }
 }

@@ -122,17 +122,6 @@ const templates = [
     bg: "linear-gradient(145deg, #fff0e8, #e6a187 50%, #b96b86)",
   },
   {
-    name: "Celeste",
-    slug: "celeste",
-    category: "Bautismos y comuniones",
-    style: "bautismos",
-    availablePlans: ["esencial", "completo"],
-    description: "Diseño suave, luminoso y familiar para celebraciones especiales.",
-    image: "assets/img/template-celeste.jpg",
-    demos: { esencial: "#", plus: "", completo: "#" },
-    bg: "linear-gradient(145deg, #dff6ff, #74c7ef 52%, #f6f2d4)",
-  },
-  {
     name: "Bautismo Celeste",
     slug: "bautismo-celeste",
     category: "Bautismos y comuniones",
