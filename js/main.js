@@ -185,7 +185,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initForm();
   initWhatsappLinks();
   initTemplateActions();
-  initFilterShortcuts();
   initModal();
   initReveal();
   setYear();
@@ -467,14 +466,6 @@ function handleConsultAction(template) {
     text: "As\u00ed te enviamos la informaci\u00f3n correcta seg\u00fan la versi\u00f3n que quer\u00e9s usar para tu evento.",
     template,
     action: "consult",
-  });
-}
-
-function initFilterShortcuts() {
-  document.querySelectorAll("[data-filter-shortcut]").forEach(button => {
-    button.addEventListener("click", () => {
-      setActiveFilter(button.dataset.filterShortcut);
-    });
   });
 }
 

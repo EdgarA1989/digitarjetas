@@ -545,6 +545,7 @@ body.dark .badge {
 .floating-card--two { top: 23%; right: 0; animation-delay: .5s; }
 .floating-card--three { bottom: 19%; left: 0; animation-delay: 1s; }
 .floating-card--four { bottom: 7%; right: 2%; animation-delay: 1.4s; }
+.floating-card--five { top: 47%; left: -4%; animation-delay: 1.8s; }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -562,7 +563,6 @@ body.dark .badge {
 }
 
 .steps-grid,
-.options-grid,
 .plans-grid,
 .contact-grid,
 .split-grid {
@@ -584,7 +584,6 @@ body.dark .badge {
 
 .step-card,
 .feature-card,
-.option-card,
 .template-card,
 .plan-card,
 .contact-form,
@@ -598,7 +597,6 @@ body.dark .badge {
 
 .step-card,
 .feature-card,
-.option-card,
 .plan-card,
 .contact-form {
   padding: 1.25rem;
@@ -622,25 +620,21 @@ body.dark .badge {
   margin-top: 1rem;
 }
 
-.option-card,
 .plan-card {
   position: relative;
 }
 
-.option-card--highlight,
 .plan-card--recommended {
   border-color: color-mix(in srgb, var(--primary) 48%, var(--line));
   box-shadow: var(--shadow);
 }
 
-.option-card ul,
 .plan-card ul {
   padding: 0;
   margin: 1.2rem 0;
   list-style: none;
 }
 
-.option-card li,
 .plan-card li {
   position: relative;
   padding-left: 1.5rem;
@@ -648,7 +642,6 @@ body.dark .badge {
   color: var(--muted);
 }
 
-.option-card li::before,
 .plan-card li::before {
   content: "✓";
   position: absolute;
@@ -1067,12 +1060,7 @@ textarea:focus {
   }
 
   .steps-grid,
-  .options-grid,
   .plans-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .options-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1129,13 +1117,11 @@ textarea:focus {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .option-card,
   .plan-card {
     display: flex;
     flex-direction: column;
   }
 
-  .option-card .btn,
   .plan-card .btn {
     width: 100%;
     margin-top: auto;
