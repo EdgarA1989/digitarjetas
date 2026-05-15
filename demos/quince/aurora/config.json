@@ -1,61 +1,47 @@
 {
-  "nombre": "Valentina",
-  "frase": "Cada momento de esta noche lo viví pensando en vos.",
-  "fecha": "2026-10-17T21:00:00",
-  "fechaDisplay": "Sábado · 17 de Octubre · 2026",
-  "hora": "21:00 hs",
+    "nombre":  "Valentina",
+    "frase":  "Cada momento de esta noche lo viví pensando en vos.",
+    "fecha":  "2026-10-17T21:00:00",
+    "fechaDisplay":  "Sábado · 17 de Octubre · 2026",
+    "hora":  "21:00 hs",
+    "bienvenida":  {
+                       "titulo":  "Un momento único.",
+                       "texto":  "Quince años son el comienzo de todo. Quiero vivirlos rodeada de las personas que más quiero. Esta noche es nuestra."
+                   },
+    "lugar":  {
+                  "nombre":  "Salón Versalles",
+                  "barrio":  "Palermo · CABA",
+                  "direccion":  "Av. Santa Fe 3200, CABA",
+                  "mapsUrl":  "https://maps.google.com/?q=Av+Santa+Fe+3200+CABA"
+              },
+    "dresscode":  {
+                      "texto":  "Formal / Cocktail",
+                      "nota":  "El azul y el plateado están reservados para la festejada."
+                  },
+    "regalos":  {
+                    "texto":  "Tu presencia es el mejor regalo. Si querés tener un gesto, te dejo mis datos.",
+                    "alias":  "valentina.garcia",
+                    "cbu":  "0000003100025264839001",
+                    "banco":  "Mercado Pago / cualquier banco"
+                },
+    "whatsapp":  {
+                     "numero":  "5491155550000",
+                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Valentina"
+                 },
+    "musica":  {
+                   "src":  "",
+                   "titulo":  "",
+                   "artista":  ""
+               },
+    "fotos":  [
 
-  "bienvenida": {
-    "titulo": "Un momento único.",
-    "texto": "Quince años son el comienzo de todo. Quiero vivirlos rodeada de las personas que más quiero. Esta noche es nuestra."
-  },
-
-  "lugar": {
-    "nombre": "Salón Versalles",
-    "barrio": "Palermo · CABA",
-    "direccion": "Av. Santa Fe 3200, CABA",
-    "mapsUrl": "https://maps.google.com/?q=Av+Santa+Fe+3200+CABA"
-  },
-
-  "dresscode": {
-    "texto": "Formal / Cocktail",
-    "nota": "El azul y el plateado están reservados para la festejada."
-  },
-
-  "regalos": {
-    "texto": "Tu presencia es el mejor regalo. Si querés tener un gesto, te dejo mis datos.",
-    "alias": "valentina.garcia",
-    "cbu": "0000003100025264839001",
-    "banco": "Mercado Pago / cualquier banco"
-  },
-
-  "whatsapp": {
-    "numero": "5491155550000",
-    "mensaje": "¡Hola! Confirmo mi asistencia a los 15 de Valentina 🎉"
-  },
-
-  "musica": {
-    "src": "music/titanium.mp3",
-    "titulo": "Titanium",
-    "artista": "David Guetta ft. Sia"
-  },
-
-  "fotos": [
-    "img/foto horizontal 1.png",
-    "img/foto vertical 1.png",
-    "img/foto vertical 2.png",
-    "img/foto vertical 3.png",
-    "img/foto vertical 4.png",
-    "img/foto horizontal 2.png"
-  ],
-
-  "footer": {
-    "mensaje": "Gracias por ser parte de este momento.",
-    "firma": "Con amor, Valentina · 2026"
-  },
-
-  "tema": {
-    "acento": "#6baed6",
-    "acento2": "#c8d8e8"
-  }
+              ],
+    "footer":  {
+                   "mensaje":  "Gracias por ser parte de este momento.",
+                   "firma":  "Con amor, Valentina · 2026"
+               },
+    "tema":  {
+                 "acento":  "#6baed6",
+                 "acento2":  "#c8d8e8"
+             }
 }

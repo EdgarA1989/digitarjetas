@@ -116,7 +116,7 @@ function renderMusica(m) {
   if (audio) audio.src = m.src;
 }
 
-// ── RSVP ──────────────────────────────────────────────
+// ── Confirmación ──────────────────────────────────────────────
 function initRsvp(c) {
   if (typeof RsvpModal !== 'undefined') {
     RsvpModal.init(c.rsvp || {}, c.nombre);
@@ -419,3 +419,4 @@ function initFireIcons() {
   document.querySelectorAll('.section-tag, .cover-tag, .hero-tag, .agendar-label')
     .forEach(el => { el.innerHTML = el.innerHTML.replace('//', FLAME); });
 }
+

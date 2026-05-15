@@ -1,64 +1,110 @@
 // Componente reutilizable para demos.
 // En cada demo definir antes de este archivo:
 // const CURRENT_TEMPLATE = "aurora";
-// const CURRENT_MODE = "whatsapp"; // o "formulario"
-// Cambiar WHATSAPP_NUMBER por el numero real.
+// const CURRENT_PLAN = "plus"; // "esencial", "plus" o "completo"
+// Cambiar DEMO_WHATSAPP_NUMBER por el numero real.
 const DEMO_WHATSAPP_NUMBER = "549XXXXXXXXXX";
 
+// Para agregar una nueva plantilla o demo Plus:
+// 1. Crear la carpeta correspondiente: ../../quince-plus/nombre-plantilla/
+// 2. Agregar el slug en este mapa.
+// 3. Dejar vacio el plan que todavia no exista.
 const templateLinks = {
   aurora: {
-    whatsapp: "../../quince/aurora/",
-    formulario: "../../quince-mail/aurora/",
+    esencial: "../../quince/aurora/",
+    plus: "../../quince-plus/aurora/",
+    completo: "../../quince-mail/aurora/",
     label: "Aurora",
   },
   "urban-glow": {
-    whatsapp: "../../quince/urban-glow/",
-    formulario: "../../quince-mail/urban-glow/",
+    esencial: "../../quince/urban-glow/",
+    plus: "../../quince-plus/urban-glow/",
+    completo: "../../quince-mail/urban-glow/",
     label: "Urban Glow",
   },
   "blue-night": {
-    whatsapp: "../../quince/blue-night/",
-    formulario: "../../quince-mail/blue-night/",
+    esencial: "../../quince/blue-night/",
+    plus: "../../quince-plus/blue-night/",
+    completo: "../../quince-mail/blue-night/",
     label: "Blue Night",
   },
   "black-white": {
-    whatsapp: "../../quince/black-white/",
-    formulario: "../../quince-mail/black-white/",
+    esencial: "../../quince/black-white/",
+    plus: "../../quince-plus/black-white/",
+    completo: "../../quince-mail/black-white/",
     label: "Black White",
   },
   "neon-party": {
-    whatsapp: "../../quince/neon-party/",
-    formulario: "../../quince-mail/neon-party/",
+    esencial: "../../quince/neon-party/",
+    plus: "../../quince-plus/neon-party/",
+    completo: "../../quince-mail/neon-party/",
     label: "Neon Party",
   },
   "verde-menta": {
-    whatsapp: "../../quince/verde-menta/",
-    formulario: "../../quince-mail/verde-menta/",
+    esencial: "../../quince/verde-menta/",
+    plus: "../../quince-plus/verde-menta/",
+    completo: "../../quince-mail/verde-menta/",
     label: "Verde Menta",
+  },
+  "bautismo-celeste": {
+    esencial: "../../bautismo-esencial/bautismo-celeste/",
+    plus: "../../bautismo-plus/bautismo-celeste/",
+    completo: "../../bautismo-completo/bautismo-celeste/",
+    label: "Bautismo Celeste",
   },
 };
 
-const demoModeLabels = {
-  whatsapp: "Invitaci\u00f3n por WhatsApp",
-  formulario: "Invitaci\u00f3n con confirmaci\u00f3n",
+const demoPlanLabels = {
+  esencial: "Plan Esencial",
+  plus: "Plan Plus",
+  completo: "Plan Completo",
+};
+
+const legacyModeToPlan = {
+  whatsapp: "esencial",
+  formulario: "completo",
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  initDemoModeSwitcher();
+  initDemoMediaState();
+  initDemoPlanSwitcher();
   initDemoCommercialCta();
 });
 
-function initDemoModeSwitcher() {
-  const select = document.querySelector("[data-demo-mode-select]");
-  const button = document.querySelector("[data-demo-mode-go]");
-  const currentTemplate = typeof CURRENT_TEMPLATE !== "undefined" ? CURRENT_TEMPLATE : window.CURRENT_TEMPLATE;
-  const currentMode = typeof CURRENT_MODE !== "undefined" ? CURRENT_MODE : window.CURRENT_MODE;
+function initDemoMediaState() {
+  fetch("config.json")
+    .then(response => response.json())
+    .then(config => {
+      const hasPhotos = Array.isArray(config.fotos) && config.fotos.length > 0;
+      const hasMusic = Boolean(config.musica?.src);
+      document.body.classList.toggle("dt-no-media", !hasPhotos && !hasMusic);
+    })
+    .catch(() => {});
+}
+
+function getCurrentTemplate() {
+  return typeof CURRENT_TEMPLATE !== "undefined" ? CURRENT_TEMPLATE : window.CURRENT_TEMPLATE;
+}
+
+function getCurrentPlan() {
+  const currentPlan = typeof CURRENT_PLAN !== "undefined" ? CURRENT_PLAN : window.CURRENT_PLAN;
+  if (currentPlan) return currentPlan;
+
+  const legacyMode = typeof CURRENT_MODE !== "undefined" ? CURRENT_MODE : window.CURRENT_MODE;
+  return legacyModeToPlan[legacyMode] || "esencial";
+}
+
+function initDemoPlanSwitcher() {
+  const select = document.querySelector("[data-demo-plan-select], [data-demo-mode-select]");
+  const button = document.querySelector("[data-demo-plan-go], [data-demo-mode-go]");
+  const currentTemplate = getCurrentTemplate();
+  const currentPlan = getCurrentPlan();
   const links = templateLinks[currentTemplate];
   if (!select || !button || !links) return;
 
-  select.innerHTML = Object.entries(demoModeLabels)
-    .filter(([mode]) => Boolean(links[mode]))
-    .map(([mode, label]) => `<option value="${mode}" ${mode === currentMode ? "selected" : ""}>${label}</option>`)
+  select.innerHTML = Object.entries(demoPlanLabels)
+    .filter(([plan]) => Boolean(links[plan]))
+    .map(([plan, label]) => `<option value="${plan}" ${plan === currentPlan ? "selected" : ""}>${label}</option>`)
     .join("");
 
   button.addEventListener("click", () => {
@@ -68,7 +114,8 @@ function initDemoModeSwitcher() {
 }
 
 function initDemoCommercialCta() {
-  const currentTemplate = typeof CURRENT_TEMPLATE !== "undefined" ? CURRENT_TEMPLATE : window.CURRENT_TEMPLATE;
+  const currentTemplate = getCurrentTemplate();
+  const currentPlan = getCurrentPlan();
   const links = templateLinks[currentTemplate];
   if (!links) return;
 
@@ -78,7 +125,8 @@ function initDemoCommercialCta() {
 
   const whatsapp = document.querySelector("[data-demo-whatsapp]");
   if (whatsapp) {
-    const message = `Hola, quiero consultar por la plantilla ${links.label}.`;
+    const planLabel = demoPlanLabels[currentPlan] || "Plan Esencial";
+    const message = `Hola, quiero consultar por la plantilla ${links.label} en ${planLabel}.`;
     whatsapp.href = `https://wa.me/${DEMO_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   }
 

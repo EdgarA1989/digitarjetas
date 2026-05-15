@@ -544,8 +544,8 @@ body.dark .badge {
 .floating-card--one { top: 7%; left: 0; }
 .floating-card--two { top: 23%; right: 0; animation-delay: .5s; }
 .floating-card--three { bottom: 19%; left: 0; animation-delay: 1s; }
-.floating-card--four { bottom: 7%; right: 2%; animation-delay: 1.4s; }
-.floating-card--five { top: 47%; left: -4%; animation-delay: 1.8s; }
+.floating-card--four { bottom: 28%; right: 0; animation-delay: 1.4s; }
+.floating-card--five { top: 47%; left: 0; animation-delay: 1.8s; }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -627,6 +627,69 @@ body.dark .badge {
 .plan-card--recommended {
   border-color: color-mix(in srgb, var(--primary) 48%, var(--line));
   box-shadow: var(--shadow);
+}
+
+.plan-price {
+  margin: 1.15rem 0 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--primary) 8%, transparent), color-mix(in srgb, var(--rose) 8%, transparent)),
+    color-mix(in srgb, var(--surface-solid) 54%, transparent);
+}
+
+.plan-price__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: .35rem;
+}
+
+.plan-price__old {
+  color: var(--muted);
+  font-weight: 800;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: color-mix(in srgb, var(--rose) 60%, var(--muted));
+}
+
+.plan-price__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .34rem .62rem;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--rose));
+  box-shadow: 0 10px 24px rgba(115, 87, 255, .2);
+  font-size: .72rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.plan-price__current {
+  display: block;
+  color: var(--text);
+  font-family: var(--font-title);
+  font-size: clamp(2.15rem, 8vw, 3rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+
+.plan-price__note,
+.plans-note {
+  display: block;
+  color: var(--muted);
+  font-size: .85rem;
+  font-weight: 800;
+}
+
+.plans-note {
+  margin: 1.35rem 0 0;
+  text-align: center;
 }
 
 .plan-card ul {
@@ -715,6 +778,18 @@ body.dark .badge {
 }
 
 .template-mode--formulario {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+}
+
+.template-mode--plus {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--rose), var(--gold));
+}
+
+.template-mode--completo {
   color: #fff;
   border-color: transparent;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
@@ -1117,6 +1192,10 @@ textarea:focus {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .plans-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .plan-card {
     display: flex;
     flex-direction: column;
@@ -1138,7 +1217,9 @@ textarea:focus {
   .template-actions .btn {
     width: 100%;
   }
+}
 
+@media (max-width: 600px) {
   .floating-card {
     display: none;
   }

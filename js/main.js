@@ -2,81 +2,112 @@
 // Cambiar este numero por el WhatsApp real, solo numeros con codigo de pais.
 const WHATSAPP_NUMBER = "549XXXXXXXXXX";
 
+const PLAN_LABELS = {
+  esencial: "Plan Esencial",
+  plus: "Plan Plus",
+  completo: "Plan Completo",
+};
+
+const PLAN_SHORT_LABELS = {
+  esencial: "Esencial",
+  plus: "Plus",
+  completo: "Completo",
+};
+
 // Agregar nuevas plantillas aca:
-// - modes: usar ["whatsapp"], ["formulario"] o ["whatsapp", "formulario"].
-// - whatsappDemo y formDemo: cambiar links cuando subas demos reales.
+// - availablePlans: indicar los planes disponibles: ["esencial"], ["plus"], ["completo"] o combinados.
+// - demos: cambiar los links relativos cuando subas nuevas demos.
+// - Para agregar una demo Plus, crear la carpeta en demos/quince-plus/nombre-plantilla/ y cargar la URL en demos.plus.
 // - image: si existe una imagen en assets/img/, se puede usar para reemplazar el mockup visual.
 const templates = [
   {
     name: "Aurora",
     slug: "aurora",
-    category: "15 a\u00f1os elegante",
-    style: "elegante",
-    modes: ["whatsapp", "formulario"],
-    description: "Dise\u00f1o delicado, sofisticado y moderno para fiestas de 15 con estilo premium.",
+    category: "15 años elegante",
+    style: "quince",
+    availablePlans: ["esencial", "plus", "completo"],
+    description: "Diseño delicado, sofisticado y moderno para fiestas de 15 con estilo premium.",
     image: "assets/img/template-aurora.jpg",
-    whatsappDemo: "./demos/quince/aurora/",
-    formDemo: "./demos/quince-mail/aurora/",
+    demos: {
+      esencial: "./demos/quince/aurora/",
+      plus: "./demos/quince-plus/aurora/",
+      completo: "./demos/quince-mail/aurora/",
+    },
     bg: "linear-gradient(145deg, #7b61ff, #f68ab8 55%, #f5ca78)",
   },
   {
     name: "Urban Glow",
     slug: "urban-glow",
-    category: "15 a\u00f1os urbano / rap",
-    style: "urbano",
-    modes: ["whatsapp", "formulario"],
-    description: "Una plantilla con energ\u00eda, actitud y est\u00e9tica urbana para eventos con personalidad.",
+    category: "15 años urbano / rap",
+    style: "quince",
+    availablePlans: ["esencial", "plus", "completo"],
+    description: "Una plantilla con energía, actitud y estética urbana para eventos con personalidad.",
     image: "assets/img/template-urban-glow.jpg",
-    whatsappDemo: "./demos/quince/urban-glow/",
-    formDemo: "./demos/quince-mail/urban-glow/",
+    demos: {
+      esencial: "./demos/quince/urban-glow/",
+      plus: "./demos/quince-plus/urban-glow/",
+      completo: "./demos/quince-mail/urban-glow/",
+    },
     bg: "linear-gradient(145deg, #10101b, #772fff 52%, #16d8ff)",
   },
   {
     name: "Blue Night",
     slug: "blue-night",
-    category: "15 a\u00f1os moderna azul",
-    style: "moderna",
-    modes: ["whatsapp", "formulario"],
-    description: "Dise\u00f1o nocturno, moderno y elegante con tonos azules, luces y detalles brillantes.",
+    category: "15 años moderna azul",
+    style: "quince",
+    availablePlans: ["esencial", "plus", "completo"],
+    description: "Diseño nocturno, moderno y elegante con tonos azules, luces y detalles brillantes.",
     image: "assets/img/template-blue-night.jpg",
-    whatsappDemo: "./demos/quince/blue-night/",
-    formDemo: "./demos/quince-mail/blue-night/",
+    demos: {
+      esencial: "./demos/quince/blue-night/",
+      plus: "./demos/quince-plus/blue-night/",
+      completo: "./demos/quince-mail/blue-night/",
+    },
     bg: "linear-gradient(145deg, #071a44, #1f73ff 54%, #7fe8ff)",
   },
   {
     name: "Black White",
     slug: "black-white",
-    category: "15 a\u00f1os blanco y negro",
+    category: "15 años blanco y negro",
     style: "quince",
-    modes: ["whatsapp", "formulario"],
+    availablePlans: ["esencial", "plus", "completo"],
     description: "Una propuesta minimalista, elegante y editorial con contraste blanco y negro.",
     image: "assets/img/template-black-white.jpg",
-    whatsappDemo: "./demos/quince/black-white/",
-    formDemo: "./demos/quince-mail/black-white/",
+    demos: {
+      esencial: "./demos/quince/black-white/",
+      plus: "./demos/quince-plus/black-white/",
+      completo: "./demos/quince-mail/black-white/",
+    },
     bg: "linear-gradient(145deg, #050505, #2b2b2b 58%, #f5f5f5)",
   },
   {
     name: "Neon Party",
     slug: "neon-party",
-    category: "15 a\u00f1os urbana",
+    category: "15 años urbana",
     style: "quince",
-    modes: ["whatsapp", "formulario"],
-    description: "Dise\u00f1o intenso, moderno y vibrante para una fiesta con mucha actitud.",
+    availablePlans: ["esencial", "plus", "completo"],
+    description: "Diseño intenso, moderno y vibrante para una fiesta con mucha actitud.",
     image: "assets/img/template-neon-party.jpg",
-    whatsappDemo: "./demos/quince/neon-party/",
-    formDemo: "./demos/quince-mail/neon-party/",
+    demos: {
+      esencial: "./demos/quince/neon-party/",
+      plus: "./demos/quince-plus/neon-party/",
+      completo: "./demos/quince-mail/neon-party/",
+    },
     bg: "linear-gradient(145deg, #190821, #e040fb 52%, #ff6b35)",
   },
   {
     name: "Verde Menta",
     slug: "verde-menta",
-    category: "15 a\u00f1os natural",
+    category: "15 años natural",
     style: "quince",
-    modes: ["whatsapp", "formulario"],
+    availablePlans: ["esencial", "plus", "completo"],
     description: "Una plantilla luminosa, fresca y delicada con detalles verdes y estilo natural.",
     image: "assets/img/template-verde-menta.jpg",
-    whatsappDemo: "./demos/quince/verde-menta/",
-    formDemo: "./demos/quince-mail/verde-menta/",
+    demos: {
+      esencial: "./demos/quince/verde-menta/",
+      plus: "./demos/quince-plus/verde-menta/",
+      completo: "./demos/quince-mail/verde-menta/",
+    },
     bg: "linear-gradient(145deg, #d4efec, #5bbfb5 54%, #3d9d93)",
   },
   {
@@ -84,11 +115,10 @@ const templates = [
     slug: "romance",
     category: "Casamientos",
     style: "casamientos",
-    modes: ["whatsapp"],
-    description: "Una propuesta c\u00e1lida y elegante para celebrar una historia de amor.",
+    availablePlans: ["esencial", "plus"],
+    description: "Una propuesta cálida y elegante para celebrar una historia de amor.",
     image: "assets/img/template-romance.jpg",
-    whatsappDemo: "#",
-    formDemo: "",
+    demos: { esencial: "#", plus: "#", completo: "" },
     bg: "linear-gradient(145deg, #fff0e8, #e6a187 50%, #b96b86)",
   },
   {
@@ -96,23 +126,36 @@ const templates = [
     slug: "celeste",
     category: "Bautismos y comuniones",
     style: "bautismos",
-    modes: ["formulario"],
-    description: "Dise\u00f1o suave, luminoso y familiar para celebraciones especiales.",
+    availablePlans: ["esencial", "completo"],
+    description: "Diseño suave, luminoso y familiar para celebraciones especiales.",
     image: "assets/img/template-celeste.jpg",
-    whatsappDemo: "",
-    formDemo: "#",
+    demos: { esencial: "#", plus: "", completo: "#" },
     bg: "linear-gradient(145deg, #dff6ff, #74c7ef 52%, #f6f2d4)",
+  },
+  {
+    name: "Bautismo Celeste",
+    slug: "bautismo-celeste",
+    category: "Bautismos y comuniones",
+    style: "bautismos",
+    availablePlans: ["esencial", "plus", "completo"],
+    description: "Diseño delicado, luminoso y elegante para bautismos. Incluye galería, música, dress code y datos de regalo.",
+    image: "assets/img/template-bautismo-celeste.jpg",
+    demos: {
+      esencial: "./demos/bautismo-esencial/bautismo-celeste/",
+      plus: "./demos/bautismo-plus/bautismo-celeste/",
+      completo: "./demos/bautismo-completo/bautismo-celeste/",
+    },
+    bg: "linear-gradient(145deg, #7cbfe3, #c9e8f7 54%, #e8d09a)",
   },
   {
     name: "Golden Party",
     slug: "golden-party",
-    category: "Cumplea\u00f1os adultos",
+    category: "Cumpleaños adultos",
     style: "eventos",
-    modes: ["whatsapp"],
-    description: "Una plantilla festiva, elegante y vers\u00e1til para cumplea\u00f1os y eventos privados.",
+    availablePlans: ["plus"],
+    description: "Una plantilla festiva, elegante y versátil para cumpleaños y eventos privados.",
     image: "assets/img/template-golden-party.jpg",
-    whatsappDemo: "#",
-    formDemo: "",
+    demos: { esencial: "", plus: "#", completo: "" },
     bg: "linear-gradient(145deg, #17120c, #c89534 52%, #ffe29a)",
   },
   {
@@ -120,55 +163,52 @@ const templates = [
     slug: "corporate-link",
     category: "Eventos empresariales",
     style: "eventos",
-    modes: ["whatsapp", "formulario"],
+    availablePlans: ["esencial", "completo"],
     description: "Invitaciones digitales sobrias y profesionales para eventos corporativos.",
     image: "assets/img/template-corporate-link.jpg",
-    whatsappDemo: "#",
-    formDemo: "#",
+    demos: { esencial: "#", plus: "", completo: "#" },
     bg: "linear-gradient(145deg, #0b1120, #2d5bff 56%, #9fb3ff)",
   },
 ];
 
 const filters = [
   { label: "Todas", value: "all" },
-  { label: "15 a\u00f1os", value: "quince" },
+  { label: "Esencial", value: "esencial" },
+  { label: "Plus", value: "plus" },
+  { label: "Completo", value: "completo" },
+  { label: "15 años", value: "quince" },
   { label: "Casamientos", value: "casamientos" },
   { label: "Bautismos", value: "bautismos" },
   { label: "Eventos", value: "eventos" },
 ];
 
 const features = [
-  ["01", "Dise\u00f1o personalizado", "Colores, textos y estilo adaptados a tu evento."],
+  ["01", "Diseño personalizado", "Colores, textos y estilo adaptados a tu evento."],
   ["02", "Link para WhatsApp", "Un enlace claro y listo para compartir con invitados."],
-  ["03", "Cuenta regresiva", "Genera expectativa hasta el d\u00eda del evento."],
-  ["04", "Ubicaci\u00f3n con Google Maps", "Tus invitados llegan f\u00e1cil al lugar correcto."],
-  ["05", "Galer\u00eda de fotos", "Sum\u00e1 im\u00e1genes importantes y momentos especiales."],
-  ["06", "M\u00fasica de fondo", "Acompa\u00f1\u00e1 la invitaci\u00f3n con una canci\u00f3n elegida."],
-  ["07", "Confirmaci\u00f3n de asistencia", "Organiz\u00e1 mejor qui\u00e9nes van a participar."],
-  ["08", "Formulario RSVP", "Una forma simple de recibir respuestas."],
-  ["09", "Bot\u00f3n para agendar fecha", "Tus invitados pueden guardar el evento."],
-  ["10", "Dress code", "Indic\u00e1 el estilo de vestimenta de forma clara."],
-  ["11", "Frase especial", "Un mensaje emotivo que represente la celebraci\u00f3n."],
-  ["12", "Datos de regalo o alias", "Agreg\u00e1 alias, cuenta o informaci\u00f3n \u00fatil."],
-  ["13", "Cronograma del evento", "Mostr\u00e1 los momentos importantes de la jornada."],
-  ["14", "Mensaje personalizado", "Un cierre c\u00e1lido para tus invitados."],
+  ["03", "Cuenta regresiva", "Genera expectativa hasta el día del evento."],
+  ["04", "Ubicación con Google Maps", "Tus invitados llegan fácil al lugar correcto."],
+  ["05", "Galería de fotos", "Sumá imágenes importantes y momentos especiales."],
+  ["06", "Música de fondo", "Acompañá la invitación con una canción elegida."],
+  ["07", "Confirmación de asistencia", "Organizá mejor quiénes van a participar."],
+  ["08", "Formulario de confirmación", "Una forma simple de recibir respuestas."],
+  ["09", "Botón para agendar fecha", "Tus invitados pueden guardar el evento."],
+  ["10", "Dress code", "Indicá el estilo de vestimenta de forma clara."],
+  ["11", "Frase especial", "Un mensaje emotivo que represente la celebración."],
+  ["12", "Datos de regalo o alias", "Agregá alias, cuenta o información útil."],
+  ["13", "Cronograma del evento", "Mostrá los momentos importantes de la jornada."],
+  ["14", "Mensaje personalizado", "Un cierre cálido para tus invitados."],
 ];
 
 const benefits = [
-  "M\u00e1s pr\u00e1ctico que una invitaci\u00f3n impresa",
-  "F\u00e1cil de compartir",
+  "Más práctico que una invitación impresa",
+  "Fácil de compartir",
   "Ideal para WhatsApp",
-  "Dise\u00f1o adaptable a cada evento",
+  "Diseño adaptable a cada evento",
   "Confirmaciones organizadas",
   "Ahorro de tiempo",
   "Experiencia moderna para los invitados",
   "Compatible con celulares",
 ];
-
-const modeLabels = {
-  whatsapp: "Invitaci\u00f3n por WhatsApp",
-  formulario: "Invitaci\u00f3n con confirmaci\u00f3n de asistencia",
-};
 
 let activeFilter = "all";
 let lastFocusedElement = null;
@@ -227,8 +267,7 @@ function renderTemplates() {
 
   const visibleTemplates = templates.filter(template => {
     if (activeFilter === "all") return true;
-    if (activeFilter === "quince") return ["elegante", "urbano", "moderna", "quince"].includes(template.style);
-    if (activeFilter === "whatsapp" || activeFilter === "formulario") return template.modes.includes(activeFilter);
+    if (["esencial", "plus", "completo"].includes(activeFilter)) return template.availablePlans.includes(activeFilter);
     return template.style === activeFilter;
   });
 
@@ -241,7 +280,7 @@ function renderTemplates() {
         <span class="template-category">${template.category}</span>
         <h3>${template.name}</h3>
         <div class="template-meta">
-          <span class="template-mode ${getModeBadgeClass(template)}">${getModeBadgeText(template)}</span>
+          <span class="template-mode ${getPlanBadgeClass(template)}">${getPlanBadgeText(template)}</span>
         </div>
         <p>${template.description}</p>
         <div class="template-actions">
@@ -268,14 +307,21 @@ function renderBenefits() {
   `).join("");
 }
 
-function getModeBadgeText(template) {
-  if (template.modes.length > 1) return "Disponible en ambas";
-  return template.modes[0] === "formulario" ? "Con confirmaci\u00f3n" : "WhatsApp";
+function getAvailableDemoPlans(template) {
+  return template.availablePlans.filter(plan => Boolean(template.demos?.[plan]));
 }
 
-function getModeBadgeClass(template) {
-  if (template.modes.length > 1) return "template-mode--both";
-  return template.modes[0] === "formulario" ? "template-mode--formulario" : "";
+function getPlanBadgeText(template) {
+  const plans = getAvailableDemoPlans(template);
+  if (plans.length === 1) return PLAN_LABELS[plans[0]];
+  if (plans.length === 3) return "Disponible en 3 planes";
+  return "Disponible en 2 planes";
+}
+
+function getPlanBadgeClass(template) {
+  const plans = getAvailableDemoPlans(template);
+  if (plans.length > 1) return "template-mode--both";
+  return `template-mode--${plans[0] || "single"}`;
 }
 
 function setActiveFilter(filter) {
@@ -417,7 +463,7 @@ function initWhatsappLinks() {
     let message = whatsappTarget.dataset.waMessage;
 
     if (planButton) {
-      message = `Hola, quiero consultar por el Plan ${planButton.dataset.plan} de DigiTarjetas`;
+      message = `Hola, quiero consultar por el Plan ${planButton.dataset.plan} de DigiTarjetas.`;
     }
 
     window.open(getWhatsappUrl(message), "_blank", "noopener");
@@ -441,29 +487,31 @@ function initTemplateActions() {
 }
 
 function handleDemoAction(template) {
-  if (template.modes.length === 1) {
-    const url = getDemoUrl(template, template.modes[0]);
+  const plans = getAvailableDemoPlans(template);
+  if (plans.length === 1) {
+    const url = getDemoUrl(template, plans[0]);
     if (url) window.location.href = url;
     return;
   }
 
-  openModeModal({
-    title: "Eleg\u00ed c\u00f3mo quer\u00e9s ver esta plantilla",
-    text: "Esta plantilla est\u00e1 disponible en dos modalidades. Pod\u00e9s verla como invitaci\u00f3n cl\u00e1sica para WhatsApp o con confirmaci\u00f3n de asistencia.",
+  openPlanModal({
+    title: "Elegí qué versión querés ver",
+    text: "Esta plantilla está disponible en distintos planes. Podés ver la versión simple, la versión visual con fotos y música, o la versión completa con formulario.",
     template,
     action: "demo",
   });
 }
 
 function handleConsultAction(template) {
-  if (template.modes.length === 1) {
-    window.open(getWhatsappUrl(getTemplateMessage(template, template.modes[0])), "_blank", "noopener");
+  const plans = getAvailableDemoPlans(template);
+  if (plans.length === 1) {
+    window.open(getWhatsappUrl(getTemplateMessage(template, plans[0])), "_blank", "noopener");
     return;
   }
 
-  openModeModal({
-    title: "Eleg\u00ed la modalidad para consultar",
-    text: "As\u00ed te enviamos la informaci\u00f3n correcta seg\u00fan la versi\u00f3n que quer\u00e9s usar para tu evento.",
+  openPlanModal({
+    title: "Elegí el plan para consultar",
+    text: "Así te enviamos la información correcta según la versión que querés usar para tu evento.",
     template,
     action: "consult",
   });
@@ -475,7 +523,7 @@ function initModal() {
   });
 }
 
-function openModeModal({ title, text, template, action }) {
+function openPlanModal({ title, text, template, action }) {
   const modal = document.getElementById("template-modal");
   const modalTitle = document.getElementById("modal-title");
   const modalText = document.getElementById("modal-text");
@@ -485,21 +533,21 @@ function openModeModal({ title, text, template, action }) {
   lastFocusedElement = document.activeElement;
   modalTitle.textContent = title;
   modalText.textContent = text;
-  modalActions.innerHTML = template.modes.map(mode => `
-    <button class="btn ${mode === "whatsapp" ? "btn--outline" : "btn--primary"}" type="button" data-modal-mode="${mode}">
-      ${mode === "whatsapp" ? "Versi\u00f3n WhatsApp" : "Versi\u00f3n con confirmaci\u00f3n"}
+  modalActions.innerHTML = getAvailableDemoPlans(template).map(plan => `
+    <button class="btn ${plan === "plus" ? "btn--primary" : "btn--outline"}" type="button" data-modal-plan="${plan}">
+      ${action === "demo" ? "Ver" : "Consultar"} ${PLAN_SHORT_LABELS[plan]}
     </button>
   `).join("");
 
-  modalActions.querySelectorAll("[data-modal-mode]").forEach(button => {
+  modalActions.querySelectorAll("[data-modal-plan]").forEach(button => {
     button.addEventListener("click", () => {
-      const mode = button.dataset.modalMode;
+      const plan = button.dataset.modalPlan;
       closeModal();
       if (action === "demo") {
-        const url = getDemoUrl(template, mode);
+        const url = getDemoUrl(template, plan);
         if (url) window.location.href = url;
       } else {
-        window.open(getWhatsappUrl(getTemplateMessage(template, mode)), "_blank", "noopener");
+        window.open(getWhatsappUrl(getTemplateMessage(template, plan)), "_blank", "noopener");
       }
     });
   });
@@ -520,12 +568,12 @@ function closeModal() {
   lastFocusedElement?.focus?.();
 }
 
-function getDemoUrl(template, mode) {
-  return mode === "formulario" ? template.formDemo : template.whatsappDemo;
+function getDemoUrl(template, plan) {
+  return template.demos?.[plan] || "";
 }
 
-function getTemplateMessage(template, mode) {
-  return `Hola, quiero consultar por la plantilla ${template.name} en modalidad ${modeLabels[mode]}.`;
+function getTemplateMessage(template, plan) {
+  return `Hola, quiero consultar por la plantilla ${template.name} en ${PLAN_LABELS[plan]}.`;
 }
 
 function getWhatsappUrl(message) {

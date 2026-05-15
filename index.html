@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Invitaciones digitales personalizadas para compartir por WhatsApp, con opción de confirmación de asistencia, música, galería, ubicación y cuenta regresiva.">
-  <meta name="keywords" content="invitaciones digitales, tarjetas digitales, invitaciones por WhatsApp, cumpleaños de 15, casamientos, bautismos, RSVP">
+  <meta name="keywords" content="invitaciones digitales, tarjetas digitales, invitaciones por WhatsApp, cumpleaños de 15, casamientos, bautismos, confirmación de asistencia">
   <meta name="author" content="DigiTarjetas">
   <meta property="og:title" content="DigiTarjetas | Invitaciones digitales para eventos">
   <meta property="og:description" content="Invitaciones digitales personalizadas para compartir por WhatsApp, con opción de confirmación de asistencia, música, galería, ubicación y cuenta regresiva.">
@@ -148,41 +148,82 @@
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">Planes</span>
-          <h2>Paquetes simples para empezar</h2>
-          <p>Elegí el nivel de personalización y organización que mejor acompaña a tu evento.</p>
+          <h2>Planes para cada tipo de evento</h2>
+          <p>Elegí el nivel de diseño, emoción y organización que querés para tu invitación digital.</p>
         </div>
         <div class="plans-grid">
           <article class="plan-card reveal">
             <h3>Esencial</h3>
             <p>Para quienes quieren una invitación simple, linda y lista para compartir.</p>
-            <strong>Consultar precio</strong>
+            <div class="plan-price" aria-label="Precio Plan Esencial">
+              <div class="plan-price__top">
+                <span class="plan-price__old">$35.000</span>
+                <span class="plan-price__badge">29% OFF</span>
+              </div>
+              <strong class="plan-price__current">$24.900</strong>
+              <span class="plan-price__note">Precio de lanzamiento</span>
+            </div>
             <ul>
               <li>Invitación digital personalizada</li>
-              <li>Link para WhatsApp</li>
+              <li>Link para compartir por WhatsApp</li>
               <li>Fecha, hora y lugar</li>
               <li>Botón de ubicación</li>
               <li>Cuenta regresiva</li>
-              <li>Confirmación por WhatsApp</li>
+              <li>Confirmación simple por WhatsApp</li>
+              <li>Botón para agendar fecha</li>
               <li>Diseño responsive</li>
             </ul>
             <a href="#" class="btn btn--outline" data-plan="Esencial">Consultar Plan Esencial</a>
           </article>
           <article class="plan-card plan-card--recommended reveal">
             <span class="badge">Recomendado</span>
-            <h3>Completo</h3>
-            <p>La opción más elegida para eventos familiares y fiestas de 15.</p>
-            <strong>Consultar precio</strong>
+            <h3>Plus</h3>
+            <p>Para quienes quieren una invitación más visual, emotiva e impactante.</p>
+            <div class="plan-price" aria-label="Precio Plan Plus">
+              <div class="plan-price__top">
+                <span class="plan-price__old">$50.000</span>
+                <span class="plan-price__badge">30% OFF</span>
+              </div>
+              <strong class="plan-price__current">$34.900</strong>
+              <span class="plan-price__note">Precio de lanzamiento</span>
+            </div>
             <ul>
               <li>Todo lo del Plan Esencial</li>
               <li>Galería de fotos</li>
               <li>Música de fondo</li>
+              <li>Frase especial</li>
+              <li>Dress code</li>
+              <li>Datos de regalo o alias</li>
               <li>Secciones personalizadas</li>
-              <li>Confirmación por formulario</li>
-              <li>Datos enviados por mail</li>
+              <li>Confirmación simple por WhatsApp</li>
             </ul>
-            <a href="#" class="btn btn--primary" data-plan="Completo">Consultar Plan Completo</a>
+            <a href="#" class="btn btn--primary" data-plan="Plus">Consultar Plan Plus</a>
+          </article>
+          <article class="plan-card reveal">
+            <h3>Completo</h3>
+            <p>Para quienes quieren una invitación visual y además organizar mejor las confirmaciones.</p>
+            <div class="plan-price" aria-label="Precio Plan Completo">
+              <div class="plan-price__top">
+                <span class="plan-price__old">$65.000</span>
+                <span class="plan-price__badge">31% OFF</span>
+              </div>
+              <strong class="plan-price__current">$44.900</strong>
+              <span class="plan-price__note">Precio de lanzamiento</span>
+            </div>
+            <ul>
+              <li>Todo lo del Plan Plus</li>
+              <li>Formulario de confirmación</li>
+              <li>Nombre y apellido del invitado</li>
+              <li>Confirmación de asistencia</li>
+              <li>Cantidad de personas</li>
+              <li>Nombres de acompañantes</li>
+              <li>Mensaje opcional</li>
+              <li>Envío por WhatsApp o email</li>
+            </ul>
+            <a href="#" class="btn btn--outline" data-plan="Completo">Consultar Plan Completo</a>
           </article>
         </div>
+        <p class="plans-note reveal">Precios de lanzamiento por tiempo limitado.</p>
       </div>
     </section>
 
@@ -270,7 +311,7 @@
       <button class="modal__close" type="button" aria-label="Cerrar" data-modal-close>×</button>
       <span class="eyebrow">Modalidad</span>
       <h2 id="modal-title">Elegí cómo querés ver esta plantilla</h2>
-      <p id="modal-text">Esta plantilla está disponible en dos modalidades. Podés verla como invitación clásica para WhatsApp o con confirmación de asistencia.</p>
+      <p id="modal-text">Esta plantilla está disponible en distintos planes. Podés elegir la versión que mejor acompañe tu evento.</p>
       <div class="modal__actions" id="modal-actions"></div>
     </section>
   </div>
@@ -301,3 +342,4 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+

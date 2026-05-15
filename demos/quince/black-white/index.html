@@ -17,18 +17,6 @@
 </head>
 <body>
 
-  <!-- ── MÚSICA ── -->
-  <div id="player" class="player" aria-label="Reproductor de música">
-    <button id="player-btn" class="player-btn" aria-label="Reproducir música">
-      <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
-      <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="display:none"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>
-    </button>
-    <div class="player-info">
-      <span id="player-titulo" class="player-titulo">Golden Hour</span>
-      <span id="player-artista" class="player-artista">JVKE</span>
-    </div>
-    <audio id="player-audio" loop preload="none"></audio>
-  </div>
 
   <!-- ── HÉROE ── -->
   <section id="hero" class="hero">
@@ -115,45 +103,6 @@
     </a>
   </section>
 
-  <!-- ── DRESS CODE ── -->
-  <section id="dresscode" class="dresscode">
-    <div class="dc-inner reveal">
-      <span class="dc-ornamento" aria-hidden="true">✦</span>
-      <p class="section-superlabel">Dress code</p>
-      <h2 id="dc-texto" class="dc-texto">Elegante · Formal</h2>
-      <p id="dc-nota" class="dc-nota">El blanco y negro están reservados para la festejada.</p>
-    </div>
-  </section>
-
-  <!-- ── REGALOS ── -->
-  <section id="regalos" class="regalos">
-    <p class="section-superlabel reveal">Regalos</p>
-    <p id="regalos-texto" class="regalos-texto reveal">
-      Tu presencia ya es todo. Si querés hacerme un detalle, podés hacerlo por acá.
-    </p>
-    <div class="regalos-card reveal">
-      <div class="rc-campo">
-        <span class="rc-label">Alias</span>
-        <span id="regalos-alias" class="rc-valor">isabella.gomez</span>
-        <button class="rc-copiar" data-campo="regalos-alias" aria-label="Copiar alias">Copiar</button>
-      </div>
-      <div class="rc-sep" aria-hidden="true"></div>
-      <div class="rc-campo">
-        <span class="rc-label">CBU</span>
-        <span id="regalos-cbu" class="rc-valor rc-mono">0000003100025264839001</span>
-        <button class="rc-copiar" data-campo="regalos-cbu" aria-label="Copiar CBU">Copiar</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── GALERÍA ── -->
-  <section id="galeria" class="galeria">
-    <p class="section-superlabel section-superlabel--light">Galería</p>
-    <div id="galeria-grid" class="galeria-grid">
-      <!-- Generado por script.js desde config.json → fotos[] -->
-    </div>
-  </section>
-
   <!-- ── CONFIRMAR ── -->
   <section id="confirmar" class="confirmar">
     <p class="section-superlabel section-superlabel--light reveal">¿Venís?</p>
@@ -181,11 +130,11 @@
   </div><!-- /invitation-content -->
     <section class="dt-demo-tools">
       <div class="dt-mode-switcher">
-        <h2>También podés ver esta plantilla en otra modalidad</h2>
-        <p>Elegí si querés verla como invitación clásica para WhatsApp o con confirmación de asistencia.</p>
+        <h2>También podés ver esta plantilla en otro plan</h2>
+        <p>Elegí si querés verla en versión simple, visual o completa con formulario.</p>
         <div class="dt-mode-controls">
-          <select data-demo-mode-select aria-label="Elegir modalidad"></select>
-          <button type="button" data-demo-mode-go>Ver modalidad</button>
+          <select data-demo-plan-select aria-label="Elegir plan"></select>
+          <button type="button" data-demo-plan-go>Ver versión</button>
         </div>
       </div>
       <div class="dt-demo-cta">
@@ -199,7 +148,8 @@
     </section>
   <script src="script.js"></script>
 
-  <script>const CURRENT_TEMPLATE = "black-white"; const CURRENT_MODE = "whatsapp";</script>
+  <script>const CURRENT_TEMPLATE = "black-white"; const CURRENT_PLAN = "esencial";</script>
   <script src="../../../js/demo-switcher.js"></script>
 </body>
 </html>
+

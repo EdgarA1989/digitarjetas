@@ -22,7 +22,7 @@
   --font-nombre: 'Playfair Display', Georgia, serif;
   --max: 480px;
 
-  /* ── RSVP Modal ── */
+  /* ── Modal de confirmación ── */
   --rsvp-overlay:   rgba(42, 63, 60, .88);
   --rsvp-bg:        #ffffff;
   --rsvp-text:      #2a3f3c;
@@ -1109,7 +1109,7 @@ body {
 }
 
 
-/* ─── RSVP Modal ─────────────────────────────────── */
+/* ─── Modal de confirmación ─────────────────────────────────── */
 
 .rsvp-confirmar-btns {
   display: flex;

@@ -1,5 +1,5 @@
 // =====================================================
-//  rsvpService.js — Envío del formulario RSVP
+//  rsvpService.js — Envío del formulario de confirmación
 //  Modo: "mailto" | "formsubmit" | "google_sheets"
 // =====================================================
 
@@ -22,7 +22,7 @@ const RsvpService = (() => {
       .map(g => `  ${g.number}. ${g.nombre} ${g.apellido}`)
       .join('\n');
 
-    const subject = `RSVP · 15 de ${payload.eventName} · ${payload.guests[0]?.nombre || ''} ${payload.guests[0]?.apellido || ''}`;
+    const subject = `Confirmación · 15 de ${payload.eventName} · ${payload.guests[0]?.nombre || ''} ${payload.guests[0]?.apellido || ''}`;
     const lines = [
       `Estado: ${statusLbl}`,
       `Evento: 15 de ${payload.eventName}`,
@@ -49,7 +49,7 @@ const RsvpService = (() => {
       .join(' | ');
 
     const bodyData = {
-      _subject:        `RSVP · 15 de ${payload.eventName} · ${payload.guests[0]?.nombre || ''} ${payload.guests[0]?.apellido || ''}`,
+      _subject:        `Confirmación · 15 de ${payload.eventName} · ${payload.guests[0]?.nombre || ''} ${payload.guests[0]?.apellido || ''}`,
       _captcha:        'false',
       _template:       'box',
       Estado:          statusLbl,
@@ -85,3 +85,4 @@ const RsvpService = (() => {
 
   return { send };
 })();
+

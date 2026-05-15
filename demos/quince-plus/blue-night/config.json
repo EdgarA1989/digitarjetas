@@ -1,0 +1,62 @@
+{
+  "nombre": "Melody",
+  "frase": "Quince años siendo exactamente quien soy.",
+  "fraseSub": "La noche más épica de tu vida empieza acá.",
+  "fecha": "2026-10-03T21:00:00",
+  "fechaDisplay": "Sábado · 03 de Octubre · 2026",
+  "hora": "21:00 hs",
+
+  "bienvenida": {
+    "titulo": "Sin ensayo. Sin segundo tiempo.",
+    "texto": "Quince años de ser exactamente quien soy, sin filtros. Esta noche lo celebramos a lo grande. Grabalo todo porque esto no se repite."
+  },
+
+  "lugar": {
+    "nombre": "Salón Stage",
+    "barrio": "Villa del Parque · CABA",
+    "direccion": "Av. San Martín 3850, CABA",
+    "mapsUrl": "https://maps.google.com/?q=Av+San+Martin+3850+CABA"
+  },
+
+  "dresscode": {
+    "texto": "Street Glam / Elegante con actitud",
+    "nota": "El azul está reservado para la festejada."
+  },
+
+  "regalos": {
+    "texto": "Tu presencia vale más que cualquier regalo. Pero si querés sumar al show, acá van los datos.",
+    "alias": "Melody.rap",
+    "cbu": "0000003100025264839001",
+    "banco": "Mercado Pago / cualquier banco"
+  },
+
+  "whatsapp": {
+    "numero": "5491155550000",
+    "mensaje": "¡Hola! Confirmo mi asistencia a los 15 de Melody 🎤"
+  },
+
+  "musica": {
+    "src": "music/titanium.mp3",
+    "titulo": "Titanium",
+    "artista": "David Guetta ft. Sia"
+  },
+
+  "fotos": [
+    "img/foto horizontal 1.png",
+    "img/foto vertical 1.png",
+    "img/foto vertical 2.png",
+    "img/foto vertical 3.png",
+    "img/foto vertical 4.png",
+    "img/foto horizontal 2.png"
+  ],
+
+  "footer": {
+    "mensaje": "Esta noche la hacemos historia.",
+    "firma": "Melo· 2026"
+  },
+
+  "tema": {
+    "acento": "#1e90ff",
+    "acento2": "#0068d4"
+  }
+}

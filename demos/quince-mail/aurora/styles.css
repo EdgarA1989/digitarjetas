@@ -24,7 +24,7 @@
   --font-body:    'Jost', sans-serif;
   --max:          520px;
 
-  /* ── RSVP Modal ── */
+  /* ── Modal de confirmación ── */
   --rsvp-overlay:   rgba(0, 0, 0, .92);
   --rsvp-bg:        #0c1a30;
   --rsvp-text:      #ddeaf5;
@@ -1115,7 +1115,7 @@ button { font-family: var(--font-body); cursor: pointer; border: none; backgroun
 }
 
 
-/* ─── RSVP Modal ─────────────────────────────────── */
+/* ─── Modal de confirmación ─────────────────────────────────── */
 
 .rsvp-confirmar-btns {
   display: flex;

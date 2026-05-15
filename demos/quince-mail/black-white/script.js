@@ -224,7 +224,7 @@ function initSplash(onReveal) {
   }, { once: true });
 }
 
-// ── RSVP ──────────────────────────────────────────────
+// ── Confirmación ──────────────────────────────────────────────
 function initRsvp(c) {
   if (typeof RsvpModal !== 'undefined') {
     RsvpModal.init(c.rsvp || {}, c.nombre);
@@ -342,3 +342,4 @@ function setText(id, val) {
   const el = document.getElementById(id);
   if (el && val !== undefined) el.textContent = val;
 }
+

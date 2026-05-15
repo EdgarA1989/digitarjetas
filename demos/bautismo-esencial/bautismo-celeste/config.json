@@ -1,0 +1,20 @@
+{
+  "eventType": "Bautismo",
+  "childName": "Mateo",
+  "title": "Bautismo de Mateo",
+  "subtitle": "Te invitamos a compartir este día tan especial.",
+  "date": "2026-09-20T15:30:00",
+  "ceremony": {
+    "title": "Ceremonia religiosa",
+    "place": "Parroquia San José",
+    "address": "Av. Belgrano 1250, Salta",
+    "mapUrl": "#"
+  },
+  "celebration": {
+    "title": "Festejo",
+    "place": "Salón Los Olivos",
+    "address": "Mitre 845, Salta",
+    "mapUrl": "#"
+  },
+  "whatsappNumber": "549XXXXXXXXXX"
+}

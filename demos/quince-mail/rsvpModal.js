@@ -1,5 +1,5 @@
 // =====================================================
-//  rsvpModal.js — Modal de confirmación RSVP
+//  rsvpModal.js — Modal de confirmación de asistencia
 // =====================================================
 
 const RsvpModal = (() => {
@@ -231,3 +231,4 @@ const RsvpModal = (() => {
 
   return { init };
 })();
+

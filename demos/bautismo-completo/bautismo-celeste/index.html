@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bautismo · Mateo</title>
+  <meta name="description" content="Invitación digital · Bautismo de Mateo" />
+  <meta property="og:title" content="Bautismo · Mateo" />
+  <meta property="og:description" content="Te invitamos a compartir este día tan especial." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../../../css/demo-components.css" />
+</head>
+<body>
+<script>document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden'</script>
+
+  <!-- ═══ COVER · Pantalla de bienvenida ═══ -->
+  <div id="cover" class="cover" role="dialog" aria-label="Invitación de Bautismo">
+    <div class="cover-orbs" id="cover-orbs" aria-hidden="true"></div>
+    <div class="cover-particles" id="cover-particles" aria-hidden="true"></div>
+    <div class="cover-cross" aria-hidden="true">
+      <svg viewBox="0 0 32 50" width="42" height="65" fill="none">
+        <rect x="12" y="0" width="8" height="50" rx="2" fill="currentColor" opacity="0.5"/>
+        <rect x="0" y="12" width="32" height="8" rx="2" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="cover-content">
+      <p class="cover-pre">con amor, los invitamos a celebrar</p>
+      <p class="cover-event">el Bautismo de</p>
+      <h1 class="cover-nombre" id="cover-nombre">Mateo</h1>
+      <div class="cover-line" aria-hidden="true"></div>
+      <p class="cover-fecha" id="cover-fecha">Sábado · 20 de Septiembre · 2026</p>
+      <button class="cover-btn" id="btn-cover">
+        <span>Ver invitación</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+    <div class="cover-dove" aria-hidden="true">
+      <svg viewBox="0 0 100 65" width="90" height="59" fill="none">
+        <path d="M50 32 C30 18 8 26 4 38 C14 34 24 37 28 42 C20 42 10 47 5 57 C17 52 30 51 38 49 C36 56 34 62 36 65 C41 58 48 53 53 51 C58 53 65 58 70 65 C72 62 70 56 68 49 C76 51 89 52 95 57 C90 47 80 42 72 42 C76 37 86 34 96 38 C92 26 70 18 50 32Z" fill="currentColor" opacity="0.18"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <main id="main">
+
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- ── HERO ── -->
+    <section id="hero" class="hero">
+      <div class="hero-orbs" id="hero-orbs" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow reveal">el Bautismo de</p>
+        <h2 class="hero-nombre reveal" id="hero-nombre">Mateo</h2>
+        <div class="hero-cross reveal" aria-hidden="true">✝</div>
+        <div class="hero-foto-wrap reveal">
+          <div class="hero-foto-frame" id="hero-foto-frame">
+            <div class="hero-foto-placeholder" aria-hidden="true">
+              <svg viewBox="0 0 64 64" width="52" height="52" fill="none">
+                <circle cx="32" cy="24" r="13" fill="currentColor" opacity="0.25"/>
+                <path d="M8 56c0-13.25 10.75-24 24-24s24 10.75 24 24" fill="currentColor" opacity="0.18"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <p class="hero-sub reveal" id="hero-sub">Te invitamos a compartir este día tan especial.</p>
+        <p class="hero-fecha reveal" id="hero-fecha">Sábado · 20 de Septiembre · 2026</p>
+        <a class="hero-cta reveal" href="#countdown" aria-label="Ver más">↓</a>
+      </div>
+    </section>
+
+    <!-- ── MÚSICA ── -->
+    <section id="musica" class="section musica-section reveal">
+      <p class="section-eyebrow">nuestra canción</p>
+      <div class="musica-player">
+        <div class="musica-info">
+          <span class="musica-titulo" id="musica-titulo">Canción especial</span>
+          <span class="musica-artista" id="musica-artista">Artista</span>
+        </div>
+        <button class="musica-btn" id="musica-btn" aria-label="Reproducir música">
+          <svg class="icon-play" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="display:none"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>
+        </button>
+      </div>
+      <audio id="audio" loop preload="none"></audio>
+    </section>
+
+    <!-- ── CUENTA REGRESIVA ── -->
+    <section id="countdown" class="countdown-section">
+      <p class="section-eyebrow reveal">faltan para este día</p>
+      <div class="countdown-grid">
+        <div class="countdown-box">
+          <span class="countdown-num" id="cd-days">00</span>
+          <span class="countdown-label">días</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">·</div>
+        <div class="countdown-box">
+          <span class="countdown-num" id="cd-hours">00</span>
+          <span class="countdown-label">horas</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">·</div>
+        <div class="countdown-box">
+          <span class="countdown-num" id="cd-mins">00</span>
+          <span class="countdown-label">min</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">·</div>
+        <div class="countdown-box">
+          <span class="countdown-num" id="cd-secs">00</span>
+          <span class="countdown-label">seg</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FECHA Y HORA ── -->
+    <section id="fecha" class="section fecha-section reveal">
+      <p class="section-eyebrow">guardá la fecha</p>
+      <div class="fecha-card">
+        <div class="fecha-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="fecha-info">
+          <p class="fecha-dia" id="fecha-dia">Sábado</p>
+          <p class="fecha-fecha" id="fecha-fecha">20 de Septiembre de 2026</p>
+          <p class="fecha-hora" id="fecha-hora">15:30 hs.</p>
+        </div>
+      </div>
+      <div class="agendar-wrap">
+        <button class="btn-agendar" id="btn-ics">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agendar fecha
+        </button>
+      </div>
+    </section>
+
+    <!-- ── LUGARES ── -->
+    <section id="lugares" class="section lugares-section">
+      <p class="section-eyebrow reveal">¿Dónde nos encontramos?</p>
+      <div class="lugares-grid">
+
+        <div class="lugar-card lugar-card--ceremonia reveal">
+          <div class="lugar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="2" x2="12" y2="22"/><line x1="6" y1="7" x2="18" y2="7"/></svg>
+          </div>
+          <span class="lugar-tipo" id="ceremony-title">Ceremonia religiosa</span>
+          <p class="lugar-nombre" id="ceremony-place">Parroquia San José</p>
+          <p class="lugar-dir" id="ceremony-address">Av. Belgrano 1250, Salta</p>
+          <a class="btn-mapa" id="btn-ceremony-map" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+            Ver ubicación
+          </a>
+        </div>
+
+        <div class="lugar-card lugar-card--festejo reveal">
+          <div class="lugar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <span class="lugar-tipo" id="celebration-title">Festejo</span>
+          <p class="lugar-nombre" id="celebration-place">Salón Los Olivos</p>
+          <p class="lugar-dir" id="celebration-address">Mitre 845, Salta</p>
+          <a class="btn-mapa btn-mapa--dorado" id="btn-celebration-map" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+            Ver ubicación
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── GALERÍA ── -->
+    <section id="galeria" class="section galeria-section">
+      <p class="section-eyebrow reveal">momentos</p>
+      <div class="galeria-grid" id="galeria-grid"></div>
+      <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
+        <img class="lightbox-img" id="lightbox-img" alt="Foto ampliada" />
+      </div>
+    </section>
+
+    <!-- ── FRASE ESPECIAL ── -->
+    <section id="frase" class="section frase-section reveal">
+      <div class="frase-card">
+        <div class="frase-ornamento" aria-hidden="true">"</div>
+        <p class="frase-texto" id="frase-texto">Que la luz de Dios te acompañe siempre y te guíe en cada paso de tu vida.</p>
+        <div class="frase-ornamento frase-ornamento--cierre" aria-hidden="true">"</div>
+      </div>
+    </section>
+
+    <!-- ── DRESS CODE ── -->
+    <section id="dresscode" class="section dresscode-section reveal">
+      <p class="section-eyebrow">dress code</p>
+      <div class="dresscode-card">
+        <span class="dresscode-icon" aria-hidden="true">✦</span>
+        <p class="dresscode-texto" id="dresscode-texto">Elegante sport</p>
+      </div>
+    </section>
+
+    <!-- ── REGALOS ── -->
+    <section id="regalos" class="section regalos-section reveal">
+      <p class="section-eyebrow">datos de regalo</p>
+      <div class="regalos-card">
+        <div class="regalos-row">
+          <div>
+            <span class="regalos-tag">Alias</span>
+            <span class="regalos-val" id="regalos-alias">MATEO.BAUTISMO</span>
+          </div>
+          <button class="copy-btn" data-target="regalos-alias" aria-label="Copiar alias">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <p class="regalos-sub" id="regalos-sub">¡Tu cariño es nuestro mejor regalo!</p>
+      </div>
+      <div class="toast" id="toast" aria-live="polite">¡Copiado! ✓</div>
+    </section>
+
+    <!-- ── FORMULARIO DE CONFIRMACIÓN ── -->
+    <section id="confirmar" class="section confirmar-section">
+      <p class="section-eyebrow reveal">confirmá tu asistencia</p>
+      <div class="form-card reveal">
+
+        <div class="form-wrap" id="form-wrap">
+          <p class="form-intro">Completá el formulario y te enviamos una confirmación por WhatsApp.</p>
+
+          <form class="form-confirmacion" id="form-confirmacion" novalidate>
+
+            <div class="form-field">
+              <label class="form-label" for="f-nombre">Tu nombre <span class="form-req" aria-hidden="true">*</span></label>
+              <input class="form-input" id="f-nombre" name="nombre" type="text" placeholder="Nombre y apellido" autocomplete="name" required />
+              <span class="form-error" id="err-nombre">Ingresá tu nombre.</span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="f-asistentes">Cantidad de personas <span class="form-req" aria-hidden="true">*</span></label>
+              <div class="form-counter">
+                <button type="button" class="counter-btn" id="btn-menos" aria-label="Restar">−</button>
+                <input class="form-input form-input--counter" id="f-asistentes" name="asistentes" type="number" min="1" max="20" value="1" readonly />
+                <button type="button" class="counter-btn" id="btn-mas" aria-label="Sumar">+</button>
+              </div>
+              <span class="form-error" id="err-asistentes">La cantidad debe ser entre 1 y 20.</span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="f-telefono">
+                Tu teléfono
+                <span class="form-opt">(opcional)</span>
+              </label>
+              <input class="form-input" id="f-telefono" name="telefono" type="tel" placeholder="Ej: 387 1234567" autocomplete="tel" />
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="f-mensaje">
+                Mensaje
+                <span class="form-opt">(opcional)</span>
+              </label>
+              <textarea class="form-input form-textarea" id="f-mensaje" name="mensaje" placeholder="¡Qué emoción acompañarlos en este día tan especial!" rows="3" maxlength="200"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.849L.073 23.927l6.266-1.443A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.578-.477-5.083-1.314l-.365-.215-3.716.856.879-3.62-.237-.371A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              Confirmar por WhatsApp
+            </button>
+
+          </form>
+        </div>
+
+        <div class="form-success" id="form-success" aria-live="polite">
+          <div class="form-success-icon" aria-hidden="true">✓</div>
+          <h3 class="form-success-titulo">¡Gracias por confirmar!</h3>
+          <p class="form-success-sub">Tu asistencia fue registrada. ¡Nos vemos en el bautismo!</p>
+          <button class="btn-success-edit" id="btn-success-edit">Modificar confirmación</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+      <div class="footer-cross" aria-hidden="true">✝</div>
+      <p class="footer-mensaje" id="footer-mensaje">Gracias por acompañarnos en este momento tan especial.</p>
+      <p class="footer-firma" id="footer-firma">Con amor, la familia · 2026</p>
+      <p class="footer-credit">Invitación digital creada con <a href="#" target="_blank" rel="noopener">Programate</a></p>
+    </footer>
+
+  </main>
+
+  <!-- ── DEMO TOOLS ── -->
+  <section class="dt-demo-tools">
+    <div class="dt-mode-switcher">
+      <h2>También podés ver esta plantilla en otro plan</h2>
+      <p>Elegí si querés verla en versión simple, visual o completa con formulario.</p>
+      <div class="dt-mode-controls">
+        <select data-demo-plan-select aria-label="Elegir plan"></select>
+        <button type="button" data-demo-plan-go>Ver versión</button>
+      </div>
+    </div>
+    <div class="dt-demo-cta">
+      <h2>¿Te gustó esta plantilla?</h2>
+      <p>Podemos personalizarla con los datos de tu bautismo: fotos, música, ubicación, fecha y todos los detalles.</p>
+      <div class="dt-demo-cta__actions">
+        <a href="#" data-demo-whatsapp>Quiero esta plantilla</a>
+        <a href="../../../" data-demo-back>Volver a DigiTarjetas</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <script>const CURRENT_TEMPLATE = "bautismo-celeste"; const CURRENT_PLAN = "completo";</script>
+  <script src="../../../js/demo-switcher.js"></script>
+</body>
+</html>

@@ -20,7 +20,7 @@
   --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --max-w: 680px;
 
-  /* ── RSVP Modal ── */
+  /* ── Modal de confirmación ── */
   --rsvp-overlay:   rgba(10, 10, 10, .92);
   --rsvp-bg:        #fafafa;
   --rsvp-text:      #0a0a0a;
@@ -990,7 +990,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 
-/* ─── RSVP Modal ─────────────────────────────────── */
+/* ─── Modal de confirmación ─────────────────────────────────── */
 
 .rsvp-confirmar-btns {
   display: flex;

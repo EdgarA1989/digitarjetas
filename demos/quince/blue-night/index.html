@@ -57,27 +57,6 @@
       </div>
     </section>
 
-    <!-- ── MÚSICA ── -->
-    <section id="musica" class="section musica-section reveal">
-      <p class="section-tag">// el track</p>
-      <div class="musica-player">
-        <button class="musica-btn" id="musica-btn" aria-label="Reproducir">
-          <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="display:none"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>
-        </button>
-        <div class="musica-info">
-          <p class="musica-titulo" id="musica-titulo">La canción</p>
-          <p class="musica-artista" id="musica-artista">Artista</p>
-        </div>
-      </div>
-      <div class="eq-orb" id="eq-bars" aria-hidden="true">
-        <div class="eq-bars-inner">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-      </div>
-      <audio id="audio" loop preload="none"></audio>
-    </section>
-
     <!-- ── COUNTDOWN ── -->
     <section id="countdown" class="countdown-section">
       <p class="section-tag reveal">// cuenta regresiva</p>
@@ -154,57 +133,6 @@
       </div>
     </section>
 
-    <!-- ── DRESS CODE ── -->
-    <section id="dresscode" class="section dresscode-section reveal">
-      <p class="section-tag">// dress code</p>
-      <div class="dresscode-inner">
-        <span class="dresscode-icon" aria-hidden="true">✦</span>
-        <div>
-          <p class="dresscode-texto" id="dresscode-texto">Street Glam / Elegante con actitud</p>
-          <p class="dresscode-nota" id="dresscode-nota">El azul está reservado para la festejada.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── REGALOS ── -->
-    <section id="regalos" class="section regalos-section reveal">
-      <p class="section-tag">// un detalle</p>
-      <p class="regalos-texto" id="regalos-texto">Tu presencia vale más que cualquier regalo. Pero si querés sumar al show, acá van los datos.</p>
-      <div class="regalos-card">
-        <div class="regalos-row">
-          <div>
-            <span class="regalos-tag">Alias</span>
-            <span class="regalos-val" id="regalos-alias">valentina.rap</span>
-          </div>
-          <button class="copy-btn" data-target="regalos-alias" aria-label="Copiar alias">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          </button>
-        </div>
-        <div class="regalos-divider"></div>
-        <div class="regalos-row">
-          <div>
-            <span class="regalos-tag">CBU</span>
-            <span class="regalos-val" id="regalos-cbu">0000003100025264839001</span>
-          </div>
-          <button class="copy-btn" data-target="regalos-cbu" aria-label="Copiar CBU">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          </button>
-        </div>
-        <p class="regalos-banco" id="regalos-banco">Mercado Pago / cualquier banco</p>
-      </div>
-      <div class="toast" id="toast" aria-live="polite">¡Copiado! ✓</div>
-    </section>
-
-    <!-- ── GALERÍA ── -->
-    <section id="galeria" class="section galeria-section">
-      <p class="section-tag reveal">// momentos</p>
-      <div class="galeria-grid" id="galeria-grid"></div>
-      <div class="lightbox" id="lightbox" aria-hidden="true">
-        <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
-        <img class="lightbox-img" id="lightbox-img" alt="Foto ampliada" />
-      </div>
-    </section>
-
     <!-- ── CONFIRMACIÓN ── -->
     <section id="confirmar" class="section confirmar-section reveal">
       <p class="section-tag">// ¿vas a estar?</p>
@@ -235,11 +163,11 @@
   </main>
     <section class="dt-demo-tools">
       <div class="dt-mode-switcher">
-        <h2>También podés ver esta plantilla en otra modalidad</h2>
-        <p>Elegí si querés verla como invitación clásica para WhatsApp o con confirmación de asistencia.</p>
+        <h2>También podés ver esta plantilla en otro plan</h2>
+        <p>Elegí si querés verla en versión simple, visual o completa con formulario.</p>
         <div class="dt-mode-controls">
-          <select data-demo-mode-select aria-label="Elegir modalidad"></select>
-          <button type="button" data-demo-mode-go>Ver modalidad</button>
+          <select data-demo-plan-select aria-label="Elegir plan"></select>
+          <button type="button" data-demo-plan-go>Ver versión</button>
         </div>
       </div>
       <div class="dt-demo-cta">
@@ -253,7 +181,8 @@
     </section>
   <script src="script.js"></script>
 
-  <script>const CURRENT_TEMPLATE = "blue-night"; const CURRENT_MODE = "whatsapp";</script>
+  <script>const CURRENT_TEMPLATE = "blue-night"; const CURRENT_PLAN = "esencial";</script>
   <script src="../../../js/demo-switcher.js"></script>
 </body>
 </html>
+

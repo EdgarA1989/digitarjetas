@@ -29,6 +29,14 @@ body.dark {
   font-family: "Inter", system-ui, sans-serif;
 }
 
+body.dt-no-media #musica,
+body.dt-no-media .musica-section,
+body.dt-no-media #galeria,
+body.dt-no-media .galeria-section,
+body.dt-no-media .galeria {
+  display: none !important;
+}
+
 .dt-mode-switcher,
 .dt-demo-cta {
   padding: clamp(1.1rem, 4vw, 1.6rem);

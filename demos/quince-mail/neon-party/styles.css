@@ -31,7 +31,7 @@
   --font-body:    'DM Sans', sans-serif;
   --max:      500px;
 
-  /* ── RSVP Modal ── */
+  /* ── Modal de confirmación ── */
   --rsvp-overlay:   rgba(0, 0, 0, .95);
   --rsvp-bg:        #18181c;
   --rsvp-text:      #ededf0;
@@ -806,7 +806,7 @@ h1, h2 { line-height: 1; }
 }
 
 
-/* ─── RSVP Modal ─────────────────────────────────── */
+/* ─── Modal de confirmación ─────────────────────────────────── */
 
 .rsvp-confirmar-btns {
   display: flex;

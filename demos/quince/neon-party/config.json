@@ -1,62 +1,48 @@
 {
-  "nombre": "Valentina",
-  "frase": "La vida empieza ahora.",
-  "fraseSub": "Este 20 de septiembre, todo cambia.",
-  "fecha": "2026-10-03T21:00:00",
-  "fechaDisplay": "Sábado · 3 de Octubre · 2026",
-  "hora": "21:00 hs",
+    "nombre":  "Valentina",
+    "frase":  "La vida empieza ahora.",
+    "fraseSub":  "Este 20 de septiembre, todo cambia.",
+    "fecha":  "2026-10-03T21:00:00",
+    "fechaDisplay":  "Sábado · 3 de Octubre · 2026",
+    "hora":  "21:00 hs",
+    "bienvenida":  {
+                       "titulo":  "Finalmente llegó.",
+                       "texto":  "Quince años siendo exactamente quien soy. Gracias por estar acá para vivirlo conmigo. Esta noche la hacemos nuestra."
+                   },
+    "lugar":  {
+                  "nombre":  "Salón Rotonda",
+                  "barrio":  "Billinghurst · San Martin",
+                  "direccion":  "Triunvirato 4051",
+                  "mapsUrl":  "https://maps.app.goo.gl/Xp83ai9xojXE2i4WA"
+              },
+    "dresscode":  {
+                      "texto":  "Smart casual / formal",
+                      "nota":  "El rojo está reservado para la festejada."
+                  },
+    "regalos":  {
+                    "texto":  "Tu presencia ya es todo. Si querés hacerme un detalle, podés hacerlo por acá.",
+                    "alias":  "valentina.garcia",
+                    "cbu":  "0000003100025264839001",
+                    "banco":  "Mercado Pago / cualquier banco"
+                },
+    "whatsapp":  {
+                     "numero":  "5491155550000",
+                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Valentina"
+                 },
+    "musica":  {
+                   "src":  "",
+                   "titulo":  "",
+                   "artista":  ""
+               },
+    "fotos":  [
 
-  "bienvenida": {
-    "titulo": "Finalmente llegó.",
-    "texto": "Quince años siendo exactamente quien soy. Gracias por estar acá para vivirlo conmigo. Esta noche la hacemos nuestra."
-  },
-
-  "lugar": {
-    "nombre": "Salón Rotonda",
-    "barrio": "Billinghurst · San Martin",
-    "direccion": "Triunvirato 4051",
-    "mapsUrl": "https://maps.app.goo.gl/Xp83ai9xojXE2i4WA"
-  },
-
-  "dresscode": {
-    "texto": "Smart casual / formal",
-    "nota": "El rojo está reservado para la festejada."
-  },
-
-  "regalos": {
-    "texto": "Tu presencia ya es todo. Si querés hacerme un detalle, podés hacerlo por acá.",
-    "alias": "valentina.garcia",
-    "cbu": "0000003100025264839001",
-    "banco": "Mercado Pago / cualquier banco"
-  },
-
-  "whatsapp": {
-    "numero": "5491155550000",
-    "mensaje": "¡Hola! Confirmo mi asistencia a los 15 de Valentina 🎉"
-  },
-
-  "musica": {
-    "src": "music/titanium.mp3",
-    "titulo": "Titanium",
-    "artista": "David Guetta ft. Sia"
-  },
-
-  "fotos": [
-    "img/foto horizontal 1.png",
-    "img/foto vertical 1.png",
-    "img/foto vertical 2.png",
-    "img/foto vertical 3.png",
-    "img/foto vertical 4.png",
-    "img/foto horizontal 2.png"
-  ],
-
-  "footer": {
-    "mensaje": "Nos vemos en la pista. 🤍",
-    "firma": "Valen · 2026"
-  },
-
-  "tema": {
-   "acento": "#E040FB",
-    "acento2": "#FF6B35"
-  }
+              ],
+    "footer":  {
+                   "mensaje":  "Nos vemos en la pista.",
+                   "firma":  "Valen · 2026"
+               },
+    "tema":  {
+                 "acento":  "#E040FB",
+                 "acento2":  "#FF6B35"
+             }
 }

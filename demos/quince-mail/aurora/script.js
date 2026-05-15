@@ -114,7 +114,7 @@ function renderMusica(m) {
   if (audio) audio.src = m.src;
 }
 
-// ── RSVP ──────────────────────────────────────────────
+// ── Confirmación ──────────────────────────────────────────────
 function initRsvp(c) {
   if (typeof RsvpModal !== 'undefined') {
     RsvpModal.init(c.rsvp || {}, c.nombre);
@@ -408,3 +408,4 @@ function meta(name, content) {
 function pad(n) {
   return String(n).padStart(2, '0');
 }
+
