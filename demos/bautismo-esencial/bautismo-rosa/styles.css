@@ -349,6 +349,76 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 
 /* ─────────────────────────────────────────────────────────────
+   MÚSICA
+   ───────────────────────────────────────────────────────────── */
+.musica-section {
+  padding: 56px 24px 48px;
+  text-align: center;
+}
+.musica-esfera {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 22px;
+}
+.musica-particulas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.musica-particula {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--rosa-300);
+  animation: copoFloat var(--dur, 3s) ease-out var(--delay, 0s) infinite;
+}
+@keyframes copoFloat {
+  0%   { transform: translate(0, 0) scale(1); opacity: var(--op, 0.55); }
+  100% { transform: translate(var(--dx, 0px), var(--dy, -28px)) scale(0.4); opacity: 0; }
+}
+.musica-esfera.sonando .musica-particula { animation-duration: calc(var(--dur) * 0.6); }
+.musica-orb {
+  position: relative;
+  z-index: 2;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, rgba(255,255,255,0.82) 0%, var(--rosa-300) 42%, var(--rosa-500) 100%);
+  box-shadow: 0 0 0 12px rgba(233,175,195,0.14), 0 4px 26px rgba(200,100,140,0.28);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+.musica-orb:hover { transform: scale(1.06); }
+.musica-orb.playing { animation: orbPulse 2s ease-in-out infinite; }
+@keyframes orbPulse {
+  0%, 100% { box-shadow: 0 0 0 12px rgba(233,175,195,0.14), 0 4px 26px rgba(200,100,140,0.28); }
+  50%       { box-shadow: 0 0 0 22px rgba(233,175,195,0.08), 0 4px 40px rgba(200,100,140,0.44); }
+}
+.musica-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.musica-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+.musica-artista {
+  font-size: 0.76rem;
+  font-weight: 300;
+  color: var(--texto-suave);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
    CUENTA REGRESIVA
    ───────────────────────────────────────────────────────────── */
 .countdown-section {

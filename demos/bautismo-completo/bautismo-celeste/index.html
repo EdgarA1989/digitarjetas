@@ -75,17 +75,18 @@
     </section>
 
     <!-- ── MÚSICA ── -->
-    <section id="musica" class="section musica-section reveal">
-      <p class="section-eyebrow">nuestra canción</p>
-      <div class="musica-player">
-        <div class="musica-info">
-          <span class="musica-titulo" id="musica-titulo">Canción especial</span>
-          <span class="musica-artista" id="musica-artista">Artista</span>
-        </div>
-        <button class="musica-btn" id="musica-btn" aria-label="Reproducir música">
-          <svg class="icon-play" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="display:none"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>
+    <section id="musica" class="section musica-section">
+      <p class="section-eyebrow reveal">nuestra canción</p>
+      <div class="musica-esfera reveal" id="musica-esfera">
+        <div class="musica-particulas" id="musica-particulas" aria-hidden="true"></div>
+        <button class="musica-orb" id="musica-btn" aria-label="Reproducir música">
+          <svg class="icon-play" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><polygon points="7,4 21,12 7,20"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display:none"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>
         </button>
+      </div>
+      <div class="musica-info reveal">
+        <span class="musica-titulo" id="musica-titulo">Canción especial</span>
+        <span class="musica-artista" id="musica-artista">Artista</span>
       </div>
       <audio id="audio" loop preload="none"></audio>
     </section>

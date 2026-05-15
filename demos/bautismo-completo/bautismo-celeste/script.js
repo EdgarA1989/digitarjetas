@@ -141,14 +141,16 @@ function poblarFooter(config) {
 
 // ── Música ────────────────────────────────────────────────────
 function initMusic(config) {
-  const audio = document.getElementById("audio");
-  const btn   = document.getElementById("musica-btn");
+  const audio  = document.getElementById("audio");
+  const btn    = document.getElementById("musica-btn");
+  const esfera = document.getElementById("musica-esfera");
   if (!audio || !btn) return;
 
   const musicConfig = config.music || {};
-  audio.src = musicConfig.src || "./music/music.mp3";
+  audio.src = musicConfig.src || "./music/rainbow.mp3";
   setText("musica-titulo",  musicConfig.title  || "Canción especial");
-  setText("musica-artista", musicConfig.artist || "Artista");
+  setText("musica-artista", musicConfig.artist || "");
+  buildMusicaParticulas();
 
   const iconPlay  = btn.querySelector(".icon-play");
   const iconPause = btn.querySelector(".icon-pause");
@@ -159,14 +161,37 @@ function initMusic(config) {
         if (iconPlay)  iconPlay.style.display  = "none";
         if (iconPause) iconPause.style.display = "block";
         btn.classList.add("playing");
+        esfera?.classList.add("sonando");
       }).catch(() => {});
     } else {
       audio.pause();
       if (iconPlay)  iconPlay.style.display  = "block";
       if (iconPause) iconPause.style.display = "none";
       btn.classList.remove("playing");
+      esfera?.classList.remove("sonando");
     }
   });
+}
+
+function buildMusicaParticulas() {
+  const container = document.getElementById("musica-particulas");
+  if (!container) return;
+  const count = 16;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("div");
+    p.className = "musica-particula";
+    const angle = (i / count) * 360 + Math.random() * 10;
+    const rad   = angle * Math.PI / 180;
+    const r     = 36 + Math.random() * 16;
+    const cx = 75, cy = 75;
+    const x  = cx + Math.cos(rad) * r;
+    const y  = cy + Math.sin(rad) * r;
+    const dx = Math.cos(rad) * (12 + Math.random() * 16);
+    const dy = Math.sin(rad) * (12 + Math.random() * 16);
+    const size = 4 + Math.random() * 6;
+    p.style.cssText = `width:${size.toFixed(1)}px;height:${size.toFixed(1)}px;left:${(x - size / 2).toFixed(1)}px;top:${(y - size / 2).toFixed(1)}px;--dur:${(2.5 + Math.random() * 2.5).toFixed(1)}s;--delay:${(Math.random() * 3).toFixed(1)}s;--op:${(0.35 + Math.random() * 0.4).toFixed(2)};--dx:${dx.toFixed(1)}px;--dy:${dy.toFixed(1)}px;`;
+    container.appendChild(p);
+  }
 }
 
 // ── Cuenta regresiva ──────────────────────────────────────────
@@ -357,6 +382,7 @@ function initCover() {
         if (ip) ip.style.display = "none";
         if (pa) pa.style.display = "block";
         musicBtn.classList.add("playing");
+        document.getElementById("musica-esfera")?.classList.add("sonando");
       }).catch(() => {});
     }, 900);
   });
