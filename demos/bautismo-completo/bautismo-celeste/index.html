@@ -229,20 +229,14 @@
           <form class="form-confirmacion" id="form-confirmacion" novalidate>
 
             <div class="form-field">
-              <label class="form-label" for="f-nombre">Tu nombre <span class="form-req" aria-hidden="true">*</span></label>
-              <input class="form-input" id="f-nombre" name="nombre" type="text" placeholder="Nombre y apellido" autocomplete="name" required />
-              <span class="form-error" id="err-nombre">Ingresá tu nombre.</span>
-            </div>
-
-            <div class="form-field">
-              <label class="form-label" for="f-asistentes">Cantidad de personas <span class="form-req" aria-hidden="true">*</span></label>
+              <label class="form-label">¿Cuántas personas asisten? <span class="form-req" aria-hidden="true">*</span></label>
               <div class="form-counter">
                 <button type="button" class="counter-btn" id="btn-menos" aria-label="Restar">−</button>
-                <input class="form-input form-input--counter" id="f-asistentes" name="asistentes" type="number" min="1" max="20" value="1" readonly />
+                <span class="form-counter-num" id="f-asistentes-num">1</span>
                 <button type="button" class="counter-btn" id="btn-mas" aria-label="Sumar">+</button>
               </div>
-              <span class="form-error" id="err-asistentes">La cantidad debe ser entre 1 y 20.</span>
             </div>
+            <div class="form-guests" id="form-guests"></div>
 
             <div class="form-field">
               <label class="form-label" for="f-telefono">

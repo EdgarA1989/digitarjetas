@@ -79,7 +79,8 @@ function poblarHero(config) {
 
 function initHeroFoto(config) {
   const frame = document.getElementById("hero-foto-frame");
-  if (!frame || !config.photos || !config.photos[0]) return;
+  const src = config.heroPhoto || config.photos?.[0];
+  if (!frame || !src) return;
 
   const img = new Image();
   img.alt = `Foto de ${config.childName}`;
@@ -88,7 +89,7 @@ function initHeroFoto(config) {
     if (ph) ph.remove();
     frame.appendChild(img);
   };
-  img.src = config.photos[0];
+  img.src = src;
 }
 
 function poblarFecha(config) {
@@ -223,7 +224,6 @@ function initGaleria(config) {
     if (photos[i]) {
       const img = new Image();
       img.alt = `Foto ${i + 1}`;
-      img.loading = "lazy";
       img.dataset.index = i;
       img.onload  = () => item.appendChild(img);
       img.onerror = () => appendPlaceholder(item, i + 1);
@@ -275,71 +275,106 @@ function initLightbox() {
 
 // ── Formulario de confirmación ────────────────────────────────
 function initFormulario(config) {
-  const form      = document.getElementById("form-confirmacion");
-  const formWrap  = document.getElementById("form-wrap");
-  const success   = document.getElementById("form-success");
-  const editBtn   = document.getElementById("btn-edit-form");
-  const btnMenos  = document.getElementById("btn-menos");
-  const btnMas    = document.getElementById("btn-mas");
-  const inputCant = document.getElementById("campo-asistentes");
+  const form     = document.getElementById("form-confirmacion");
+  const formWrap = document.getElementById("form-wrap");
+  const success  = document.getElementById("form-success");
+  const editBtn  = document.getElementById("btn-edit-form");
+  const btnMenos = document.getElementById("btn-menos");
+  const btnMas   = document.getElementById("btn-mas");
+  const numEl    = document.getElementById("f-asistentes-num");
   if (!form) return;
 
-  let cantidad = 1;
+  let qty = 1;
+  const MAX = 20;
 
-  btnMenos?.addEventListener("click", () => {
-    if (cantidad > 1) {
-      cantidad--;
-      if (inputCant) inputCant.value = cantidad;
-    }
-  });
+  function setQty(n) {
+    qty = Math.max(1, Math.min(n, MAX));
+    if (numEl) numEl.textContent = String(qty);
+    if (btnMenos) btnMenos.disabled = qty <= 1;
+    if (btnMas)   btnMas.disabled   = qty >= MAX;
+    renderGuests();
+  }
 
-  btnMas?.addEventListener("click", () => {
-    if (cantidad < 20) {
-      cantidad++;
-      if (inputCant) inputCant.value = cantidad;
+  function renderGuests() {
+    const container = document.getElementById("form-guests");
+    if (!container) return;
+    let html = '';
+    for (let i = 0; i < qty; i++) {
+      const label = qty === 1 ? 'Tus datos' : `Invitada ${i + 1}`;
+      html += `
+        <div class="form-guest">
+          <p class="form-guest-label">${label}</p>
+          <div class="form-guest-fields">
+            <input class="form-input" type="text" placeholder="Nombre"
+                   data-guest="${i}" data-field="nombre"
+                   autocomplete="${i === 0 ? 'given-name' : 'off'}" />
+            <input class="form-input" type="text" placeholder="Apellido"
+                   data-guest="${i}" data-field="apellido"
+                   autocomplete="${i === 0 ? 'family-name' : 'off'}" />
+          </div>
+        </div>`;
     }
-  });
+    container.innerHTML = html;
+  }
+
+  setQty(1);
+
+  if (btnMenos) btnMenos.addEventListener("click", () => setQty(qty - 1));
+  if (btnMas)   btnMas.addEventListener("click",   () => setQty(qty + 1));
 
   form.addEventListener("submit", e => {
     e.preventDefault();
-    if (!validarFormulario()) return;
+    const guests = getGuests(qty);
+    if (!validarGuests(guests)) return;
 
-    const nombre    = document.getElementById("campo-nombre")?.value.trim() || "";
     const telefono  = document.getElementById("campo-telefono")?.value.trim() || "";
     const mensaje   = document.getElementById("campo-mensaje")?.value.trim() || "";
-    const number    = config.whatsappNumber || WHATSAPP_FALLBACK;
+    const childName = config.childName || "la festejada";
 
-    let text = `Hola! Quiero confirmar mi asistencia al bautismo de ${config.childName}.\n👤 Nombre: ${nombre}\n👥 Asistentes: ${cantidad}`;
-    if (telefono) text += `\n📱 Teléfono: ${telefono}`;
-    if (mensaje)  text += `\n💬 Mensaje: ${mensaje}`;
+    let texto = `Hola! Quiero confirmar mi asistencia al bautismo de ${childName}.\n`;
+    texto += `👥 ${qty} persona${qty > 1 ? "s" : ""}:\n`;
+    guests.forEach((g, i) => {
+      texto += `  ${i + 1}. ${g.nombre} ${g.apellido}\n`;
+    });
+    if (telefono) texto += `📱 Teléfono: ${telefono}\n`;
+    if (mensaje)  texto += `💬 Mensaje: ${mensaje}`;
 
-    window.open(`https://wa.me/${number}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+    const number = config.whatsappNumber || WHATSAPP_FALLBACK;
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(texto)}`, "_blank", "noopener,noreferrer");
 
-    formWrap?.classList.add("hidden-block");
-    success?.classList.add("visible");
+    if (formWrap && success) {
+      formWrap.style.display = "none";
+      success.classList.add("visible");
+    }
   });
 
   editBtn?.addEventListener("click", () => {
-    success?.classList.remove("visible");
-    formWrap?.classList.remove("hidden-block");
+    if (success && formWrap) {
+      success.classList.remove("visible");
+      formWrap.style.display = "";
+    }
   });
 }
 
-function validarFormulario() {
-  const nombreInput = document.getElementById("campo-nombre");
-  const errorNombre = document.getElementById("error-nombre");
-  let valido = true;
-
-  const nombre = nombreInput?.value.trim() || "";
-  if (nombre.length < 2) {
-    nombreInput?.classList.add("error");
-    errorNombre?.classList.add("visible");
-    valido = false;
-  } else {
-    nombreInput?.classList.remove("error");
-    errorNombre?.classList.remove("visible");
+function getGuests(qty) {
+  const guests = [];
+  for (let i = 0; i < qty; i++) {
+    const nombre   = (document.querySelector(`.form-input[data-guest="${i}"][data-field="nombre"]`)?.value   || '').trim();
+    const apellido = (document.querySelector(`.form-input[data-guest="${i}"][data-field="apellido"]`)?.value || '').trim();
+    guests.push({ nombre, apellido });
   }
+  return guests;
+}
 
+function validarGuests(guests) {
+  document.querySelectorAll('.form-input.error').forEach(el => el.classList.remove('error'));
+  let valido = true;
+  guests.forEach((g, i) => {
+    const nEl = document.querySelector(`.form-input[data-guest="${i}"][data-field="nombre"]`);
+    const aEl = document.querySelector(`.form-input[data-guest="${i}"][data-field="apellido"]`);
+    if (!g.nombre)   { nEl?.classList.add('error'); valido = false; }
+    if (!g.apellido) { aEl?.classList.add('error'); valido = false; }
+  });
   return valido;
 }
 

@@ -85,7 +85,8 @@ function poblarHero(config) {
 
 function initHeroFoto(config) {
   const frame = document.getElementById("hero-foto-frame");
-  if (!frame || !config.photos || !config.photos[0]) return;
+  const src = config.heroPhoto || config.photos?.[0];
+  if (!frame || !src) return;
 
   const img = new Image();
   img.alt = `Foto de ${config.childName}`;
@@ -94,7 +95,7 @@ function initHeroFoto(config) {
     if (ph) ph.remove();
     frame.appendChild(img);
   };
-  img.src = config.photos[0];
+  img.src = src;
 }
 
 function poblarFecha(config) {
@@ -236,7 +237,6 @@ function initGaleria(config) {
     if (photos[i]) {
       const img = new Image();
       img.alt = `Foto ${i + 1}`;
-      img.loading = "lazy";
       img.dataset.index = i;
       img.onload  = () => item.appendChild(img);
       img.onerror = () => appendPlaceholder(item, i + 1);

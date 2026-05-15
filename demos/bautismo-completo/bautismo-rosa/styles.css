@@ -899,6 +899,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 300;
   color: var(--texto-suave);
 }
+.form-req { color: var(--rosa-500); }
 .form-input {
   width: 100%;
   padding: 12px 16px;
@@ -952,6 +953,43 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--texto);
   cursor: default;
   flex-shrink: 0;
+}
+.form-counter-num {
+  width: 64px;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--texto);
+  flex-shrink: 0;
+}
+
+/* Invitadas por separado */
+.form-guests {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.form-guest {
+  padding: 0.85rem 1rem;
+  background: var(--rosa-100);
+  border-radius: var(--radio-s);
+  border: 1px solid var(--rosa-200);
+}
+.form-guest-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--rosa-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+.form-guest-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+@media (max-width: 420px) {
+  .form-guest-fields { grid-template-columns: 1fr; }
 }
 
 /* Mensaje de error */

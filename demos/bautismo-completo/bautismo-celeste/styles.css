@@ -949,6 +949,44 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .form-input--counter::-webkit-outer-spin-button { -webkit-appearance: none; }
 .form-input--counter:focus { box-shadow: none; }
 
+.form-counter-num {
+  flex: 1;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--texto);
+  padding: 0 0.5rem;
+}
+
+/* Invitados por separado */
+.form-guests {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.form-guest {
+  padding: 0.85rem 1rem;
+  background: var(--celeste-100);
+  border-radius: var(--radio-s);
+  border: 1px solid var(--celeste-200);
+}
+.form-guest-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--celeste-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+.form-guest-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+@media (max-width: 420px) {
+  .form-guest-fields { grid-template-columns: 1fr; }
+}
+
 .form-error {
   font-size: 0.76rem;
   color: #c05050;

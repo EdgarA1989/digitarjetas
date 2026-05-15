@@ -85,7 +85,8 @@ function poblarHero(config) {
 
 function initHeroFoto(config) {
   const frame = document.getElementById("hero-foto-frame");
-  if (!frame || !config.photos || !config.photos[0]) return;
+  const src = config.heroPhoto || config.photos?.[0];
+  if (!frame || !src) return;
 
   const img = new Image();
   img.alt = `Foto de ${config.childName}`;
@@ -94,7 +95,7 @@ function initHeroFoto(config) {
     if (ph) ph.remove();
     frame.appendChild(img);
   };
-  img.src = config.photos[0];
+  img.src = src;
 }
 
 function poblarFecha(config) {
@@ -229,7 +230,6 @@ function initGaleria(config) {
     if (photos[i]) {
       const img = new Image();
       img.alt = `Foto ${i + 1}`;
-      img.loading = "lazy";
       img.dataset.index = i;
       img.onload  = () => item.appendChild(img);
       img.onerror = () => appendPlaceholder(item, i + 1);
@@ -281,46 +281,72 @@ function initLightbox() {
 
 // ── Formulario de confirmación ────────────────────────────────
 function initFormulario(config) {
-  const form       = document.getElementById("form-confirmacion");
-  const formWrap   = document.getElementById("form-wrap");
-  const success    = document.getElementById("form-success");
-  const editBtn    = document.getElementById("btn-success-edit");
-  const btnMenos   = document.getElementById("btn-menos");
-  const btnMas     = document.getElementById("btn-mas");
-  const inputNum   = document.getElementById("f-asistentes");
+  const form     = document.getElementById("form-confirmacion");
+  const formWrap = document.getElementById("form-wrap");
+  const success  = document.getElementById("form-success");
+  const editBtn  = document.getElementById("btn-success-edit");
+  const btnMenos = document.getElementById("btn-menos");
+  const btnMas   = document.getElementById("btn-mas");
+  const numEl    = document.getElementById("f-asistentes-num");
   if (!form) return;
 
-  // Contador +/-
-  if (btnMenos && btnMas && inputNum) {
-    btnMenos.addEventListener("click", () => {
-      const val = parseInt(inputNum.value, 10);
-      if (val > 1) inputNum.value = val - 1;
-    });
-    btnMas.addEventListener("click", () => {
-      const val = parseInt(inputNum.value, 10);
-      if (val < 20) inputNum.value = val + 1;
-    });
+  let qty = 1;
+  const MAX = 20;
+
+  function setQty(n) {
+    qty = Math.max(1, Math.min(n, MAX));
+    if (numEl) numEl.textContent = String(qty);
+    if (btnMenos) btnMenos.disabled = qty <= 1;
+    if (btnMas)   btnMas.disabled   = qty >= MAX;
+    renderGuests();
   }
+
+  function renderGuests() {
+    const container = document.getElementById("form-guests");
+    if (!container) return;
+    let html = '';
+    for (let i = 0; i < qty; i++) {
+      const label = qty === 1 ? 'Tus datos' : `Invitado ${i + 1}`;
+      html += `
+        <div class="form-guest">
+          <p class="form-guest-label">${label}</p>
+          <div class="form-guest-fields">
+            <input class="form-input" type="text" placeholder="Nombre"
+                   data-guest="${i}" data-field="nombre"
+                   autocomplete="${i === 0 ? 'given-name' : 'off'}" />
+            <input class="form-input" type="text" placeholder="Apellido"
+                   data-guest="${i}" data-field="apellido"
+                   autocomplete="${i === 0 ? 'family-name' : 'off'}" />
+          </div>
+        </div>`;
+    }
+    container.innerHTML = html;
+  }
+
+  setQty(1);
+
+  if (btnMenos) btnMenos.addEventListener("click", () => setQty(qty - 1));
+  if (btnMas)   btnMas.addEventListener("click",   () => setQty(qty + 1));
 
   form.addEventListener("submit", e => {
     e.preventDefault();
-    if (!validarFormulario()) return;
+    const guests = getGuests(qty);
+    if (!validarGuests(guests)) return;
 
-    const nombre     = document.getElementById("f-nombre").value.trim();
-    const asistentes = document.getElementById("f-asistentes").value;
-    const telefono   = document.getElementById("f-telefono").value.trim();
-    const mensaje    = document.getElementById("f-mensaje").value.trim();
-    const childName  = config.childName || "el festejado/a";
+    const telefono  = document.getElementById("f-telefono").value.trim();
+    const mensaje   = document.getElementById("f-mensaje").value.trim();
+    const childName = config.childName || "el festejado/a";
 
     let texto = `Hola! Quiero confirmar mi asistencia al bautismo de ${childName}.\n`;
-    texto += `👤 Nombre: ${nombre}\n`;
-    texto += `👥 Asistentes: ${asistentes} persona${asistentes > 1 ? "s" : ""}\n`;
+    texto += `👥 ${qty} persona${qty > 1 ? "s" : ""}:\n`;
+    guests.forEach((g, i) => {
+      texto += `  ${i + 1}. ${g.nombre} ${g.apellido}\n`;
+    });
     if (telefono) texto += `📱 Teléfono: ${telefono}\n`;
     if (mensaje)  texto += `💬 Mensaje: ${mensaje}`;
 
     const number = config.whatsappNumber || WHATSAPP_FALLBACK;
-    const url = `https://wa.me/${number}?text=${encodeURIComponent(texto)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(texto)}`, "_blank", "noopener,noreferrer");
 
     if (formWrap && success) {
       formWrap.style.display = "none";
@@ -336,27 +362,25 @@ function initFormulario(config) {
   }
 }
 
-function validarFormulario() {
+function getGuests(qty) {
+  const guests = [];
+  for (let i = 0; i < qty; i++) {
+    const nombre   = (document.querySelector(`.form-input[data-guest="${i}"][data-field="nombre"]`)?.value   || '').trim();
+    const apellido = (document.querySelector(`.form-input[data-guest="${i}"][data-field="apellido"]`)?.value || '').trim();
+    guests.push({ nombre, apellido });
+  }
+  return guests;
+}
+
+function validarGuests(guests) {
+  document.querySelectorAll('.form-input.error').forEach(el => el.classList.remove('error'));
   let valido = true;
-
-  const nombre = document.getElementById("f-nombre");
-  const errNombre = document.getElementById("err-nombre");
-  if (nombre && errNombre) {
-    const ok = nombre.value.trim().length >= 2;
-    nombre.classList.toggle("error", !ok);
-    errNombre.classList.toggle("visible", !ok);
-    if (!ok) valido = false;
-  }
-
-  const asistentes = document.getElementById("f-asistentes");
-  const errAsist   = document.getElementById("err-asistentes");
-  if (asistentes && errAsist) {
-    const val = parseInt(asistentes.value, 10);
-    const ok  = val >= 1 && val <= 20;
-    errAsist.classList.toggle("visible", !ok);
-    if (!ok) valido = false;
-  }
-
+  guests.forEach((g, i) => {
+    const nEl = document.querySelector(`.form-input[data-guest="${i}"][data-field="nombre"]`);
+    const aEl = document.querySelector(`.form-input[data-guest="${i}"][data-field="apellido"]`);
+    if (!g.nombre)   { nEl?.classList.add('error'); valido = false; }
+    if (!g.apellido) { aEl?.classList.add('error'); valido = false; }
+  });
   return valido;
 }
 

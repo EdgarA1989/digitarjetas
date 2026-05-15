@@ -81,8 +81,9 @@ function initDemoMediaState() {
   fetch("config.json")
     .then(response => response.json())
     .then(config => {
-      const hasPhotos = Array.isArray(config.fotos) && config.fotos.length > 0;
-      const hasMusic = Boolean(config.musica?.src);
+      const hasPhotos = (Array.isArray(config.fotos) && config.fotos.length > 0)
+        || (Array.isArray(config.photos) && config.photos.length > 0);
+      const hasMusic = Boolean(config.musica?.src) || Boolean(config.music?.src);
       document.body.classList.toggle("dt-no-media", !hasPhotos && !hasMusic);
     })
     .catch(() => {});

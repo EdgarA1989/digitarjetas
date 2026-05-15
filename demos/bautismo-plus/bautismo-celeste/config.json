@@ -21,11 +21,12 @@
     "title": "Canción especial",
     "artist": "Artista"
   },
+  "heroPhoto": "./img/bebe_varon.png",
   "photos": [
-    "./img/bebe_varon.png",
-    "./img/foto-2.jpg",
-    "./img/foto-3.jpg",
-    "./img/foto-4.jpg"
+    "./img/bebe_nene1.png",
+    "./img/bebe_nene2.png",
+    "./img/bebe_nene3.png",
+    "./img/bebe_nene4.png"
   ],
   "gift": {
     "alias": "MATEO.BAUTISMO",
