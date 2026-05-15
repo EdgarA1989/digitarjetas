@@ -60,6 +60,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   pointer-events: none;
   z-index: 100;
   opacity: 0.45;
+  filter: grayscale(1);
 }
 
 /* ── Reveal ────────────────────────────────────────────────── */
@@ -128,7 +129,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .cover-orb--2 {
   width: 240px; height: 240px;
   bottom: -60px; left: -60px;
-  background: rgba(201, 169, 110, 0.14);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .cover-cross {
@@ -149,7 +150,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .cover-particle {
   position: absolute;
   border-radius: 50%;
-  background: var(--dorado-300);
+  background: rgba(255, 255, 255, 0.75);
   pointer-events: none;
   animation: fcParticle var(--dur, 4s) ease-in-out var(--delay, 0s) infinite alternate;
 }
@@ -244,7 +245,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hero-orb--2 {
   width: 280px; height: 280px;
   bottom: -80px; left: -80px;
-  background: rgba(201, 169, 110, 0.09);
+  background: rgba(184, 223, 240, 0.09);
 }
 
 .hero-content {
