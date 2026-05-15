@@ -24,6 +24,7 @@ function init(config) {
   poblarLugares(config);
   poblarWhatsapp(config);
   poblarFooter(config);
+  initHeroFoto(config);
   initCountdown(config);
   initCover();
   initReveal();
@@ -104,6 +105,20 @@ function poblarWhatsapp(config) {
 function poblarFooter(config) {
   const year = new Date(config.date).getFullYear();
   setText("footer-firma", `Con amor, la familia · ${year}`);
+}
+
+// ── Foto del hero ─────────────────────────────────────────────
+function initHeroFoto(config) {
+  const frame = document.getElementById("hero-foto-frame");
+  if (!frame || !config.photos || !config.photos[0]) return;
+  const img = new Image();
+  img.alt = `Foto de ${config.childName}`;
+  img.onload = () => {
+    const ph = frame.querySelector(".hero-foto-placeholder");
+    if (ph) ph.remove();
+    frame.appendChild(img);
+  };
+  img.src = config.photos[0];
 }
 
 // ── Cuenta regresiva ──────────────────────────────────────────

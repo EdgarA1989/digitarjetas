@@ -259,6 +259,49 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-bottom: 32px;
 }
 
+/* Foto circular hero con anillo giratorio */
+.hero-foto-area { margin-bottom: 24px; }
+.hero-foto-wrap {
+  position: relative;
+  display: inline-block;
+}
+.hero-foto-ring {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(201, 164, 92, 0.38);
+  animation: spinRing 32s linear infinite;
+  pointer-events: none;
+}
+@keyframes spinRing {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.hero-foto-frame {
+  width: 158px;
+  height: 158px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--rosa-200);
+  box-shadow: 0 0 0 8px rgba(247, 208, 223, 0.2), var(--sombra-m);
+  background: var(--rosa-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-foto-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.hero-foto-placeholder {
+  color: var(--rosa-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .hero-cross {
   color: var(--dorado-300);
   margin-bottom: 22px;

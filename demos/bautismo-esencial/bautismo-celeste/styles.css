@@ -273,8 +273,36 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-size: 2rem;
   color: var(--dorado-300);
   display: block;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   letter-spacing: 0.1em;
+}
+
+/* Foto circular hero */
+.hero-foto-wrap { margin-bottom: 28px; }
+.hero-foto-frame {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 4px solid var(--celeste-200);
+  box-shadow: 0 0 0 8px rgba(184, 223, 240, 0.22), var(--sombra-m);
+  background: var(--celeste-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-foto-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.hero-foto-placeholder {
+  color: var(--celeste-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 .hero-sub {
   font-family: 'Cormorant Garamond', serif;
