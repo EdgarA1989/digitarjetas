@@ -52,6 +52,12 @@ const templateLinks = {
     completo: "../../bautismo-completo/bautismo-celeste/",
     label: "Bautismo Celeste",
   },
+  "bautismo-rosa": {
+    esencial: "",
+    plus: "../../bautismo-plus/bautismo-rosa/",
+    completo: "",
+    label: "Bautismo Rosa",
+  },
 };
 
 const demoPlanLabels = {

@@ -406,8 +406,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 6px;
 }
 .countdown-box {
   display: flex;
@@ -415,8 +414,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   align-items: center;
   background: var(--blanco);
   border-radius: var(--radio-m);
-  padding: 20px 14px;
-  min-width: 70px;
+  padding: 16px 8px;
+  flex: 1;
+  min-width: 0;
+  max-width: 84px;
   box-shadow: var(--sombra-s);
   border: 1px solid var(--celeste-200);
 }

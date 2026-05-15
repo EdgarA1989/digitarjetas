@@ -148,6 +148,21 @@ const templates = [
     bg: "linear-gradient(145deg, #7cbfe3, #c9e8f7 54%, #e8d09a)",
   },
   {
+    name: "Bautismo Rosa",
+    slug: "bautismo-rosa",
+    category: "Bautismos y comuniones",
+    style: "bautismos",
+    availablePlans: ["plus"],
+    description: "Diseño delicado y femenino para bautismos de niña. Incluye galería asimétrica, música, dress code y datos de regalo.",
+    image: "assets/img/template-bautismo-rosa.jpg",
+    demos: {
+      esencial: "",
+      plus: "./demos/bautismo-plus/bautismo-rosa/",
+      completo: "",
+    },
+    bg: "linear-gradient(145deg, #f2c4d5, #f9dde8 54%, #e8d09a)",
+  },
+  {
     name: "Golden Party",
     slug: "golden-party",
     category: "Cumpleaños adultos",

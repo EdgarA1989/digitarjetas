@@ -1,33 +1,33 @@
 /* ═══════════════════════════════════════════════════════════
-   Bautismo Celeste · Plan Plus · DigiTarjetas
+   Bautismo Rosa · Plan Plus · DigiTarjetas
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Editá acá ── */
 :root {
-  --celeste-100: #e8f4fb;
-  --celeste-200: #c9e8f7;
-  --celeste-300: #a8d8ee;
-  --celeste-400: #7cbfe3;
-  --celeste-500: #5aaacf;
-  --celeste-600: #3d8fb8;
+  --rosa-100: #fce8ef;
+  --rosa-200: #f7d0df;
+  --rosa-300: #edb3c4;
+  --rosa-400: #e9afc3;
+  --rosa-500: #d490a8;
+  --rosa-600: #b87090;
 
-  --crema-50:  #fefcf8;
-  --crema-100: #fdf9f2;
-  --crema-200: #f8f1e4;
+  --crema-50:  #fffbf7;
+  --crema-100: #fff7fa;
+  --crema-200: #feeef3;
 
-  --dorado-100: #f5e9c8;
-  --dorado-200: #e8d09a;
-  --dorado-300: #c9a96e;
-  --dorado-400: #a8884a;
+  --dorado-100: #f5e8c5;
+  --dorado-200: #ead5a3;
+  --dorado-300: #c9a45c;
+  --dorado-400: #a8843a;
 
   --blanco: #ffffff;
-  --texto:  #1e3a52;
-  --texto-medio: #4a6d8a;
-  --texto-suave: #8aabbd;
+  --texto:  #3f2e35;
+  --texto-medio: #7d6b72;
+  --texto-suave: #b8a0aa;
 
-  --sombra-s: 0 2px 12px rgba(90, 150, 190, 0.08);
-  --sombra-m: 0 4px 24px rgba(90, 150, 190, 0.12);
-  --sombra-l: 0 8px 40px rgba(90, 150, 190, 0.18);
+  --sombra-s: 0 2px 12px rgba(180, 100, 130, 0.07);
+  --sombra-m: 0 4px 24px rgba(180, 100, 130, 0.11);
+  --sombra-l: 0 8px 40px rgba(180, 100, 130, 0.17);
 
   --radio-s: 12px;
   --radio-m: 20px;
@@ -59,7 +59,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background-size: 200px 200px;
   pointer-events: none;
   z-index: 100;
-  opacity: 0.45;
+  opacity: 0.4;
 }
 
 /* ── Reveal ────────────────────────────────────────────────── */
@@ -80,14 +80,24 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin: 0 auto;
 }
 .section-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 1.15rem;
-  color: var(--celeste-500);
-  letter-spacing: 0.1em;
+  font-size: 1.1rem;
+  color: var(--rosa-500);
+  letter-spacing: 0.06em;
   text-align: center;
   margin-bottom: 28px;
   display: block;
+}
+/* Flor decorativa antes y después del eyebrow */
+.section-eyebrow::before,
+.section-eyebrow::after {
+  content: '✿';
+  font-style: normal;
+  margin: 0 10px;
+  color: var(--dorado-300);
+  opacity: 0.7;
+  font-size: 0.82em;
 }
 
 
@@ -98,13 +108,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   position: fixed;
   inset: 0;
   z-index: 500;
-  background: linear-gradient(160deg, #7cbfe3 0%, #a8d8ee 30%, #c9e8f7 60%, #e8f4fb 100%);
+  background: radial-gradient(ellipse at 60% 30%, #f2c4d5 0%, #f9dde8 35%, #fff2f6 65%, #fff7fa 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 48px 28px;
+  padding: 52px 28px;
   overflow: hidden;
   transition: opacity 0.9s ease, visibility 0.9s ease;
 }
@@ -114,105 +124,96 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   pointer-events: none;
 }
 
-.cover-orb {
+.cover-bloom {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(70px);
-  pointer-events: none;
-}
-.cover-orb--1 {
-  width: 320px; height: 320px;
-  top: -100px; right: -80px;
-  background: rgba(255, 255, 255, 0.45);
-}
-.cover-orb--2 {
-  width: 240px; height: 240px;
-  bottom: -60px; left: -60px;
-  background: rgba(201, 169, 110, 0.14);
-}
-
-.cover-cross {
-  position: absolute;
-  top: 36px; right: 36px;
-  color: var(--blanco);
-  opacity: 0.7;
-}
-.cover-dove {
-  position: absolute;
-  bottom: 32px;
+  top: 32px;
   left: 50%;
   transform: translateX(-50%);
-  color: var(--blanco);
-  opacity: 0.45;
+  color: var(--rosa-400);
 }
 
-.cover-particle {
+/* Pétalos flotantes creados por JS */
+.cover-petal {
   position: absolute;
-  border-radius: 50%;
-  background: var(--dorado-300);
   pointer-events: none;
-  animation: fcParticle var(--dur, 4s) ease-in-out var(--delay, 0s) infinite alternate;
+  border-radius: 100% 0 100% 0;
+  background: var(--rosa-300);
+  animation: floatPetal var(--dur, 5s) ease-in-out var(--delay, 0s) infinite alternate;
 }
-@keyframes fcParticle {
-  from { transform: translateY(0) scale(1);   opacity: var(--op, 0.5); }
-  to   { transform: translateY(-18px) scale(1.15); opacity: calc(var(--op, 0.5) * 0.55); }
+@keyframes floatPetal {
+  from { transform: rotate(var(--rot, 0deg)) translateY(0) scale(1); opacity: var(--op, 0.35); }
+  to   { transform: rotate(calc(var(--rot, 0deg) + 22deg)) translateY(-22px) scale(0.88); opacity: calc(var(--op, 0.35) * 0.45); }
 }
 
 .cover-content { position: relative; z-index: 2; }
 .cover-pre {
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 300;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(63, 46, 53, 0.5);
   margin-bottom: 6px;
 }
 .cover-event {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.92);
-  margin-bottom: 2px;
+  font-size: 1.1rem;
+  color: var(--texto-medio);
+  margin-bottom: 4px;
 }
 .cover-nombre {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(4.5rem, 20vw, 7rem);
-  color: var(--blanco);
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(5rem, 22vw, 8.5rem);
+  color: var(--texto);
   line-height: 1;
-  margin-bottom: 18px;
-  text-shadow: 0 2px 24px rgba(30, 80, 130, 0.2);
+  margin-bottom: 22px;
+  text-shadow: 0 2px 28px rgba(185, 80, 120, 0.1);
 }
-.cover-line {
-  width: 56px;
+.cover-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.cover-divider-line {
+  width: 50px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.55);
-  margin: 0 auto 18px;
+  background: var(--rosa-300);
+  opacity: 0.55;
+  display: block;
+}
+.cover-divider-icon {
+  font-size: 0.85rem;
+  color: var(--dorado-300);
+  opacity: 0.8;
 }
 .cover-fecha {
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 300;
   letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.88);
-  margin-bottom: 36px;
+  color: var(--texto-medio);
+  margin-bottom: 38px;
+  opacity: 0.85;
 }
 .cover-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 34px;
-  background: var(--blanco);
-  color: var(--celeste-600);
+  padding: 14px 36px;
+  background: var(--rosa-400);
+  color: var(--blanco);
   border-radius: 50px;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 500;
-  letter-spacing: 0.05em;
-  box-shadow: 0 4px 24px rgba(30, 80, 130, 0.22);
-  transition: transform var(--trans), box-shadow var(--trans);
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 22px rgba(233, 175, 195, 0.52);
+  transition: transform var(--trans), box-shadow var(--trans), background var(--trans);
 }
 .cover-btn:hover {
+  background: var(--rosa-500);
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(30, 80, 130, 0.3);
+  box-shadow: 0 8px 32px rgba(233, 175, 195, 0.64);
 }
 
 
@@ -221,30 +222,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    ───────────────────────────────────────────────────────────── */
 .hero {
   min-height: 100dvh;
-  background: linear-gradient(180deg, var(--celeste-100) 0%, var(--crema-100) 55%);
+  background: linear-gradient(180deg, var(--crema-200) 0%, var(--crema-100) 50%, var(--blanco) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 24px 60px;
+  padding: 80px 24px 64px;
   position: relative;
   overflow: hidden;
   text-align: center;
 }
-.hero-orb {
+
+/* Pétalos decorativos del hero (creados por JS) */
+.hero-petal {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
   pointer-events: none;
-}
-.hero-orb--1 {
-  width: 420px; height: 420px;
-  top: -120px; right: -100px;
-  background: rgba(184, 223, 240, 0.45);
-}
-.hero-orb--2 {
-  width: 280px; height: 280px;
-  bottom: -80px; left: -80px;
-  background: rgba(201, 169, 110, 0.09);
+  border-radius: 100% 0 100% 0;
+  background: var(--rosa-200);
 }
 
 .hero-content {
@@ -254,49 +247,58 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: 100%;
 }
 .hero-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 1.1rem;
-  color: var(--celeste-500);
+  font-size: 1.05rem;
+  color: var(--rosa-500);
   display: block;
   margin-bottom: 2px;
 }
 .hero-nombre {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(4.5rem, 22vw, 7.5rem);
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(4.5rem, 22vw, 8rem);
   color: var(--texto);
   line-height: 1.05;
-  margin-bottom: 6px;
-}
-.hero-cross {
-  font-size: 2rem;
-  color: var(--dorado-300);
-  display: block;
-  margin-bottom: 20px;
-  letter-spacing: 0.1em;
+  margin-bottom: 28px;
 }
 
-/* Foto circular hero */
-.hero-foto-wrap { margin-bottom: 28px; }
+/* Marco circular con anillo giratorio */
+.hero-foto-area { margin-bottom: 24px; }
+.hero-foto-wrap {
+  position: relative;
+  display: inline-block;
+}
+.hero-foto-ring {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(201, 164, 92, 0.38);
+  animation: spinRing 32s linear infinite;
+  pointer-events: none;
+}
+@keyframes spinRing {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
 .hero-foto-frame {
-  width: 148px;
-  height: 148px;
+  width: 158px;
+  height: 158px;
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 auto;
-  border: 4px solid var(--celeste-200);
-  box-shadow: 0 0 0 8px rgba(184, 223, 240, 0.22), var(--sombra-m);
-  background: var(--celeste-100);
+  border: 4px solid var(--rosa-200);
+  box-shadow: 0 0 0 8px rgba(247, 208, 223, 0.2), var(--sombra-m);
+  background: var(--rosa-100);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .hero-foto-frame img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 .hero-foto-placeholder {
-  color: var(--celeste-400);
+  color: var(--rosa-400);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -304,21 +306,30 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   height: 100%;
 }
 
+/* Cruz SVG dorada debajo del marco */
+.hero-cross {
+  color: var(--dorado-300);
+  margin-bottom: 22px;
+  display: flex;
+  justify-content: center;
+  opacity: 0.75;
+}
+
 .hero-sub {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 1.12rem;
+  font-size: 1.08rem;
   color: var(--texto-medio);
-  line-height: 1.65;
+  line-height: 1.7;
   margin-bottom: 10px;
   max-width: 380px;
   margin-left: auto;
   margin-right: auto;
 }
 .hero-fecha {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 300;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--texto-suave);
   margin-bottom: 32px;
@@ -329,16 +340,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   justify-content: center;
   width: 42px; height: 42px;
   border-radius: 50%;
-  border: 1.5px solid var(--celeste-300);
-  color: var(--celeste-500);
+  border: 1.5px solid var(--rosa-300);
+  color: var(--rosa-500);
   font-size: 1.1rem;
-  animation: bounceCta 2.2s ease-in-out infinite;
+  animation: bounceCta 2.4s ease-in-out infinite;
   transition: border-color var(--trans);
 }
-.hero-cta:hover { border-color: var(--celeste-500); }
+.hero-cta:hover { border-color: var(--rosa-500); }
 @keyframes bounceCta {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(7px); }
+  50%       { transform: translateY(7px); }
 }
 
 
@@ -353,43 +364,53 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .musica-player {
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: var(--blanco);
-  border: 1.5px solid var(--celeste-200);
+  gap: 14px;
+  background: linear-gradient(135deg, var(--crema-100) 0%, var(--rosa-100) 100%);
+  border: 1.5px solid var(--rosa-200);
   border-radius: var(--radio-xl);
-  padding: 16px 20px;
-  box-shadow: var(--sombra-m);
+  padding: 14px 20px;
+  box-shadow: var(--sombra-s);
+}
+.musica-nota {
+  font-size: 1.4rem;
+  color: var(--rosa-400);
+  flex-shrink: 0;
+  line-height: 1;
 }
 .musica-info {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
 }
 .musica-titulo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.96rem;
   font-weight: 600;
   color: var(--texto);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .musica-artista {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 300;
   color: var(--texto-suave);
 }
 .musica-btn {
   width: 44px; height: 44px;
   border-radius: 50%;
-  background: var(--celeste-400);
+  background: var(--rosa-400);
   color: var(--blanco);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 10px rgba(90, 150, 190, 0.32);
+  box-shadow: 0 2px 10px rgba(233, 175, 195, 0.45);
   transition: background var(--trans), transform var(--trans);
 }
-.musica-btn:hover { background: var(--celeste-500); transform: scale(1.06); }
+.musica-btn:hover { background: var(--rosa-500); transform: scale(1.06); }
 .musica-btn.playing { background: var(--dorado-300); }
 
 
@@ -399,7 +420,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .countdown-section {
   padding: 64px 24px;
   text-align: center;
-  background: linear-gradient(140deg, var(--celeste-100) 0%, var(--crema-100) 100%);
+  background: linear-gradient(140deg, var(--crema-200) 0%, var(--crema-100) 100%);
 }
 .countdown-section .section-eyebrow { margin-bottom: 32px; }
 .countdown-grid {
@@ -419,18 +440,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   min-width: 0;
   max-width: 84px;
   box-shadow: var(--sombra-s);
-  border: 1px solid var(--celeste-200);
+  border: 1px solid var(--rosa-200);
 }
 .countdown-num {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 2.2rem;
   font-weight: 600;
-  color: var(--celeste-500);
+  color: var(--rosa-500);
   line-height: 1;
   display: block;
 }
 .countdown-label {
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   font-weight: 300;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -438,11 +459,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-top: 5px;
 }
 .countdown-sep {
-  font-size: 1.4rem;
-  color: var(--celeste-300);
+  font-size: 0.7rem;
+  color: var(--dorado-300);
   font-weight: 300;
   line-height: 1;
-  padding-bottom: 20px;
+  padding-bottom: 22px;
+  flex-shrink: 0;
+  opacity: 0.7;
 }
 
 
@@ -456,41 +479,42 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 20px;
   background: var(--blanco);
   border-radius: var(--radio-l);
-  padding: 28px 28px;
+  padding: 26px 28px;
   box-shadow: var(--sombra-m);
-  border: 1px solid var(--celeste-200);
+  border: 1px solid var(--rosa-200);
+  border-left: 4px solid var(--rosa-400);
   max-width: 360px;
   margin: 0 auto 24px;
   text-align: left;
 }
 .fecha-icon {
-  width: 56px; height: 56px;
+  width: 52px; height: 52px;
   border-radius: var(--radio-s);
-  background: var(--celeste-100);
-  color: var(--celeste-500);
+  background: var(--rosa-100);
+  color: var(--rosa-500);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 .fecha-dia {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: var(--texto-suave);
   margin-bottom: 2px;
 }
 .fecha-fecha {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--texto);
   line-height: 1.25;
 }
 .fecha-hora {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 400;
-  color: var(--celeste-500);
+  color: var(--rosa-500);
   margin-top: 4px;
 }
 .agendar-wrap { text-align: center; }
@@ -499,17 +523,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   align-items: center;
   gap: 8px;
   padding: 11px 24px;
-  border: 1.5px solid var(--celeste-300);
+  border: 1.5px solid var(--rosa-300);
   border-radius: 50px;
-  font-size: 0.81rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  color: var(--celeste-500);
+  color: var(--rosa-500);
   background: transparent;
   transition: background var(--trans), border-color var(--trans);
 }
 .btn-agendar:hover {
-  background: var(--celeste-100);
-  border-color: var(--celeste-400);
+  background: var(--rosa-100);
+  border-color: var(--rosa-400);
 }
 
 
@@ -528,51 +552,52 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 16px;
   text-align: left;
 }
+/* Borde izquierdo como acento — diferente al borde superior de la versión celeste */
 .lugar-card {
   background: var(--blanco);
   border-radius: var(--radio-l);
-  padding: 28px 24px;
+  padding: 26px 24px;
   box-shadow: var(--sombra-m);
-  border: 1px solid var(--celeste-200);
+  border: 1px solid var(--rosa-200);
+  border-left: 4px solid var(--rosa-400);
   display: flex;
   flex-direction: column;
   gap: 5px;
-  border-top: 3px solid var(--celeste-400);
 }
 .lugar-card--festejo {
-  border-top-color: var(--dorado-300);
+  border-left-color: var(--dorado-300);
 }
 .lugar-icon {
-  width: 44px; height: 44px;
+  width: 42px; height: 42px;
   border-radius: var(--radio-s);
-  background: var(--celeste-100);
-  color: var(--celeste-500);
+  background: var(--rosa-100);
+  color: var(--rosa-500);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
 }
-.lugar-card--festejo .lugar-icon {
-  background: rgba(201, 169, 110, 0.12);
+.lugar-icon--festejo {
+  background: rgba(201, 164, 92, 0.1);
   color: var(--dorado-400);
 }
 .lugar-tipo {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--celeste-500);
+  color: var(--rosa-500);
 }
-.lugar-card--festejo .lugar-tipo { color: var(--dorado-400); }
+.lugar-tipo--festejo { color: var(--dorado-400); }
 .lugar-nombre {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--texto);
   margin-top: 2px;
 }
 .lugar-dir {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 300;
   color: var(--texto-medio);
   margin-bottom: 12px;
@@ -582,26 +607,26 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   align-items: center;
   gap: 6px;
   padding: 9px 18px;
-  background: var(--celeste-100);
+  background: var(--rosa-100);
   border-radius: 50px;
-  font-size: 0.78rem;
+  font-size: 0.77rem;
   font-weight: 500;
-  color: var(--celeste-500);
-  border: 1px solid var(--celeste-200);
+  color: var(--rosa-500);
+  border: 1px solid var(--rosa-200);
   align-self: flex-start;
   transition: background var(--trans), border-color var(--trans);
 }
-.btn-mapa:hover { background: var(--celeste-200); }
+.btn-mapa:hover { background: var(--rosa-200); }
 .btn-mapa--dorado {
-  background: rgba(201, 169, 110, 0.1);
+  background: rgba(201, 164, 92, 0.08);
   color: var(--dorado-400);
-  border-color: rgba(201, 169, 110, 0.28);
+  border-color: rgba(201, 164, 92, 0.26);
 }
-.btn-mapa--dorado:hover { background: rgba(201, 169, 110, 0.2); }
+.btn-mapa--dorado:hover { background: rgba(201, 164, 92, 0.16); }
 
 
 /* ─────────────────────────────────────────────────────────────
-   GALERÍA
+   GALERÍA · Layout asimétrico (diferente a la versión celeste)
    ───────────────────────────────────────────────────────────── */
 .galeria-section {
   padding: 64px 24px;
@@ -610,21 +635,30 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-align: center;
   position: relative;
 }
+/* Grilla asimétrica: primera foto grande vertical + dos cuadradas + una banner horizontal */
 .galeria-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: 1.3fr 1fr;
+  grid-template-rows: 150px 150px auto;
+  gap: 10px;
+  text-align: left;
 }
 .galeria-item {
   border-radius: var(--radio-m);
   overflow: hidden;
-  aspect-ratio: 1;
-  background: var(--celeste-100);
+  background: var(--rosa-100);
   box-shadow: var(--sombra-s);
   cursor: pointer;
   transition: transform var(--trans), box-shadow var(--trans);
 }
 .galeria-item:hover { transform: scale(1.02); box-shadow: var(--sombra-m); }
+/* Primera foto: ocupa las dos filas de la columna izquierda */
+.galeria-item:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+/* Segunda y tercera: columna derecha, una fila cada una */
+.galeria-item:nth-child(2) { grid-column: 2; grid-row: 1; }
+.galeria-item:nth-child(3) { grid-column: 2; grid-row: 2; }
+/* Cuarta foto: banner ancho a lo largo de toda la fila inferior */
+.galeria-item:nth-child(4) { grid-column: 1 / 3; grid-row: 3; aspect-ratio: 21/8; }
 .galeria-item img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -636,18 +670,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--celeste-100), var(--celeste-200));
-  color: var(--celeste-500);
-  font-family: 'Cormorant Garamond', serif;
+  background: linear-gradient(135deg, var(--rosa-100), var(--rosa-200));
+  color: var(--rosa-400);
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 /* Lightbox */
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(20, 40, 60, 0.88);
+  background: rgba(30, 10, 20, 0.88);
   z-index: 800;
   display: flex;
   align-items: center;
@@ -684,36 +718,37 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    FRASE ESPECIAL
    ───────────────────────────────────────────────────────────── */
 .frase-section {
-  background: linear-gradient(140deg, var(--celeste-100) 0%, var(--crema-100) 100%);
+  background: linear-gradient(140deg, var(--crema-200) 0%, var(--crema-100) 100%);
 }
 .frase-card {
   background: var(--blanco);
   border-radius: var(--radio-l);
   padding: 40px 32px;
   box-shadow: var(--sombra-m);
-  border: 1px solid var(--celeste-200);
+  border: 1px solid var(--rosa-200);
   max-width: 480px;
   margin: 0 auto;
   text-align: center;
 }
 .frase-ornamento {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 4.5rem;
-  color: var(--celeste-300);
-  line-height: 0.45;
+  font-size: 2.2rem;
+  color: var(--rosa-300);
   display: block;
+  line-height: 1;
   margin-bottom: 14px;
 }
-.frase-ornamento--cierre {
-  margin-top: 14px;
+.frase-ornamento--pie {
+  margin-top: 16px;
   margin-bottom: 0;
+  color: var(--dorado-300);
+  opacity: 0.7;
 }
 .frase-texto {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 1.18rem;
+  font-size: 1.15rem;
   color: var(--texto);
-  line-height: 1.75;
+  line-height: 1.8;
 }
 
 
@@ -721,23 +756,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    DRESS CODE
    ───────────────────────────────────────────────────────────── */
 .dresscode-section { text-align: center; }
-.dresscode-card {
+.dresscode-badge {
   display: inline-flex;
   align-items: center;
   gap: 14px;
   background: var(--blanco);
   border-radius: var(--radio-l);
-  padding: 22px 36px;
+  padding: 20px 32px;
   box-shadow: var(--sombra-s);
-  border: 1px solid var(--celeste-200);
+  border: 1px solid var(--rosa-200);
 }
-.dresscode-icon {
-  font-size: 1.1rem;
-  color: var(--dorado-300);
+.dresscode-flor {
+  font-size: 1.2rem;
+  color: var(--rosa-400);
 }
 .dresscode-texto {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.18rem;
   font-weight: 600;
   color: var(--texto);
 }
@@ -752,9 +787,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin: 0 auto;
   background: var(--blanco);
   border-radius: var(--radio-l);
-  padding: 28px 24px;
+  padding: 26px 24px;
   box-shadow: var(--sombra-m);
-  border: 1px solid var(--celeste-200);
+  border: 1px solid var(--rosa-200);
 }
 .regalos-row {
   display: flex;
@@ -764,7 +799,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-bottom: 10px;
 }
 .regalos-tag {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -773,11 +808,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-bottom: 3px;
 }
 .regalos-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.12rem;
   font-weight: 600;
   color: var(--texto);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 .regalos-sub {
   font-size: 0.82rem;
@@ -789,15 +824,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .copy-btn {
   width: 36px; height: 36px;
   border-radius: var(--radio-s);
-  background: var(--celeste-100);
-  color: var(--celeste-500);
+  background: var(--rosa-100);
+  color: var(--rosa-500);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   transition: background var(--trans);
 }
-.copy-btn:hover { background: var(--celeste-200); }
+.copy-btn:hover { background: var(--rosa-200); }
 .toast {
   position: fixed;
   bottom: 32px;
@@ -824,24 +859,24 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    CONFIRMACIÓN
    ───────────────────────────────────────────────────────────── */
 .confirmar-section {
-  background: linear-gradient(140deg, var(--celeste-100) 0%, var(--crema-100) 100%);
+  background: linear-gradient(140deg, var(--crema-100) 0%, var(--crema-200) 100%);
   text-align: center;
 }
-.confirmar-ornamento {
+.confirmar-bloom {
   display: block;
-  font-size: 1.3rem;
-  color: var(--dorado-300);
+  font-size: 2.2rem;
+  color: var(--rosa-400);
   margin-bottom: 16px;
 }
 .confirmar-titulo {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 2.1rem;
   font-weight: 600;
   color: var(--texto);
   margin-bottom: 8px;
 }
 .confirmar-sub {
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   font-weight: 300;
   color: var(--texto-medio);
   line-height: 1.6;
@@ -876,19 +911,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer {
   padding: 52px 24px 44px;
   text-align: center;
-  background: var(--celeste-100);
-  border-top: 1px solid var(--celeste-200);
+  background: var(--rosa-100);
+  border-top: 1px solid var(--rosa-200);
 }
-.footer-cross {
+.footer-bloom {
   display: block;
   font-size: 2rem;
-  color: var(--celeste-400);
+  color: var(--rosa-400);
   margin-bottom: 18px;
 }
 .footer-mensaje {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 1.08rem;
+  font-size: 1.06rem;
   color: var(--texto-medio);
   margin-bottom: 8px;
 }
@@ -903,7 +938,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--texto-suave);
 }
 .footer-credit a {
-  color: var(--celeste-500);
+  color: var(--rosa-500);
   text-decoration: underline;
 }
 
@@ -916,8 +951,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     grid-template-columns: 1fr 1fr;
   }
   .galeria-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+    grid-template-rows: 190px 190px auto;
   }
 }
 
@@ -926,7 +960,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .countdown-section { padding: 80px 40px; }
   .hero { padding: 100px 40px 80px; }
   .hero-foto-frame { width: 180px; height: 180px; }
-  .countdown-box { min-width: 84px; padding: 22px 18px; }
+  .countdown-box { min-width: 0; padding: 22px 18px; max-width: 96px; }
   .countdown-num { font-size: 2.8rem; }
   .musica-section { padding: 56px 40px; }
   .lugares-section { padding: 80px 40px; }
