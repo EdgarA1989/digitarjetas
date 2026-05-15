@@ -16,11 +16,6 @@
     "address": "Av. Bicentenario 1250, Salta",
     "mapUrl": "#"
   },
-  "music": {
-    "src": "./music/rainbow.mp3",
-    "title": "Canción especial",
-    "artist": ""
-  },
   "photos": ["./img/bebe_mujer.png"],
   "whatsappNumber": "549XXXXXXXXXX"
 }
