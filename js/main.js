@@ -152,13 +152,13 @@ const templates = [
     slug: "bautismo-rosa",
     category: "Bautismos y comuniones",
     style: "bautismos",
-    availablePlans: ["plus"],
+    availablePlans: ["esencial", "plus", "completo"],
     description: "Diseño delicado y femenino para bautismos de niña. Incluye galería asimétrica, música, dress code y datos de regalo.",
     image: "assets/img/template-bautismo-rosa.jpg",
     demos: {
-      esencial: "",
+      esencial: "./demos/bautismo-esencial/bautismo-rosa/",
       plus: "./demos/bautismo-plus/bautismo-rosa/",
-      completo: "",
+      completo: "./demos/bautismo-completo/bautismo-rosa/",
     },
     bg: "linear-gradient(145deg, #f2c4d5, #f9dde8 54%, #e8d09a)",
   },
@@ -188,9 +188,6 @@ const templates = [
 
 const filters = [
   { label: "Todas", value: "all" },
-  { label: "Esencial", value: "esencial" },
-  { label: "Plus", value: "plus" },
-  { label: "Completo", value: "completo" },
   { label: "15 años", value: "quince" },
   { label: "Casamientos", value: "casamientos" },
   { label: "Bautismos", value: "bautismos" },

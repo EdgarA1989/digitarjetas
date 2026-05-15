@@ -1,0 +1,20 @@
+{
+  "eventType": "Bautismo",
+  "childName": "Emma",
+  "title": "Bautismo de Emma",
+  "subtitle": "Con mucha alegría te invitamos a compartir este día tan especial.",
+  "date": "2026-10-18T11:00:00",
+  "ceremony": {
+    "title": "Ceremonia religiosa",
+    "place": "Parroquia Nuestra Señora del Valle",
+    "address": "España 742, Salta",
+    "mapUrl": "#"
+  },
+  "celebration": {
+    "title": "Celebración",
+    "place": "Salón Las Rosas",
+    "address": "Av. Bicentenario 1250, Salta",
+    "mapUrl": "#"
+  },
+  "whatsappNumber": "549XXXXXXXXXX"
+}
