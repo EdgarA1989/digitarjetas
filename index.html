@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Invitaciones digitales personalizadas para compartir por WhatsApp, con opción de confirmación de asistencia, música, galería, ubicación y cuenta regresiva.">
+  <meta name="keywords" content="invitaciones digitales, tarjetas digitales, invitaciones por WhatsApp, cumpleaños de 15, casamientos, bautismos, RSVP">
+  <meta name="author" content="DigiTarjetas">
+  <meta property="og:title" content="DigiTarjetas | Invitaciones digitales para eventos">
+  <meta property="og:description" content="Invitaciones digitales personalizadas para compartir por WhatsApp, con opción de confirmación de asistencia, música, galería, ubicación y cuenta regresiva.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/og-digitarjetas.jpg">
+  <title>DigiTarjetas | Invitaciones digitales para eventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Cambiar textos principales de marca y WhatsApp en este archivo y en js/main.js -->
+  <header class="site-header" id="inicio">
+    <nav class="navbar container" aria-label="Navegación principal">
+      <a href="#inicio" class="brand" aria-label="Ir al inicio de DigiTarjetas">
+        <span class="brand__mark">D</span>
+        <span>DigiTarjetas</span>
+      </a>
+
+      <div class="nav-panel" id="nav-panel">
+        <a href="#inicio" class="nav-link">Inicio</a>
+        <a href="#como-funciona" class="nav-link">Cómo funciona</a>
+        <a href="#plantillas" class="nav-link">Plantillas</a>
+        <a href="#planes" class="nav-link">Planes</a>
+        <a href="#preguntas" class="nav-link">Preguntas</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+        <a href="#" class="btn btn--whatsapp nav-whatsapp" data-wa-message="Hola, quiero consultar por una invitación digital">Consultar por WhatsApp</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" aria-pressed="false">
+          <span class="theme-toggle__sun" aria-hidden="true">☀</span>
+          <span class="theme-toggle__moon" aria-hidden="true">☾</span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-panel">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section-pad">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Invitaciones digitales premium</span>
+          <h1>Invitaciones digitales para eventos inolvidables</h1>
+          <p class="hero-subtitle">Diseños personalizados, listos para compartir por WhatsApp, con opción de confirmación de asistencia y todos los detalles de tu evento en un solo link.</p>
+          <div class="hero-actions">
+            <a href="#plantillas" class="btn btn--primary">Ver plantillas</a>
+            <a href="#" class="btn btn--whatsapp" data-wa-message="Hola, quiero consultar por una invitación digital">Consultar por WhatsApp</a>
+          </div>
+          <div class="trust-strip" aria-label="Beneficios destacados">
+            <span>Sin instalar apps</span>
+            <span>Lista para WhatsApp</span>
+            <span>Diseño responsive</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-label="Mockup de invitación digital">
+          <div class="floating-card floating-card--one">Confirmación de asistencia</div>
+          <div class="floating-card floating-card--two">Link para WhatsApp</div>
+          <div class="floating-card floating-card--three">Ubicación del evento</div>
+          <div class="floating-card floating-card--four">Cuenta regresiva</div>
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <div class="invite-preview">
+                <span class="invite-label">15 años</span>
+                <h2>Aurora</h2>
+                <p>Una noche para celebrar</p>
+                <div class="countdown">
+                  <span><strong>18</strong>Días</span>
+                  <span><strong>04</strong>Hs</span>
+                  <span><strong>22</strong>Min</span>
+                </div>
+                <button>Confirmar asistencia</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad" id="como-funciona">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Cómo funciona</span>
+          <h2>Tu invitación lista en simples pasos</h2>
+          <p>Elegís el estilo, nos pasás los datos y recibís un link moderno para compartir con tus invitados.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card reveal">
+            <span class="step-number">01</span>
+            <h3>Elegís una plantilla</h3>
+            <p>Explorás nuestras demos y seleccionás el estilo que más se adapte a tu evento.</p>
+          </article>
+          <article class="step-card reveal">
+            <span class="step-number">02</span>
+            <h3>Personalizamos tu invitación</h3>
+            <p>Adaptamos textos, colores, fotos, música, ubicación, horarios y secciones especiales.</p>
+          </article>
+          <article class="step-card reveal">
+            <span class="step-number">03</span>
+            <h3>Compartís tu link</h3>
+            <p>Recibís una invitación digital lista para enviar por WhatsApp a todos tus invitados.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad section-soft" id="incluye">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Qué puede incluir</span>
+          <h2>Todo lo importante de tu evento en un solo link</h2>
+          <p>Sumá secciones útiles y detalles emotivos para que la invitación sea práctica, clara y especial.</p>
+        </div>
+        <div class="features-grid" id="features-grid"></div>
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Dos formas de invitar</span>
+          <h2>Elegí cómo querés compartir tu invitación</h2>
+        </div>
+        <div class="options-grid">
+          <article class="option-card reveal">
+            <h3>Invitación por WhatsApp</h3>
+            <p>Simple, moderna y lista para enviar. Tus invitados reciben un link con todos los detalles del evento.</p>
+            <ul>
+              <li>Link personalizado</li>
+              <li>Datos del evento</li>
+              <li>Ubicación</li>
+              <li>Cuenta regresiva</li>
+              <li>Música opcional</li>
+              <li>Galería de fotos</li>
+              <li>Botón de contacto</li>
+            </ul>
+            <button class="btn btn--outline" type="button" data-filter-shortcut="whatsapp">Ver plantillas WhatsApp</button>
+          </article>
+          <article class="option-card option-card--highlight reveal">
+            <span class="badge">Más organizada</span>
+            <h3>Invitación con confirmación</h3>
+            <p>Además de invitar, podés recibir confirmaciones de asistencia para organizar mejor tu evento.</p>
+            <ul>
+              <li>Todo lo de la invitación clásica</li>
+              <li>Formulario de asistencia</li>
+              <li>Cantidad de invitados</li>
+              <li>Registro de respuestas</li>
+              <li>Planilla de confirmaciones</li>
+              <li>Mejor organización del evento</li>
+            </ul>
+            <button class="btn btn--primary" type="button" data-filter-shortcut="formulario">Ver plantillas con confirmación</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad section-soft" id="plantillas">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Plantillas destacadas</span>
+          <h2>Demos pensadas para distintos eventos</h2>
+          <p>Estas son algunas de nuestras plantillas destacadas. También podemos adaptar colores, textos, fotos y estilo según tu evento.</p>
+        </div>
+        <div class="template-filters reveal" id="template-filters" aria-label="Filtrar plantillas"></div>
+        <div class="templates-grid" id="templates-grid"></div>
+        <p class="templates-empty" id="templates-empty">No encontramos plantillas para este filtro por ahora. Probá con otra categoría.</p>
+      </div>
+    </section>
+
+    <section class="section-pad" id="planes">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Planes</span>
+          <h2>Paquetes simples para empezar</h2>
+          <p>Elegí el nivel de personalización y organización que mejor acompaña a tu evento.</p>
+        </div>
+        <div class="plans-grid">
+          <article class="plan-card reveal">
+            <h3>Esencial</h3>
+            <p>Para quienes quieren una invitación simple, linda y lista para compartir.</p>
+            <strong>Consultar precio</strong>
+            <ul>
+              <li>Invitación digital personalizada</li>
+              <li>Link para WhatsApp</li>
+              <li>Fecha, hora y lugar</li>
+              <li>Botón de ubicación</li>
+              <li>Cuenta regresiva</li>
+              <li>Diseño responsive</li>
+            </ul>
+            <a href="#" class="btn btn--outline" data-plan="Esencial">Consultar Plan Esencial</a>
+          </article>
+          <article class="plan-card plan-card--recommended reveal">
+            <span class="badge">Recomendado</span>
+            <h3>Completo</h3>
+            <p>La opción más elegida para eventos familiares y fiestas de 15.</p>
+            <strong>Consultar precio</strong>
+            <ul>
+              <li>Todo lo del Plan Esencial</li>
+              <li>Galería de fotos</li>
+              <li>Música de fondo</li>
+              <li>Secciones personalizadas</li>
+              <li>Confirmación de asistencia</li>
+              <li>Formulario RSVP</li>
+            </ul>
+            <a href="#" class="btn btn--primary" data-plan="Completo">Consultar Plan Completo</a>
+          </article>
+          <article class="plan-card reveal">
+            <h3>Premium</h3>
+            <p>Para quienes buscan una experiencia más completa y organizada.</p>
+            <strong>Consultar precio</strong>
+            <ul>
+              <li>Todo lo del Plan Completo</li>
+              <li>Diseño más personalizado</li>
+              <li>Lista de invitados</li>
+              <li>Planilla de confirmaciones</li>
+              <li>Cambios extra incluidos</li>
+              <li>Preparado para funciones avanzadas</li>
+            </ul>
+            <a href="#" class="btn btn--outline" data-plan="Premium">Consultar Plan Premium</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad section-split">
+      <div class="container split-grid">
+        <div class="reveal">
+          <span class="eyebrow">Por qué elegir DigiTarjetas</span>
+          <h2>Más práctico, más elegante, más fácil de compartir</h2>
+          <p>Una invitación digital acompaña la forma real en la que hoy se organizan los eventos: por celular, por WhatsApp y con información clara para todos.</p>
+        </div>
+        <div class="benefits-grid" id="benefits-grid"></div>
+      </div>
+    </section>
+
+    <section class="section-pad" id="preguntas">
+      <div class="container faq-container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2>Dudas comunes antes de encargar tu invitación</h2>
+        </div>
+        <div class="faq-list">
+          <article class="faq-item reveal">
+            <button class="faq-question" type="button">¿La invitación se puede enviar por WhatsApp?</button>
+            <div class="faq-answer"><p>Sí. Recibís un link listo para copiar y enviar por WhatsApp a todos tus invitados.</p></div>
+          </article>
+          <article class="faq-item reveal">
+            <button class="faq-question" type="button">¿Puedo elegir colores, fotos y música?</button>
+            <div class="faq-answer"><p>Sí. Personalizamos la plantilla con los datos, colores, fotos y estilo de tu evento.</p></div>
+          </article>
+          <article class="faq-item reveal">
+            <button class="faq-question" type="button">¿Puedo saber quién confirmó asistencia?</button>
+            <div class="faq-answer"><p>Sí. En los planes con confirmación, los invitados completan un formulario y las respuestas se registran para que puedas organizarlas.</p></div>
+          </article>
+          <article class="faq-item reveal">
+            <button class="faq-question" type="button">¿Necesito instalar algo?</button>
+            <div class="faq-answer"><p>No. La invitación funciona desde un link y se abre desde cualquier celular, tablet o computadora.</p></div>
+          </article>
+          <article class="faq-item reveal">
+            <button class="faq-question" type="button">¿Puedo pedir una plantilla personalizada?</button>
+            <div class="faq-answer"><p>Sí. Podemos adaptar una plantilla existente o crear una propuesta más personalizada según el tipo de evento.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad section-soft" id="contacto">
+      <div class="container contact-grid">
+        <div class="contact-copy reveal">
+          <span class="eyebrow">Contacto</span>
+          <h2>Contanos qué evento estás preparando</h2>
+          <p>Te orientamos con la plantilla, el plan y las secciones que más convienen según el tipo de celebración.</p>
+          <a href="#" class="btn btn--whatsapp btn--large" data-wa-message="Hola, quiero consultar por una invitación digital">Consultar por WhatsApp</a>
+          <p class="contact-note">Reemplazá el número de WhatsApp en <code>js/main.js</code> antes de publicar.</p>
+        </div>
+
+        <form class="contact-form reveal" id="contact-form" novalidate>
+          <div class="form-row">
+            <label>Nombre<input type="text" name="nombre" required placeholder="Tu nombre"></label>
+            <label>WhatsApp<input type="tel" name="whatsapp" required placeholder="+54 9..."></label>
+          </div>
+          <div class="form-row">
+            <label>Tipo de evento<input type="text" name="evento" required placeholder="15, casamiento, bautismo..."></label>
+            <label>Fecha del evento<input type="date" name="fecha"></label>
+          </div>
+          <label>Plantilla que te gustó<input type="text" name="plantilla" placeholder="Ej: Aurora"></label>
+          <label>¿Querés confirmación de asistencia?
+            <select name="confirmacion" required>
+              <option value="">Seleccionar</option>
+              <option>Sí</option>
+              <option>No</option>
+              <option>No estoy seguro</option>
+            </select>
+          </label>
+          <label>Mensaje<textarea name="mensaje" rows="4" required placeholder="Contanos qué tenés en mente"></textarea></label>
+          <button class="btn btn--primary btn--full" type="submit">Enviar consulta</button>
+          <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="template-modal" aria-hidden="true">
+    <div class="modal__overlay" data-modal-close></div>
+    <section class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal__close" type="button" aria-label="Cerrar" data-modal-close>×</button>
+      <span class="eyebrow">Modalidad</span>
+      <h2 id="modal-title">Elegí cómo querés ver esta plantilla</h2>
+      <p id="modal-text">Esta plantilla está disponible en dos modalidades. Podés verla como invitación clásica para WhatsApp o con confirmación de asistencia.</p>
+      <div class="modal__actions" id="modal-actions"></div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#inicio" class="brand brand--footer"><span class="brand__mark">D</span><span>DigiTarjetas</span></a>
+        <p>Invitaciones digitales personalizadas para eventos especiales.</p>
+      </div>
+      <nav class="footer-links" aria-label="Navegación de pie">
+        <a href="#inicio">Inicio</a>
+        <a href="#plantillas">Plantillas</a>
+        <a href="#planes">Planes</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" data-wa-message="Hola, quiero consultar por una invitación digital">WhatsApp</a>
+        <!-- Cambiar este link por el Instagram real -->
+        <a href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> DigiTarjetas. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

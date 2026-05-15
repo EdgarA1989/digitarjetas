@@ -1,0 +1,71 @@
+{
+  "nombre": "Sofía",
+  "frase": "La vida florece. Y yo quiero vivirla con vos.",
+  "fecha": "2026-11-14T20:00:00",
+  "fechaDisplay": "Sábado · 14 de Noviembre · 2026",
+  "hora": "20:00 hs",
+
+  "bienvenida": {
+    "titulo": "Un momento que siempre voy a recordar.",
+    "texto": "Cumplir quince es más que una fecha. Es un capítulo nuevo, lleno de luz. Y quiero empezarlo rodeada de las personas que más quiero. Gracias por estar acá."
+  },
+
+  "lugar": {
+    "nombre": "Salón La Estancia",
+    "barrio": "San Isidro · GBA Norte",
+    "direccion": "Av. del Libertador 1500, San Isidro",
+    "mapsUrl": "https://maps.google.com/?q=Av+del+Libertador+1500+San+Isidro"
+  },
+
+  "dresscode": {
+    "texto": "Elegante / Cocktail",
+    "nota": "El verde agua está reservado para la festejada."
+  },
+
+  "regalos": {
+    "texto": "Tu presencia ya lo es todo. Si querés tener un detalle, podés hacerlo por acá.",
+    "alias": "sofia.rodriguez",
+    "cbu": "0000003100025264839001",
+    "banco": "Mercado Pago / cualquier banco"
+  },
+
+  "whatsapp": {
+    "numero": "5491155550000",
+    "mensaje": "¡Hola! Confirmo mi asistencia a los 15 de Sofía 🌿"
+  },
+
+  "musica": {
+    "src": "music/titanium.mp3",
+    "titulo": "Titanium",
+    "artista": "David Guetta ft. Sia"
+  },
+
+  "fotos": [
+    "img/foto horizontal 1.png",
+    "img/foto vertical 1.png",
+    "img/foto vertical 2.png",
+    "img/foto vertical 3.png",
+    "img/foto vertical 4.png",
+    "img/foto horizontal 2.png"
+  ],
+
+  "footer": {
+    "mensaje": "Gracias por ser parte de este momento tan especial.",
+    "firma": "Con amor, Sofía · 2026"
+  },
+
+  "tema": {
+    "acento": "#5bbfb5",
+    "acentoOscuro": "#3d9d93",
+    "acentoClaro": "#a8ddd9",
+    "acentoMenta": "#d4efec"
+  },
+
+  "rsvp": {
+    "enabled": true,
+    "maxGuests": 6,
+    "submitMode": "mailto",
+    "emailTo": "edgar.andrada@gmail.com",
+    "googleSheetsUrl": ""
+  }
+}

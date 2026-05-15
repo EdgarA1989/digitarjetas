@@ -1,0 +1,112 @@
+/* Componentes reutilizables para demos de DigiTarjetas.
+   Incluir este archivo dentro de cada demo con:
+   <link rel="stylesheet" href="../../../css/demo-components.css">
+*/
+:root {
+  --dt-bg: #fbf8ff;
+  --dt-card: rgba(255, 255, 255, .86);
+  --dt-text: #18152a;
+  --dt-muted: #6f6a80;
+  --dt-line: rgba(67, 48, 105, .14);
+  --dt-primary: #7357ff;
+  --dt-rose: #f37ba9;
+  --dt-whatsapp: #1fc46b;
+}
+
+body.dark {
+  --dt-bg: #070816;
+  --dt-card: rgba(18, 20, 46, .78);
+  --dt-text: #f8f4ff;
+  --dt-muted: #b7b4ca;
+  --dt-line: rgba(255, 255, 255, .12);
+}
+
+.dt-demo-tools {
+  width: min(940px, calc(100% - 2rem));
+  margin: 3rem auto;
+  display: grid;
+  gap: 1rem;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.dt-mode-switcher,
+.dt-demo-cta {
+  padding: clamp(1.1rem, 4vw, 1.6rem);
+  border: 1px solid var(--dt-line);
+  border-radius: 24px;
+  color: var(--dt-text);
+  background: var(--dt-card);
+  box-shadow: 0 18px 48px rgba(36, 26, 84, .12);
+  backdrop-filter: blur(16px);
+}
+
+.dt-mode-switcher h2,
+.dt-demo-cta h2 {
+  margin: 0 0 .6rem;
+  font-family: "Poppins", system-ui, sans-serif;
+  line-height: 1.12;
+}
+
+.dt-mode-switcher p,
+.dt-demo-cta p {
+  margin: 0 0 1rem;
+  color: var(--dt-muted);
+}
+
+.dt-mode-controls {
+  display: grid;
+  gap: .75rem;
+}
+
+.dt-mode-controls select,
+.dt-mode-controls button,
+.dt-demo-cta a {
+  min-height: 48px;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 800;
+}
+
+.dt-mode-controls select {
+  width: 100%;
+  padding: .85rem 1rem;
+  border: 1px solid var(--dt-line);
+  color: var(--dt-text);
+  background: color-mix(in srgb, var(--dt-card) 86%, white);
+}
+
+.dt-mode-controls button,
+.dt-demo-cta a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .85rem 1.15rem;
+  border: 0;
+  color: #fff;
+  background: linear-gradient(135deg, var(--dt-primary), var(--dt-rose));
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dt-demo-cta__actions {
+  display: grid;
+  gap: .75rem;
+}
+
+.dt-demo-cta a[data-demo-whatsapp] {
+  background: linear-gradient(135deg, var(--dt-whatsapp), #19a95b);
+}
+
+.dt-demo-cta a[data-demo-back] {
+  color: var(--dt-text);
+  border: 1px solid var(--dt-line);
+  background: transparent;
+}
+
+@media (min-width: 680px) {
+  .dt-mode-controls,
+  .dt-demo-cta__actions {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}

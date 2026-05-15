@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>15 · Valentina</title>
+  <meta name="description" content="Invitación digital · 15 años de Valentina" />
+  <meta property="og:title" content="15 · Valentina" />
+  <meta property="og:description" content="Quince años siendo exactamente quien soy. La noche más épica empieza acá." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../../../css/demo-components.css" />
+</head>
+<body>
+<script>document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden'</script>
+
+  <!-- textura grain fija -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ═══ COVER · Pantalla de bienvenida ═══ -->
+  <div id="cover" class="cover" role="dialog" aria-label="Invitación de 15 años">
+    <div class="cover-particles" id="cover-particles" aria-hidden="true"></div>
+    <span class="cover-deco-15" aria-hidden="true">15</span>
+    <div class="cover-content">
+      <p class="cover-tag">// 15 años</p>
+      <h1 class="cover-nombre" id="cover-nombre">Valentina</h1>
+      <p class="cover-frase" id="cover-frase">Quince años siendo exactamente quien soy.</p>
+      <div class="cover-line" aria-hidden="true"></div>
+      <p class="cover-fecha" id="cover-fecha">Sábado · 19 de Septiembre · 2026</p>
+      <button class="cover-btn" id="btn-cover">
+        <span>Entrar</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <main id="main">
+
+    <!-- ── HERO ── -->
+    <section id="hero" class="hero">
+      <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
+      <span class="hero-bg-15" aria-hidden="true">15</span>
+      <div class="hero-content">
+        <p class="hero-tag reveal">// tus quince son</p>
+        <p class="hero-quince reveal">15</p>
+        <div class="hero-line reveal" aria-hidden="true"></div>
+        <h2 class="hero-name reveal" id="hero-name">VALENTINA</h2>
+        <div class="hero-line reveal" aria-hidden="true"></div>
+        <p class="hero-frase reveal" id="hero-frase">Quince años siendo exactamente quien soy.</p>
+        <p class="hero-fecha reveal" id="hero-fecha">Sábado · 19 de Septiembre · 2026</p>
+        <a class="hero-cta reveal" href="#countdown" aria-label="Ver más">↓</a>
+      </div>
+    </section>
+
+    <!-- ── MÚSICA ── -->
+    <section id="musica" class="section musica-section reveal">
+      <p class="section-tag">// el track</p>
+      <div class="musica-player">
+        <button class="musica-btn" id="musica-btn" aria-label="Reproducir">
+          <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="display:none"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>
+        </button>
+        <div class="musica-info">
+          <p class="musica-titulo" id="musica-titulo">La canción</p>
+          <p class="musica-artista" id="musica-artista">Artista</p>
+        </div>
+      </div>
+      <div class="eq-orb" id="eq-bars" aria-hidden="true">
+        <div class="eq-bars-inner">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <audio id="audio" loop preload="none"></audio>
+    </section>
+
+    <!-- ── COUNTDOWN ── -->
+    <section id="countdown" class="countdown-section">
+      <p class="section-tag reveal">// cuenta regresiva</p>
+      <div class="countdown-grid reveal">
+        <div class="countdown-box">
+          <span class="countdown-num" id="cd-days">00</span>
+          <span class="countdown-label">días</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-box">
+          <span class="countdown-num" id="cd-hours">00</span>
+          <span class="countdown-label">horas</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-box">
+          <span class="countdown-num" id="cd-mins">00</span>
+          <span class="countdown-label">min</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-box">
+          <span class="countdown-num" id="cd-secs">00</span>
+          <span class="countdown-label">seg</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CALENDARIO ── -->
+    <section id="calendario" class="calendario-section">
+      <p class="section-tag reveal">// guardá la fecha</p>
+      <div class="calendario-card reveal" id="calendario-card"></div>
+    </section>
+
+    <!-- ── BIENVENIDA ── -->
+    <section id="bienvenida" class="section bienvenida-section reveal">
+      <p class="section-tag">// presentación</p>
+      <h2 class="bien-titulo" id="bien-titulo">Sin ensayo.<br>Sin segundo tiempo.</h2>
+      <p class="bien-texto" id="bien-texto">Quince años de ser exactamente quien soy, sin filtros. Esta noche lo celebramos a lo grande. Grabalo todo porque esto no se repite.</p>
+      <span class="bien-mic" aria-hidden="true">🎤</span>
+    </section>
+
+    <!-- ── FECHA Y HORA ── -->
+    <section id="evento" class="section evento-section">
+      <p class="section-tag reveal">// la noche</p>
+
+      <div class="evento-card reveal">
+        <div class="evento-fila">
+          <div class="evento-bloque">
+            <p class="evento-tag">Fecha</p>
+            <p class="evento-val" id="evento-fecha">Sáb · 19 Sep · 2026</p>
+          </div>
+          <div class="evento-sep-v" aria-hidden="true"></div>
+          <div class="evento-bloque">
+            <p class="evento-tag">Hora</p>
+            <p class="evento-val" id="evento-hora">21:00 hs</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LUGAR ── -->
+      <div class="lugar-card reveal">
+        <div class="lugar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        </div>
+        <div class="lugar-info">
+          <p class="lugar-nombre" id="lugar-nombre">Salón Stage</p>
+          <p class="lugar-barrio" id="lugar-barrio">Villa del Parque · CABA</p>
+          <p class="lugar-dir" id="lugar-dir">Av. San Martín 3850, CABA</p>
+        </div>
+        <a class="btn-maps" id="btn-maps" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+          Cómo llegar
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── DRESS CODE ── -->
+    <section id="dresscode" class="section dresscode-section reveal">
+      <p class="section-tag">// dress code</p>
+      <div class="dresscode-inner">
+        <span class="dresscode-icon" aria-hidden="true">✦</span>
+        <div>
+          <p class="dresscode-texto" id="dresscode-texto">Street Glam / Elegante con actitud</p>
+          <p class="dresscode-nota" id="dresscode-nota">El azul está reservado para la festejada.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── REGALOS ── -->
+    <section id="regalos" class="section regalos-section reveal">
+      <p class="section-tag">// un detalle</p>
+      <p class="regalos-texto" id="regalos-texto">Tu presencia vale más que cualquier regalo. Pero si querés sumar al show, acá van los datos.</p>
+      <div class="regalos-card">
+        <div class="regalos-row">
+          <div>
+            <span class="regalos-tag">Alias</span>
+            <span class="regalos-val" id="regalos-alias">valentina.rap</span>
+          </div>
+          <button class="copy-btn" data-target="regalos-alias" aria-label="Copiar alias">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <div class="regalos-divider"></div>
+        <div class="regalos-row">
+          <div>
+            <span class="regalos-tag">CBU</span>
+            <span class="regalos-val" id="regalos-cbu">0000003100025264839001</span>
+          </div>
+          <button class="copy-btn" data-target="regalos-cbu" aria-label="Copiar CBU">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <p class="regalos-banco" id="regalos-banco">Mercado Pago / cualquier banco</p>
+      </div>
+      <div class="toast" id="toast" aria-live="polite">¡Copiado! ✓</div>
+    </section>
+
+    <!-- ── GALERÍA ── -->
+    <section id="galeria" class="section galeria-section">
+      <p class="section-tag reveal">// momentos</p>
+      <div class="galeria-grid" id="galeria-grid"></div>
+      <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
+        <img class="lightbox-img" id="lightbox-img" alt="Foto ampliada" />
+      </div>
+    </section>
+
+    <!-- ── CONFIRMACIÓN ── -->
+    <section id="confirmar" class="section confirmar-section reveal">
+      <p class="section-tag">// ¿vas a estar?</p>
+      <h2 class="confirmar-titulo">Confirmá<br>tu lugar.</h2>
+      <p class="confirmar-sub">Avisanos si vas a estar en el show. Lo necesitamos para organizar todo.</p>
+      <a class="btn-wa" id="btn-wa" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.849L.073 23.927l6.266-1.443A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.578-.477-5.083-1.314l-.365-.215-3.716.856.879-3.62-.237-.371A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Confirmar por WhatsApp
+      </a>
+
+      <!-- ── AGENDAR ── -->
+      <div class="agendar-wrap">
+        <button class="btn-agendar btn-agendar--solo" id="btn-ics">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Reservar fecha
+        </button>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+      <div class="footer-line" aria-hidden="true"></div>
+      <p class="footer-mensaje" id="footer-mensaje">Esta noche la hacemos historia.</p>
+      <p class="footer-firma" id="footer-firma">Valen · 2026</p>
+      <p class="footer-credit">Invitación digital creada con <a href="#" target="_blank" rel="noopener">Programate</a></p>
+    </footer>
+
+  </main>
+    <section class="dt-demo-tools">
+      <div class="dt-mode-switcher">
+        <h2>También podés ver esta plantilla en otra modalidad</h2>
+        <p>Elegí si querés verla como invitación clásica para WhatsApp o con confirmación de asistencia.</p>
+        <div class="dt-mode-controls">
+          <select data-demo-mode-select aria-label="Elegir modalidad"></select>
+          <button type="button" data-demo-mode-go>Ver modalidad</button>
+        </div>
+      </div>
+      <div class="dt-demo-cta">
+        <h2>¿Te gustó esta plantilla?</h2>
+        <p>Podemos personalizarla con tus fotos, colores, música, ubicación, fecha y todos los detalles de tu evento.</p>
+        <div class="dt-demo-cta__actions">
+          <a href="#" data-demo-whatsapp>Quiero esta plantilla</a>
+          <a href="../../../" data-demo-back>Volver a DigiTarjetas</a>
+        </div>
+      </div>
+    </section>
+  <script src="script.js"></script>
+
+  <script>const CURRENT_TEMPLATE = "blue-night"; const CURRENT_MODE = "whatsapp";</script>
+  <script src="../../../js/demo-switcher.js"></script>
+</body>
+</html>
