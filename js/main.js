@@ -144,6 +144,7 @@ const templates = [
     availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado, luminoso y elegante para bautismos. Incluye galería, música, dress code y datos de regalo.",
     image: "assets/img/demos/bautismo-celeste/preview.jpg",
+    previewVideo: "assets/videos/previews/bautismo-celeste.mp4",
     previewImage: "assets/img/demos/bautismo-celeste/preview.jpg",
     previewType: "demo",
     demos: {
@@ -296,26 +297,28 @@ function renderTemplates() {
 
   grid.innerHTML = visibleTemplates.map(template => `
     <article class="template-card reveal">
-      <div class="template-visual" style="--template-bg: ${template.bg}; --template-image: url('${template.image}')">
-        <div class="template-mini-phone" aria-hidden="true">
-          <div class="template-mini-screen${hasTemplatePreviewMedia(template) ? "" : " is-fallback"}">
-            ${getTemplatePreviewMedia(template)}
+      <div class="template-card__body" style="--template-bg: ${template.bg}; --template-image: url('${template.image}')">
+        <div class="template-card__media">
+          <div class="template-mini-phone" aria-hidden="true">
+            <div class="template-mini-screen${hasTemplatePreviewMedia(template) ? "" : " is-fallback"}">
+              ${getTemplatePreviewMedia(template)}
+            </div>
           </div>
         </div>
+        <div class="template-card__content">
+          <span class="template-category">${template.category}</span>
+          <h3>${template.name}</h3>
+          <div class="template-meta">
+            <span class="template-mode ${getPlanBadgeClass(template)}">${getPlanBadgeText(template)}</span>
+          </div>
+          <p>${template.description}</p>
+        </div>
       </div>
-      <div class="template-body">
-        <span class="template-category">${template.category}</span>
-        <h3>${template.name}</h3>
-        <div class="template-meta">
-          <span class="template-mode ${getPlanBadgeClass(template)}">${getPlanBadgeText(template)}</span>
-        </div>
-        <p>${template.description}</p>
-        <div class="template-actions">
-          ${getAvailableDemoPlans(template).length
-            ? `<button class="btn btn--outline btn--small" type="button" data-demo-template="${template.slug}">Ver demo</button>`
-            : `<button class="btn btn--outline btn--small" type="button" disabled>Demo pronto</button>`}
-          <button class="btn btn--primary btn--small" type="button" data-consult-template="${template.slug}">Quiero esta</button>
-        </div>
+      <div class="template-actions">
+        ${getAvailableDemoPlans(template).length
+          ? `<button class="btn btn--outline btn--small" type="button" data-demo-template="${template.slug}">Ver demo</button>`
+          : `<button class="btn btn--outline btn--small" type="button" disabled>Demo pronto</button>`}
+        <button class="btn btn--primary btn--small" type="button" data-consult-template="${template.slug}">Quiero esta</button>
       </div>
     </article>
   `).join("");

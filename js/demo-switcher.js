@@ -73,9 +73,7 @@ const legacyModeToPlan = {
 
 document.addEventListener("DOMContentLoaded", () => {
   initDemoMediaState();
-  // Temporalmente desactivado para grabar videos de las demos sin la barra superior.
-  // Para volver a mostrarla, descomentar la siguiente linea.
-  // initDemoPlanSwitcher();
+  initDemoPlanSwitcher();
   initDemoLightboxState();
   initDemoCommercialCta();
 });
