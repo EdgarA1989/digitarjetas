@@ -111,14 +111,21 @@ function initDemoPlanSwitcher() {
   document.querySelectorAll(".dt-mode-switcher").forEach(element => element.remove());
 
   const availablePlans = Object.entries(demoPlanLabels).filter(([plan]) => Boolean(links[plan]));
-  if (availablePlans.length < 2) return;
+  if (availablePlans.length < 1) return;
 
   const bar = document.createElement("nav");
   bar.className = "dt-plan-bar";
   bar.setAttribute("aria-label", "Versiones de la plantilla por plan");
   bar.innerHTML = `
-    <span class="dt-plan-bar__label">Ver versión</span>
-    <div class="dt-plan-bar__actions">
+    <button class="dt-plan-trigger" type="button" aria-expanded="false" aria-controls="dt-plan-menu">
+      <span>Otras versiones</span>
+      <span class="dt-plan-trigger__icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+    <div class="dt-plan-menu" id="dt-plan-menu" hidden>
       ${availablePlans.map(([plan, label]) => `
         <button
           class="dt-plan-button${plan === currentPlan ? " is-active" : ""}"
@@ -129,8 +136,23 @@ function initDemoPlanSwitcher() {
           ${label.replace("Plan ", "")}
         </button>
       `).join("")}
+      <a class="dt-plan-link" href="../../../#plantillas">Otras demos</a>
     </div>
   `;
+
+  const trigger = bar.querySelector(".dt-plan-trigger");
+  const menu = bar.querySelector(".dt-plan-menu");
+  const closeMenu = () => {
+    bar.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", "false");
+    menu.hidden = true;
+  };
+
+  trigger.addEventListener("click", () => {
+    const isOpen = bar.classList.toggle("is-open");
+    trigger.setAttribute("aria-expanded", String(isOpen));
+    menu.hidden = !isOpen;
+  });
 
   bar.querySelectorAll("[data-demo-plan-button]").forEach(button => {
     button.addEventListener("click", () => {
@@ -142,6 +164,17 @@ function initDemoPlanSwitcher() {
   });
 
   document.body.prepend(bar);
+
+  document.addEventListener("click", event => {
+    if (!bar.classList.contains("is-open") || bar.contains(event.target)) return;
+    closeMenu();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key !== "Escape" || !bar.classList.contains("is-open")) return;
+    closeMenu();
+    trigger.focus();
+  });
 }
 
 function initDemoCommercialCta() {
@@ -161,11 +194,7 @@ function initDemoCommercialCta() {
     whatsapp.href = `https://wa.me/${DEMO_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   }
 
-  const back = document.querySelector("[data-demo-back]");
-  if (back) {
-    back.href = "../../../#plantillas";
-    back.textContent = "Otras demos";
-  }
+  document.querySelectorAll("[data-demo-back]").forEach(element => element.remove());
 }
 
 
