@@ -73,7 +73,10 @@ const legacyModeToPlan = {
 
 document.addEventListener("DOMContentLoaded", () => {
   initDemoMediaState();
-  initDemoPlanSwitcher();
+  // Temporalmente desactivado para grabar videos de las demos sin la barra superior.
+  // Para volver a mostrarla, descomentar la siguiente linea.
+  // initDemoPlanSwitcher();
+  initDemoLightboxState();
   initDemoCommercialCta();
 });
 
@@ -136,7 +139,7 @@ function initDemoPlanSwitcher() {
           ${label.replace("Plan ", "")}
         </button>
       `).join("")}
-      <a class="dt-plan-link" href="../../../#plantillas">Otras demos</a>
+      <a class="dt-plan-link" href="../../../#plantillas">Volver</a>
     </div>
   `;
 
@@ -195,6 +198,75 @@ function initDemoCommercialCta() {
   }
 
   document.querySelectorAll("[data-demo-back]").forEach(element => element.remove());
+
+  document.querySelectorAll(".dt-demo-cta__actions").forEach(actions => {
+    if (actions.querySelector("[data-demo-return]")) return;
+
+    const backLink = document.createElement("a");
+    backLink.href = "../../../#plantillas";
+    backLink.textContent = "Volver";
+    backLink.setAttribute("data-demo-return", "");
+    actions.append(backLink);
+  });
+}
+
+function initDemoLightboxState() {
+  const getOpenLightbox = () => document.querySelector(".lightbox.open");
+  const galleryTarget = () => document.getElementById("galeria")
+    || document.querySelector(".galeria-section")
+    || document.querySelector(".galeria");
+
+  let lightboxHistoryActive = false;
+
+  const syncLightboxState = () => {
+    const isOpen = Boolean(getOpenLightbox());
+    document.body.classList.toggle("dt-lightbox-open", isOpen);
+  };
+
+  const closeLightbox = () => {
+    const lightbox = getOpenLightbox();
+    if (!lightbox) return;
+
+    lightbox.querySelector(".lightbox-close")?.click();
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    syncLightboxState();
+
+    window.setTimeout(() => {
+      galleryTarget()?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  };
+
+  document.addEventListener("click", event => {
+    const galleryClick = event.target.closest(".galeria-item, .gallery-item, #galeria-grid img");
+    if (!galleryClick) return;
+
+    window.setTimeout(() => {
+      if (!getOpenLightbox() || lightboxHistoryActive) {
+        syncLightboxState();
+        return;
+      }
+
+      lightboxHistoryActive = true;
+      history.pushState({ dtLightbox: true }, "", "#galeria");
+      syncLightboxState();
+    }, 0);
+  });
+
+  window.addEventListener("popstate", () => {
+    if (!lightboxHistoryActive) return;
+    lightboxHistoryActive = false;
+    closeLightbox();
+  });
+
+  const observer = new MutationObserver(syncLightboxState);
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ["class", "aria-hidden"],
+    subtree: true,
+  });
+
+  syncLightboxState();
 }
 
 
