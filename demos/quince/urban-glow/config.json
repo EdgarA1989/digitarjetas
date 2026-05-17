@@ -44,5 +44,16 @@
     "tema":  {
                  "acento":  "#b84fff",
                  "acento2":  "#7b2ff7"
-             }
+             },
+    "assets":  {
+                   "imagesBasePath":  "../../../assets/img/demos/urban-glow/",
+                   "musicPath":  "",
+                   "heroImage":  "",
+                   "coverImage":  "",
+                   "gallery":  [
+
+                               ],
+                   "placeholderImage":  "../../../assets/img/ui/placeholders/placeholder-evento.jpg"
+               },
+    "_assetsHelp":  "Demos dentro de demos/*/* usan ../../../assets/. Clientes copiados a clientes/nombre-cliente/ deben usar ../../assets/."
 }

@@ -1,21 +1,38 @@
 {
-  "eventType": "Bautismo",
-  "childName": "Mateo",
-  "title": "Bautismo de Mateo",
-  "subtitle": "Te invitamos a compartir este día tan especial.",
-  "date": "2026-09-20T15:30:00",
-  "ceremony": {
-    "title": "Ceremonia religiosa",
-    "place": "Parroquia San José",
-    "address": "Av. Belgrano 1250, Salta",
-    "mapUrl": "#"
-  },
-  "celebration": {
-    "title": "Festejo",
-    "place": "Salón Los Olivos",
-    "address": "Mitre 845, Salta",
-    "mapUrl": "#"
-  },
-  "photos": ["./img/bebe_varon.png"],
-  "whatsappNumber": "549XXXXXXXXXX"
+    "eventType":  "Bautismo",
+    "childName":  "Mateo",
+    "title":  "Bautismo de Mateo",
+    "subtitle":  "Te invitamos a compartir este día tan especial.",
+    "date":  "2026-09-20T15:30:00",
+    "ceremony":  {
+                     "title":  "Ceremonia religiosa",
+                     "place":  "Parroquia San José",
+                     "address":  "Av. Belgrano 1250, Salta",
+                     "mapUrl":  "#"
+                 },
+    "celebration":  {
+                        "title":  "Festejo",
+                        "place":  "Salón Los Olivos",
+                        "address":  "Mitre 845, Salta",
+                        "mapUrl":  "#"
+                    },
+    "photos":  [
+                   "bebe_varon.png"
+               ],
+    "whatsappNumber":  "549XXXXXXXXXX",
+    "heroPhoto":  "bebe_varon.png",
+    "music":  {
+                  "src":  ""
+              },
+    "assets":  {
+                   "imagesBasePath":  "../../../assets/img/demos/bautismo-celeste/",
+                   "musicPath":  "",
+                   "heroImage":  "bebe_varon.png",
+                   "coverImage":  "bebe_varon.png",
+                   "gallery":  [
+                                   "bebe_varon.png"
+                               ],
+                   "placeholderImage":  "../../../assets/img/ui/placeholders/placeholder-evento.jpg"
+               },
+    "_assetsHelp":  "Demos dentro de demos/*/* usan ../../../assets/. Clientes copiados a clientes/nombre-cliente/ deben usar ../../assets/."
 }

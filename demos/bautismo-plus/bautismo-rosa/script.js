@@ -15,8 +15,37 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(() => init(null));
 });
 
+
+function normalizeDemoAssets(config) {
+  if (!config) return config;
+  const assets = config.assets || {};
+  const imageBase = assets.imagesBasePath || "";
+  const placeholder = assets.placeholderImage || "../../../assets/img/ui/placeholders/placeholder-evento.jpg";
+  const localName = value => String(value || "").replace(/^\.\//, "").replace(/^img\//, "").replace(/^music\//, "");
+  const isAbsolute = value => /^(https?:|data:|\/|\.\.\/)/.test(String(value || ""));
+  const imageUrl = value => {
+    if (!value) return placeholder;
+    if (isAbsolute(value)) return value;
+    return imageBase ? imageBase + localName(value) : value;
+  };
+
+  const gallerySource = Array.isArray(assets.gallery) && assets.gallery.length
+    ? assets.gallery
+    : (Array.isArray(config.fotos) ? config.fotos : (Array.isArray(config.photos) ? config.photos : []));
+  const gallery = gallerySource.map(imageUrl).filter(Boolean);
+
+  if (Array.isArray(config.fotos) || assets.gallery) config.fotos = gallery;
+  if (Array.isArray(config.photos) || assets.gallery) config.photos = gallery;
+  if (assets.heroImage || config.heroPhoto) config.heroPhoto = imageUrl(assets.heroImage || config.heroPhoto);
+  if (assets.coverImage || config.coverPhoto) config.coverPhoto = imageUrl(assets.coverImage || config.coverPhoto);
+
+  const musicPath = assets.musicPath || config.musica?.src || config.music?.src || "";
+  if (config.musica) config.musica.src = musicPath;
+  if (config.music) config.music.src = musicPath;
+  return config;
+}
 function init(config) {
-  config = config || getDefaultConfig();
+  config = normalizeDemoAssets(config || getDefaultConfig());
 
   poblarCover(config);
   poblarHero(config);
@@ -49,8 +78,8 @@ function getDefaultConfig() {
     date: "2026-10-18T11:00:00",
     ceremony: { title: "Ceremonia religiosa", place: "Parroquia Nuestra Señora del Valle", address: "España 742, Salta", mapUrl: "#" },
     celebration: { title: "Celebración", place: "Salón Las Rosas", address: "Av. Bicentenario 1250, Salta", mapUrl: "#" },
-    music: { src: "./music/music.mp3", title: "Canción especial", artist: "Artista" },
-    photos: ["./img/foto-1.jpg", "./img/foto-2.jpg", "./img/foto-3.jpg", "./img/foto-4.jpg"],
+    music: { src: "../../../assets/music/bautismo-clasico.mp3", title: "Canción especial", artist: "Artista" },
+    photos: ["../../../assets/img/ui/placeholders/placeholder-evento.jpg", "../../../assets/img/ui/placeholders/placeholder-evento.jpg", "../../../assets/img/ui/placeholders/placeholder-evento.jpg", "../../../assets/img/ui/placeholders/placeholder-evento.jpg"],
     gift: { alias: "EMMA.BAUTISMO", text: "Tu cariño es nuestro mejor regalo." },
     dressCode: "Elegante sport",
     specialPhrase: "Que Dios ilumine tu camino y te acompañe con amor en cada paso de tu vida.",
@@ -154,7 +183,7 @@ function initMusic(config) {
   if (!audio || !btn) return;
 
   const musicConfig = config.music || {};
-  audio.src = musicConfig.src || "./music/rainbow.mp3";
+  audio.src = musicConfig.src || "../../../assets/music/bautismo-clasico.mp3";
   setText("musica-titulo",  musicConfig.title  || "Canción especial");
   setText("musica-artista", musicConfig.artist || "");
   buildMusicaParticulas();
@@ -454,3 +483,7 @@ function formatDateLong(dateStr) {
   const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
   return `${dias[d.getDay()]} · ${d.getDate()} de ${meses[d.getMonth()]} · ${d.getFullYear()}`;
 }
+
+
+
+

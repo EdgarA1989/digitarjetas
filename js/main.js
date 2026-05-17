@@ -5,17 +5,17 @@ const WHATSAPP_NUMBER = "549XXXXXXXXXX";
 const PLAN_LABELS = {
   esencial: "Plan Esencial",
   plus: "Plan Plus",
-  completo: "Plan Completo",
+  premium: "Plan Premium",
 };
 
 const PLAN_SHORT_LABELS = {
   esencial: "Esencial",
   plus: "Plus",
-  completo: "Completo",
+  premium: "Premium",
 };
 
 // Agregar nuevas plantillas aca:
-// - availablePlans: indicar los planes disponibles: ["esencial"], ["plus"], ["completo"] o combinados.
+// - availablePlans: indicar los planes disponibles: ["esencial"], ["plus"], ["premium"] o combinados.
 // - demos: cambiar los links relativos cuando subas nuevas demos.
 // - Para agregar una demo Plus, crear la carpeta en demos/quince-plus/nombre-plantilla/ y cargar la URL en demos.plus.
 // - image: si existe una imagen en assets/img/, se puede usar para reemplazar el mockup visual.
@@ -25,13 +25,13 @@ const templates = [
     slug: "aurora",
     category: "15 años elegante",
     style: "quince",
-    availablePlans: ["esencial", "plus", "completo"],
+    availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado, sofisticado y moderno para fiestas de 15 con estilo premium.",
-    image: "assets/img/template-aurora.jpg",
+    image: "assets/img/demos/aurora/preview.jpg",
     demos: {
       esencial: "./demos/quince/aurora/",
       plus: "./demos/quince-plus/aurora/",
-      completo: "./demos/quince-mail/aurora/",
+      premium: "./demos/quince-premium/aurora/",
     },
     bg: "linear-gradient(145deg, #7b61ff, #f68ab8 55%, #f5ca78)",
   },
@@ -40,13 +40,13 @@ const templates = [
     slug: "urban-glow",
     category: "15 años urbano / rap",
     style: "quince",
-    availablePlans: ["esencial", "plus", "completo"],
+    availablePlans: ["esencial", "plus", "premium"],
     description: "Una plantilla con energía, actitud y estética urbana para eventos con personalidad.",
-    image: "assets/img/template-urban-glow.jpg",
+    image: "assets/img/demos/urban-glow/preview.jpg",
     demos: {
       esencial: "./demos/quince/urban-glow/",
       plus: "./demos/quince-plus/urban-glow/",
-      completo: "./demos/quince-mail/urban-glow/",
+      premium: "./demos/quince-premium/urban-glow/",
     },
     bg: "linear-gradient(145deg, #10101b, #772fff 52%, #16d8ff)",
   },
@@ -55,13 +55,13 @@ const templates = [
     slug: "blue-night",
     category: "15 años moderna azul",
     style: "quince",
-    availablePlans: ["esencial", "plus", "completo"],
+    availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño nocturno, moderno y elegante con tonos azules, luces y detalles brillantes.",
-    image: "assets/img/template-blue-night.jpg",
+    image: "assets/img/demos/blue-night/preview.jpg",
     demos: {
       esencial: "./demos/quince/blue-night/",
       plus: "./demos/quince-plus/blue-night/",
-      completo: "./demos/quince-mail/blue-night/",
+      premium: "./demos/quince-premium/blue-night/",
     },
     bg: "linear-gradient(145deg, #071a44, #1f73ff 54%, #7fe8ff)",
   },
@@ -70,13 +70,13 @@ const templates = [
     slug: "black-white",
     category: "15 años blanco y negro",
     style: "quince",
-    availablePlans: ["esencial", "plus", "completo"],
+    availablePlans: ["esencial", "plus", "premium"],
     description: "Una propuesta minimalista, elegante y editorial con contraste blanco y negro.",
-    image: "assets/img/template-black-white.jpg",
+    image: "assets/img/demos/black-white/preview.jpg",
     demos: {
       esencial: "./demos/quince/black-white/",
       plus: "./demos/quince-plus/black-white/",
-      completo: "./demos/quince-mail/black-white/",
+      premium: "./demos/quince-premium/black-white/",
     },
     bg: "linear-gradient(145deg, #050505, #2b2b2b 58%, #f5f5f5)",
   },
@@ -85,13 +85,13 @@ const templates = [
     slug: "neon-party",
     category: "15 años urbana",
     style: "quince",
-    availablePlans: ["esencial", "plus", "completo"],
+    availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño intenso, moderno y vibrante para una fiesta con mucha actitud.",
-    image: "assets/img/template-neon-party.jpg",
+    image: "assets/img/demos/neon-party/preview.jpg",
     demos: {
       esencial: "./demos/quince/neon-party/",
       plus: "./demos/quince-plus/neon-party/",
-      completo: "./demos/quince-mail/neon-party/",
+      premium: "./demos/quince-premium/neon-party/",
     },
     bg: "linear-gradient(145deg, #190821, #e040fb 52%, #ff6b35)",
   },
@@ -100,13 +100,13 @@ const templates = [
     slug: "verde-menta",
     category: "15 años natural",
     style: "quince",
-    availablePlans: ["esencial", "plus", "completo"],
+    availablePlans: ["esencial", "plus", "premium"],
     description: "Una plantilla luminosa, fresca y delicada con detalles verdes y estilo natural.",
-    image: "assets/img/template-verde-menta.jpg",
+    image: "assets/img/demos/verde-menta/preview.jpg",
     demos: {
       esencial: "./demos/quince/verde-menta/",
       plus: "./demos/quince-plus/verde-menta/",
-      completo: "./demos/quince-mail/verde-menta/",
+      premium: "./demos/quince-premium/verde-menta/",
     },
     bg: "linear-gradient(145deg, #d4efec, #5bbfb5 54%, #3d9d93)",
   },
@@ -118,7 +118,7 @@ const templates = [
     availablePlans: ["esencial", "plus"],
     description: "Una propuesta cálida y elegante para celebrar una historia de amor.",
     image: "assets/img/template-romance.jpg",
-    demos: { esencial: "#", plus: "#", completo: "" },
+    demos: { esencial: "#", plus: "#", premium: "" },
     bg: "linear-gradient(145deg, #fff0e8, #e6a187 50%, #b96b86)",
   },
   {
@@ -126,13 +126,13 @@ const templates = [
     slug: "bautismo-celeste",
     category: "Bautismos y comuniones",
     style: "bautismos",
-    availablePlans: ["esencial", "plus", "completo"],
+    availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado, luminoso y elegante para bautismos. Incluye galería, música, dress code y datos de regalo.",
-    image: "assets/img/template-bautismo-celeste.jpg",
+    image: "assets/img/demos/bautismo-celeste/preview.jpg",
     demos: {
       esencial: "./demos/bautismo-esencial/bautismo-celeste/",
       plus: "./demos/bautismo-plus/bautismo-celeste/",
-      completo: "./demos/bautismo-completo/bautismo-celeste/",
+      premium: "./demos/bautismo-premium/bautismo-celeste/",
     },
     bg: "linear-gradient(145deg, #7cbfe3, #c9e8f7 54%, #e8d09a)",
   },
@@ -141,13 +141,13 @@ const templates = [
     slug: "bautismo-rosa",
     category: "Bautismos y comuniones",
     style: "bautismos",
-    availablePlans: ["esencial", "plus", "completo"],
+    availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado y femenino para bautismos de niña. Incluye galería asimétrica, música, dress code y datos de regalo.",
-    image: "assets/img/template-bautismo-rosa.jpg",
+    image: "assets/img/demos/bautismo-rosa/preview.jpg",
     demos: {
       esencial: "./demos/bautismo-esencial/bautismo-rosa/",
       plus: "./demos/bautismo-plus/bautismo-rosa/",
-      completo: "./demos/bautismo-completo/bautismo-rosa/",
+      premium: "./demos/bautismo-premium/bautismo-rosa/",
     },
     bg: "linear-gradient(145deg, #f2c4d5, #f9dde8 54%, #e8d09a)",
   },
@@ -159,7 +159,7 @@ const templates = [
     availablePlans: ["plus"],
     description: "Una plantilla festiva, elegante y versátil para cumpleaños y eventos privados.",
     image: "assets/img/template-golden-party.jpg",
-    demos: { esencial: "", plus: "#", completo: "" },
+    demos: { esencial: "", plus: "#", premium: "" },
     bg: "linear-gradient(145deg, #17120c, #c89534 52%, #ffe29a)",
   },
   {
@@ -167,16 +167,19 @@ const templates = [
     slug: "corporate-link",
     category: "Eventos empresariales",
     style: "eventos",
-    availablePlans: ["esencial", "completo"],
+    availablePlans: ["esencial", "premium"],
     description: "Invitaciones digitales sobrias y profesionales para eventos corporativos.",
     image: "assets/img/template-corporate-link.jpg",
-    demos: { esencial: "#", plus: "", completo: "#" },
+    demos: { esencial: "#", plus: "", premium: "#" },
     bg: "linear-gradient(145deg, #0b1120, #2d5bff 56%, #9fb3ff)",
   },
 ];
 
 const filters = [
   { label: "Todas", value: "all" },
+  { label: "Esencial", value: "esencial" },
+  { label: "Plus", value: "plus" },
+  { label: "Premium", value: "premium" },
   { label: "15 años", value: "quince" },
   { label: "Casamientos", value: "casamientos" },
   { label: "Bautismos", value: "bautismos" },
@@ -268,13 +271,13 @@ function renderTemplates() {
 
   const visibleTemplates = templates.filter(template => {
     if (activeFilter === "all") return true;
-    if (["esencial", "plus", "completo"].includes(activeFilter)) return template.availablePlans.includes(activeFilter);
+    if (["esencial", "plus", "premium"].includes(activeFilter)) return template.availablePlans.includes(activeFilter);
     return template.style === activeFilter;
   });
 
   grid.innerHTML = visibleTemplates.map(template => `
     <article class="template-card reveal">
-      <div class="template-visual" style="--template-bg: ${template.bg}">
+      <div class="template-visual" style="--template-bg: ${template.bg}; --template-image: url('${template.image}')">
         <div class="template-mini-phone" aria-hidden="true"></div>
       </div>
       <div class="template-body">
@@ -285,7 +288,9 @@ function renderTemplates() {
         </div>
         <p>${template.description}</p>
         <div class="template-actions">
-          <button class="btn btn--outline btn--small" type="button" data-demo-template="${template.slug}">Ver demo</button>
+          ${getAvailableDemoPlans(template).length
+            ? `<button class="btn btn--outline btn--small" type="button" data-demo-template="${template.slug}">Ver demo</button>`
+            : `<button class="btn btn--outline btn--small" type="button" disabled>Demo pronto</button>`}
           <button class="btn btn--primary btn--small" type="button" data-consult-template="${template.slug}">Quiero esta</button>
         </div>
       </div>
@@ -309,11 +314,15 @@ function renderBenefits() {
 }
 
 function getAvailableDemoPlans(template) {
-  return template.availablePlans.filter(plan => Boolean(template.demos?.[plan]));
+  return template.availablePlans.filter(plan => {
+    const url = template.demos?.[plan];
+    return Boolean(url && url !== "#");
+  });
 }
 
 function getPlanBadgeText(template) {
   const plans = getAvailableDemoPlans(template);
+  if (plans.length === 0) return "Demo en preparación";
   if (plans.length === 1) return PLAN_LABELS[plans[0]];
   if (plans.length === 3) return "Disponible en 3 planes";
   return "Disponible en 2 planes";
@@ -497,7 +506,7 @@ function handleDemoAction(template) {
 
   openPlanModal({
     title: "Elegí qué versión querés ver",
-    text: "Esta plantilla está disponible en distintos planes. Podés ver la versión simple, la versión visual con fotos y música, o la versión completa con formulario.",
+    text: "Esta plantilla está disponible en distintos planes. Podés ver la versión simple, la versión visual con fotos y música, o la versión premium con formulario.",
     template,
     action: "demo",
   });
@@ -605,3 +614,7 @@ function setYear() {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 }
+
+
+
+

@@ -44,5 +44,16 @@
     "tema":  {
                  "acento":  "#1e90ff",
                  "acento2":  "#0068d4"
-             }
+             },
+    "assets":  {
+                   "imagesBasePath":  "../../../assets/img/demos/blue-night/",
+                   "musicPath":  "",
+                   "heroImage":  "",
+                   "coverImage":  "",
+                   "gallery":  [
+
+                               ],
+                   "placeholderImage":  "../../../assets/img/ui/placeholders/placeholder-evento.jpg"
+               },
+    "_assetsHelp":  "Demos dentro de demos/*/* usan ../../../assets/. Clientes copiados a clientes/nombre-cliente/ deben usar ../../assets/."
 }

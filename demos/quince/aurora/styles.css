@@ -1100,3 +1100,4 @@ button { font-family: var(--font-body); cursor: pointer; border: none; backgroun
   /* Evento en desktop: lado a lado mejorado */
   .evento-fila { gap: 2.5rem; }
 }
+

@@ -45,5 +45,16 @@
                  "acentoOscuro":  "#3d9d93",
                  "acentoClaro":  "#a8ddd9",
                  "acentoMenta":  "#d4efec"
-             }
+             },
+    "assets":  {
+                   "imagesBasePath":  "../../../assets/img/demos/verde-menta/",
+                   "musicPath":  "",
+                   "heroImage":  "",
+                   "coverImage":  "",
+                   "gallery":  [
+
+                               ],
+                   "placeholderImage":  "../../../assets/img/ui/placeholders/placeholder-evento.jpg"
+               },
+    "_assetsHelp":  "Demos dentro de demos/*/* usan ../../../assets/. Clientes copiados a clientes/nombre-cliente/ deben usar ../../assets/."
 }

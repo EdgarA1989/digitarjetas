@@ -11,8 +11,37 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(() => init(null));
 });
 
+
+function normalizeDemoAssets(config) {
+  if (!config) return config;
+  const assets = config.assets || {};
+  const imageBase = assets.imagesBasePath || "";
+  const placeholder = assets.placeholderImage || "../../../assets/img/ui/placeholders/placeholder-evento.jpg";
+  const localName = value => String(value || "").replace(/^\.\//, "").replace(/^img\//, "").replace(/^music\//, "");
+  const isAbsolute = value => /^(https?:|data:|\/|\.\.\/)/.test(String(value || ""));
+  const imageUrl = value => {
+    if (!value) return placeholder;
+    if (isAbsolute(value)) return value;
+    return imageBase ? imageBase + localName(value) : value;
+  };
+
+  const gallerySource = Array.isArray(assets.gallery) && assets.gallery.length
+    ? assets.gallery
+    : (Array.isArray(config.fotos) ? config.fotos : (Array.isArray(config.photos) ? config.photos : []));
+  const gallery = gallerySource.map(imageUrl).filter(Boolean);
+
+  if (Array.isArray(config.fotos) || assets.gallery) config.fotos = gallery;
+  if (Array.isArray(config.photos) || assets.gallery) config.photos = gallery;
+  if (assets.heroImage || config.heroPhoto) config.heroPhoto = imageUrl(assets.heroImage || config.heroPhoto);
+  if (assets.coverImage || config.coverPhoto) config.coverPhoto = imageUrl(assets.coverImage || config.coverPhoto);
+
+  const musicPath = assets.musicPath || config.musica?.src || config.music?.src || "";
+  if (config.musica) config.musica.src = musicPath;
+  if (config.music) config.music.src = musicPath;
+  return config;
+}
 function init(config) {
-  config = config || getDefaultConfig();
+  config = normalizeDemoAssets(config || getDefaultConfig());
 
   poblarCover(config);
   poblarHero(config);
@@ -250,3 +279,7 @@ function formatDateLong(dateStr) {
   const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
   return `${dias[d.getDay()]} · ${d.getDate()} de ${meses[d.getMonth()]} · ${d.getFullYear()}`;
 }
+
+
+
+

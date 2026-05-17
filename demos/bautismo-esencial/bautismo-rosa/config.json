@@ -1,21 +1,38 @@
 {
-  "eventType": "Bautismo",
-  "childName": "Emma",
-  "title": "Bautismo de Emma",
-  "subtitle": "Con mucha alegría te invitamos a compartir este día tan especial.",
-  "date": "2026-10-18T11:00:00",
-  "ceremony": {
-    "title": "Ceremonia religiosa",
-    "place": "Parroquia Nuestra Señora del Valle",
-    "address": "España 742, Salta",
-    "mapUrl": "#"
-  },
-  "celebration": {
-    "title": "Celebración",
-    "place": "Salón Las Rosas",
-    "address": "Av. Bicentenario 1250, Salta",
-    "mapUrl": "#"
-  },
-  "photos": ["./img/bebe_mujer.png"],
-  "whatsappNumber": "549XXXXXXXXXX"
+    "eventType":  "Bautismo",
+    "childName":  "Emma",
+    "title":  "Bautismo de Emma",
+    "subtitle":  "Con mucha alegría te invitamos a compartir este día tan especial.",
+    "date":  "2026-10-18T11:00:00",
+    "ceremony":  {
+                     "title":  "Ceremonia religiosa",
+                     "place":  "Parroquia Nuestra Señora del Valle",
+                     "address":  "España 742, Salta",
+                     "mapUrl":  "#"
+                 },
+    "celebration":  {
+                        "title":  "Celebración",
+                        "place":  "Salón Las Rosas",
+                        "address":  "Av. Bicentenario 1250, Salta",
+                        "mapUrl":  "#"
+                    },
+    "photos":  [
+                   "bebe_mujer.png"
+               ],
+    "whatsappNumber":  "549XXXXXXXXXX",
+    "heroPhoto":  "bebe_mujer.png",
+    "music":  {
+                  "src":  ""
+              },
+    "assets":  {
+                   "imagesBasePath":  "../../../assets/img/demos/bautismo-rosa/",
+                   "musicPath":  "",
+                   "heroImage":  "bebe_mujer.png",
+                   "coverImage":  "bebe_mujer.png",
+                   "gallery":  [
+                                   "bebe_mujer.png"
+                               ],
+                   "placeholderImage":  "../../../assets/img/ui/placeholders/placeholder-evento.jpg"
+               },
+    "_assetsHelp":  "Demos dentro de demos/*/* usan ../../../assets/. Clientes copiados a clientes/nombre-cliente/ deben usar ../../assets/."
 }

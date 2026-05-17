@@ -297,6 +297,13 @@ body.dark .theme-toggle__moon {
   transition-duration: .08s;
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: .58;
+  transform: none;
+  box-shadow: none;
+}
+
 .btn--primary {
   color: #fff;
   background: linear-gradient(135deg, var(--primary), var(--rose));
@@ -564,7 +571,7 @@ body.dark .badge {
 .floating-card--one { top: 7%; left: 0; }
 .floating-card--two { top: 23%; right: 0; animation-delay: .5s; }
 .floating-card--three { bottom: 19%; left: 0; animation-delay: 1s; }
-.floating-card--four { bottom: 28%; right: 0; animation-delay: 1.4s; }
+.floating-card--four { top: 12%; right: 0; animation-delay: 1.4s; }
 .floating-card--five { top: 47%; left: 0; animation-delay: 1.8s; }
 
 @keyframes float {
@@ -745,7 +752,12 @@ body.dark .badge {
   place-items: end start;
   padding: 1rem;
   color: #fff;
-  background: var(--template-bg);
+  background:
+    linear-gradient(180deg, rgba(9, 8, 24, .04), rgba(9, 8, 24, .54)),
+    var(--template-image),
+    var(--template-bg);
+  background-position: center;
+  background-size: cover;
 }
 
 .template-mini-phone {
@@ -809,7 +821,7 @@ body.dark .badge {
   background: linear-gradient(135deg, var(--rose), var(--gold));
 }
 
-.template-mode--completo {
+.template-mode--premium {
   color: #fff;
   border-color: transparent;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
@@ -1248,3 +1260,22 @@ textarea:focus {
     min-height: 460px;
   }
 }
+
+@media (min-width: 601px) and (max-width: 979px) {
+  .hero-visual {
+    width: min(100%, 620px);
+    min-height: 590px;
+    margin-inline: auto;
+  }
+
+  .floating-card {
+    max-width: 170px;
+    padding: .62rem .75rem;
+    font-size: .78rem;
+  }
+
+  .floating-card--two { top: 21%; right: .25rem; }
+  .floating-card--four { top: 3%; right: 1rem; }
+  .floating-card--five { top: 46%; left: .25rem; }
+}
+

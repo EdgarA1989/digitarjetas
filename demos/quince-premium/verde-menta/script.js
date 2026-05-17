@@ -1,0 +1,470 @@
+// =====================================================
+//  Plantilla Verde · 15 años · script.js
+// =====================================================
+
+fetch('config.json')
+  .then(r => r.json())
+  .then(init)
+  .catch(() => console.warn('Abrí con Live Server para cargar config.json'));
+
+
+function normalizeDemoAssets(config) {
+  if (!config) return config;
+  const assets = config.assets || {};
+  const imageBase = assets.imagesBasePath || "";
+  const placeholder = assets.placeholderImage || "../../../assets/img/ui/placeholders/placeholder-evento.jpg";
+  const localName = value => String(value || "").replace(/^\.\//, "").replace(/^img\//, "").replace(/^music\//, "");
+  const isAbsolute = value => /^(https?:|data:|\/|\.\.\/)/.test(String(value || ""));
+  const imageUrl = value => {
+    if (!value) return placeholder;
+    if (isAbsolute(value)) return value;
+    return imageBase ? imageBase + localName(value) : value;
+  };
+
+  const gallerySource = Array.isArray(assets.gallery) && assets.gallery.length
+    ? assets.gallery
+    : (Array.isArray(config.fotos) ? config.fotos : (Array.isArray(config.photos) ? config.photos : []));
+  const gallery = gallerySource.map(imageUrl).filter(Boolean);
+
+  if (Array.isArray(config.fotos) || assets.gallery) config.fotos = gallery;
+  if (Array.isArray(config.photos) || assets.gallery) config.photos = gallery;
+  if (assets.heroImage || config.heroPhoto) config.heroPhoto = imageUrl(assets.heroImage || config.heroPhoto);
+  if (assets.coverImage || config.coverPhoto) config.coverPhoto = imageUrl(assets.coverImage || config.coverPhoto);
+
+  const musicPath = assets.musicPath || config.musica?.src || config.music?.src || "";
+  if (config.musica) config.musica.src = musicPath;
+  if (config.music) config.music.src = musicPath;
+  return config;
+}
+function init(c) {
+  c = normalizeDemoAssets(c);
+aplicarTema(c.tema);
+  renderCover(c);
+  renderHero(c);
+  renderBienvenida(c.bienvenida);
+  renderEvento(c);
+  renderDresscode(c.dresscode);
+  renderRegalos(c.regalos);
+  renderGaleria(c.fotos);
+  renderMusica(c.musica);
+  initRsvp(c);
+  renderFooter(c.footer);
+
+  startCountdown(c.fecha);
+  renderCalendario(c.fecha);
+  initOrbs('cover-orbs');
+  initOrbs('hero-orbs');
+  initCover();
+  initCopy();
+  initLightbox();
+  initMusica();
+  initCalendar(c);
+  // initReveal() se llama desde initCover() tras abrir la pantalla
+}
+
+// ── Tema desde config ───────────────────────────────
+function aplicarTema(tema) {
+  if (!tema) return;
+  const r = document.documentElement.style;
+  if (tema.acento) {
+    r.setProperty('--accent', tema.acento);
+    const hex = tema.acento.replace('#', '');
+    const [rv, g, b] = [0,2,4].map(i => parseInt(hex.substr(i*2,2),16));
+    r.setProperty('--accent-glow', `rgba(${rv},${g},${b},.25)`);
+  }
+  if (tema.acentoOscuro) r.setProperty('--accent-dark',  tema.acentoOscuro);
+  if (tema.acentoClaro)  r.setProperty('--accent-light', tema.acentoClaro);
+  if (tema.acentoMenta)  r.setProperty('--accent-mint',  tema.acentoMenta);
+}
+
+// ── Render cover ─────────────────────────────────────
+function renderCover(c) {
+  set('cover-nombre', c.nombre);
+  set('cover-fecha',  c.fechaDisplay);
+}
+
+// ── Render hero ───────────────────────────────────────
+function renderHero(c) {
+  set('hero-name',  c.nombre.toUpperCase());
+  set('hero-frase', c.frase);
+  set('hero-fecha', c.fechaDisplay);
+  document.title = `15 de ${c.nombre}`;
+  meta('description', `Te invito a celebrar mis 15, ${c.fechaDisplay}.`);
+  meta('og:title', `15 de ${c.nombre}`);
+}
+
+// ── Render bienvenida ─────────────────────────────────
+function renderBienvenida(b) {
+  set('bien-titulo', b.titulo);
+  set('bien-texto',  b.texto);
+}
+
+// ── Render evento ─────────────────────────────────────
+function renderEvento(c) {
+  set('evento-fecha',  c.fechaDisplay);
+  set('evento-hora',   c.hora);
+  set('lugar-nombre',  c.lugar.nombre);
+  set('lugar-barrio',  c.lugar.barrio);
+  set('lugar-dir',     c.lugar.direccion);
+  attr('btn-maps', 'href', c.lugar.mapsUrl);
+}
+
+// ── Render dresscode ──────────────────────────────────
+function renderDresscode(d) {
+  set('dresscode-texto', d.texto);
+  set('dresscode-nota',  d.nota);
+}
+
+// ── Render regalos ────────────────────────────────────
+function renderRegalos(r) {
+  set('regalos-texto', r.texto);
+  set('regalos-alias', r.alias);
+  set('regalos-cbu',   r.cbu);
+  set('regalos-banco', r.banco);
+}
+
+// ── Render galería ────────────────────────────────────
+function renderGaleria(fotos) {
+  const grid = document.getElementById('galeria-grid');
+  if (!grid) return;
+  grid.innerHTML = fotos.map((src, i) => `
+    <div class="galeria-item reveal"
+         style="background-image:url('${src}')"
+         data-src="${src}"
+         role="img"
+         aria-label="Foto ${i + 1}">
+    </div>
+  `).join('');
+}
+
+// ── Render música ─────────────────────────────────────
+function renderMusica(m) {
+  set('musica-titulo',  m.titulo);
+  set('musica-artista', m.artista);
+  const audio = document.getElementById('audio');
+  if (audio) audio.src = m.src;
+}
+
+// ── Confirmación ──────────────────────────────────────────────
+function initRsvp(c) {
+  if (typeof RsvpModal !== 'undefined') {
+    RsvpModal.init(c.rsvp || {}, c.nombre);
+  }
+}
+
+// ── Render footer ─────────────────────────────────────
+function renderFooter(f) {
+  set('footer-mensaje', f.mensaje);
+  set('footer-firma',   f.firma);
+}
+
+// ── Calendario visual ─────────────────────────────────
+function renderCalendario(fechaISO) {
+  const card  = document.getElementById('calendario-card');
+  if (!card) return;
+
+  const fecha = new Date(fechaISO);
+  const year  = fecha.getFullYear();
+  const month = fecha.getMonth();
+  const day   = fecha.getDate();
+
+  const meses  = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const semana = ['L','M','M','J','V','S','D'];
+
+  // Primer día de la semana del mes (Lunes = 0)
+  let startDow = new Date(year, month, 1).getDay();
+  startDow = startDow === 0 ? 6 : startDow - 1;
+
+  const totalDias = new Date(year, month + 1, 0).getDate();
+
+  let celdas = '';
+  for (let i = 0; i < startDow; i++) {
+    celdas += '<span class="cal-dia cal-dia--vacio"></span>';
+  }
+  for (let d = 1; d <= totalDias; d++) {
+    const dow      = (startDow + d - 1) % 7;
+    const esFinde  = dow === 5 || dow === 6;
+    const esEvento = d === day;
+    const cls      = esEvento ? ' cal-dia--evento' : esFinde ? ' cal-dia--finde' : '';
+    celdas += `<span class="cal-dia${cls}">${d}</span>`;
+  }
+
+  const nombreDia = fecha.toLocaleDateString('es-AR', { weekday: 'long' });
+  const labelDia  = nombreDia.charAt(0).toUpperCase() + nombreDia.slice(1);
+
+  card.innerHTML = `
+    <div class="cal-header">
+      <span class="cal-mes">${meses[month]}</span>
+      <span class="cal-anio">${year}</span>
+    </div>
+    <div class="cal-semana">${semana.map(d => `<span class="cal-dow">${d}</span>`).join('')}</div>
+    <div class="cal-grid">${celdas}</div>
+    <p class="cal-label">✦ ${labelDia} · ${day} de ${meses[month]}</p>
+  `;
+}
+
+// ── Countdown ─────────────────────────────────────────
+function startCountdown(fechaISO) {
+  const target = new Date(fechaISO).getTime();
+
+  function tick() {
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => set(id, '00'));
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    set('cd-days',  pad(d));
+    set('cd-hours', pad(h));
+    set('cd-mins',  pad(m));
+    set('cd-secs',  pad(s));
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+// ── Orbs flotantes ────────────────────────────────────
+function initOrbs(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  // Configuración de orbs según el contenedor
+  const configs = containerId === 'cover-orbs' ? [
+    { w: 200, h: 170, x:  -4, y:  8, blur: 55, color: 'var(--accent-mint)', op: .75, dur: 10, delay: 0,   mx:  12, my:  -8 },
+    { w: 130, h: 130, x:  78, y: 12, blur: 42, color: 'var(--accent-light)', op: .55, dur: 14, delay: 2,  mx:  -9, my:   9 },
+    { w: 220, h: 190, x:  55, y: 58, blur: 65, color: 'var(--accent-mint)', op: .6,  dur: 12, delay: 4,   mx: -14, my: -10 },
+    { w: 110, h: 110, x:   8, y: 68, blur: 38, color: 'var(--accent-light)', op: .4,  dur:  9, delay: 1,  mx:  11, my:   8 },
+    { w: 160, h: 140, x:  38, y: 82, blur: 48, color: 'var(--accent-mint)', op: .5,  dur: 16, delay: 3,   mx:   8, my: -14 },
+  ] : [
+    { w: 160, h: 140, x:  -3, y: 10, blur: 50, color: 'var(--accent-mint)', op: .6,  dur: 11, delay: 0,   mx:  10, my:  -7 },
+    { w: 100, h: 100, x:  76, y: 15, blur: 38, color: 'var(--accent-light)', op: .45, dur: 13, delay: 2,  mx:  -7, my:   8 },
+    { w: 180, h: 160, x:  60, y: 60, blur: 58, color: 'var(--accent-mint)', op: .5,  dur: 10, delay: 5,   mx: -12, my:  -9 },
+  ];
+
+  configs.forEach(o => {
+    const el = document.createElement('div');
+    el.className = 'orb';
+    el.style.cssText = `
+      width: ${o.w}px; height: ${o.h}px;
+      left: ${o.x}%; top: ${o.y}%;
+      background: ${o.color};
+      filter: blur(${o.blur}px);
+      opacity: ${o.op};
+      --dur: ${o.dur}s; --delay: ${o.delay}s;
+      --mx: ${o.mx}px; --my: ${o.my}px;
+    `;
+    container.appendChild(el);
+  });
+}
+
+// ── Cover ─────────────────────────────────────────────
+function initCover() {
+  const cover = document.getElementById('cover');
+  const btn   = document.getElementById('btn-cover');
+  if (!cover || !btn) return;
+
+  document.body.style.overflow = 'hidden';
+
+  btn.addEventListener('click', () => {
+    cover.classList.add('opening');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      cover.style.display = 'none';
+      initReveal();
+    }, 1300);
+  });
+}
+
+// ── Copy to clipboard ─────────────────────────────────
+function initCopy() {
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (!target) return;
+      navigator.clipboard.writeText(target.textContent.trim()).then(() => {
+        showToast();
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = target.textContent.trim();
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast();
+      });
+    });
+  });
+}
+
+function showToast() {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+// ── Lightbox ──────────────────────────────────────────
+function initLightbox() {
+  const lb    = document.getElementById('lightbox');
+  const img   = document.getElementById('lightbox-img');
+  const close = document.getElementById('lightbox-close');
+  if (!lb) return;
+
+  document.addEventListener('click', e => {
+    const item = e.target.closest('.galeria-item');
+    if (!item) return;
+    const src = item.dataset.src;
+    if (!src) return;
+    img.src = src;
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  });
+
+  const closeLb = () => {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    img.src = '';
+  };
+
+  close.addEventListener('click', closeLb);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+}
+
+// ── Música ────────────────────────────────────────────
+function initMusica() {
+  const btn   = document.getElementById('musica-btn');
+  const audio = document.getElementById('audio');
+  const play  = btn?.querySelector('.icon-play');
+  const pause = btn?.querySelector('.icon-pause');
+  if (!btn || !audio) return;
+
+  let playing = false;
+
+  btn.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      playing = false;
+      play.style.display  = '';
+      pause.style.display = 'none';
+      btn.classList.remove('playing');
+      btn.setAttribute('aria-label', 'Reproducir');
+    } else {
+      audio.play().then(() => {
+        playing = true;
+        play.style.display  = 'none';
+        pause.style.display = '';
+        btn.classList.add('playing');
+        btn.setAttribute('aria-label', 'Pausar');
+      }).catch(() => {});
+    }
+  });
+}
+
+// ── Add to Calendar ───────────────────────────────────
+function initCalendar(c) {
+  const fecha = new Date(c.fecha);
+  const fin   = new Date(fecha.getTime() + 6 * 3600000);
+  const fmt   = d => d.toISOString().replace(/[-:]/g,'').split('.')[0];
+  const titulo  = `15 de ${c.nombre}`;
+  const detalle = `${c.frase} ${c.fechaDisplay}`;
+  const lugar   = c.lugar.direccion;
+
+  const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
+    + `&text=${encodeURIComponent(titulo)}`
+    + `&dates=${fmt(fecha)}/${fmt(fin)}`
+    + `&details=${encodeURIComponent(detalle)}`
+    + `&location=${encodeURIComponent(lugar)}`;
+
+  const btnIcs = document.getElementById('btn-ics');
+  if (btnIcs) {
+    btnIcs.addEventListener('click', () => {
+      const ics = [
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Programate//15anios//ES',
+        'BEGIN:VEVENT',
+        `DTSTART:${fmt(fecha)}`,
+        `DTEND:${fmt(fin)}`,
+        `SUMMARY:${titulo}`,
+        `DESCRIPTION:${detalle}`,
+        `LOCATION:${lugar}`,
+        'STATUS:CONFIRMED',
+        'END:VEVENT', 'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob   = new Blob([ics], { type: 'text/calendar' });
+      const icsUrl = URL.createObjectURL(blob);
+      const ua     = navigator.userAgent;
+
+      if (/Android/i.test(ua)) {
+        window.location.href = 'intent://calendar.google.com/calendar/render?action=TEMPLATE'
+          + `&text=${encodeURIComponent(titulo)}`
+          + `&dates=${fmt(fecha)}/${fmt(fin)}`
+          + `&details=${encodeURIComponent(detalle)}`
+          + `&location=${encodeURIComponent(lugar)}`
+          + '#Intent;scheme=https;package=com.google.android.calendar;end';
+        setTimeout(() => {
+          const a = document.createElement('a');
+          a.href = icsUrl;
+          a.download = `15-${c.nombre.toLowerCase()}.ics`;
+          a.click();
+          URL.revokeObjectURL(icsUrl);
+        }, 800);
+      } else if (/iPhone|iPad|iPod/i.test(ua)) {
+        window.location.href = icsUrl;
+        setTimeout(() => URL.revokeObjectURL(icsUrl), 5000);
+      } else {
+        window.open(calUrl, '_blank');
+        const a = document.createElement('a');
+        a.href = icsUrl;
+        a.download = `15-${c.nombre.toLowerCase()}.ics`;
+        a.click();
+        URL.revokeObjectURL(icsUrl);
+      }
+    });
+  }
+}
+
+// ── Reveal on scroll ──────────────────────────────────
+function initReveal() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+// ── Helpers ───────────────────────────────────────────
+function set(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
+function attr(id, attribute, value) {
+  const el = document.getElementById(id);
+  if (el) el.setAttribute(attribute, value);
+}
+
+function meta(name, content) {
+  const el = document.querySelector(`meta[name="${name}"], meta[property="${name}"]`);
+  if (el) el.setAttribute('content', content);
+}
+
+function pad(n) {
+  return String(n).padStart(2, '0');
+}
+
+
+
+
+

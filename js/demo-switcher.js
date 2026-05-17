@@ -1,7 +1,7 @@
 // Componente reutilizable para demos.
 // En cada demo definir antes de este archivo:
 // const CURRENT_TEMPLATE = "aurora";
-// const CURRENT_PLAN = "plus"; // "esencial", "plus" o "completo"
+// const CURRENT_PLAN = "plus"; // "esencial", "plus" o "premium"
 // Cambiar DEMO_WHATSAPP_NUMBER por el numero real.
 const DEMO_WHATSAPP_NUMBER = "549XXXXXXXXXX";
 
@@ -13,49 +13,49 @@ const templateLinks = {
   aurora: {
     esencial: "../../quince/aurora/",
     plus: "../../quince-plus/aurora/",
-    completo: "../../quince-mail/aurora/",
+    premium: "../../quince-premium/aurora/",
     label: "Aurora",
   },
   "urban-glow": {
     esencial: "../../quince/urban-glow/",
     plus: "../../quince-plus/urban-glow/",
-    completo: "../../quince-mail/urban-glow/",
+    premium: "../../quince-premium/urban-glow/",
     label: "Urban Glow",
   },
   "blue-night": {
     esencial: "../../quince/blue-night/",
     plus: "../../quince-plus/blue-night/",
-    completo: "../../quince-mail/blue-night/",
+    premium: "../../quince-premium/blue-night/",
     label: "Blue Night",
   },
   "black-white": {
     esencial: "../../quince/black-white/",
     plus: "../../quince-plus/black-white/",
-    completo: "../../quince-mail/black-white/",
+    premium: "../../quince-premium/black-white/",
     label: "Black White",
   },
   "neon-party": {
     esencial: "../../quince/neon-party/",
     plus: "../../quince-plus/neon-party/",
-    completo: "../../quince-mail/neon-party/",
+    premium: "../../quince-premium/neon-party/",
     label: "Neon Party",
   },
   "verde-menta": {
     esencial: "../../quince/verde-menta/",
     plus: "../../quince-plus/verde-menta/",
-    completo: "../../quince-mail/verde-menta/",
+    premium: "../../quince-premium/verde-menta/",
     label: "Verde Menta",
   },
   "bautismo-celeste": {
     esencial: "../../bautismo-esencial/bautismo-celeste/",
     plus: "../../bautismo-plus/bautismo-celeste/",
-    completo: "../../bautismo-completo/bautismo-celeste/",
+    premium: "../../bautismo-premium/bautismo-celeste/",
     label: "Bautismo Celeste",
   },
   "bautismo-rosa": {
     esencial: "../../bautismo-esencial/bautismo-rosa/",
     plus: "../../bautismo-plus/bautismo-rosa/",
-    completo: "../../bautismo-completo/bautismo-rosa/",
+    premium: "../../bautismo-premium/bautismo-rosa/",
     label: "Bautismo Rosa",
   },
 };
@@ -63,12 +63,12 @@ const templateLinks = {
 const demoPlanLabels = {
   esencial: "Plan Esencial",
   plus: "Plan Plus",
-  completo: "Plan Completo",
+  premium: "Plan Premium",
 };
 
 const legacyModeToPlan = {
   whatsapp: "esencial",
-  formulario: "completo",
+  formulario: "premium",
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -82,8 +82,9 @@ function initDemoMediaState() {
     .then(response => response.json())
     .then(config => {
       const hasPhotos = (Array.isArray(config.fotos) && config.fotos.length > 0)
-        || (Array.isArray(config.photos) && config.photos.length > 0);
-      const hasMusic = Boolean(config.musica?.src) || Boolean(config.music?.src);
+        || (Array.isArray(config.photos) && config.photos.length > 0)
+        || (Array.isArray(config.assets?.gallery) && config.assets.gallery.length > 0);
+      const hasMusic = Boolean(config.assets?.musicPath) || Boolean(config.musica?.src) || Boolean(config.music?.src);
       document.body.classList.toggle("dt-no-media", !hasPhotos && !hasMusic);
     })
     .catch(() => {});
@@ -102,22 +103,45 @@ function getCurrentPlan() {
 }
 
 function initDemoPlanSwitcher() {
-  const select = document.querySelector("[data-demo-plan-select], [data-demo-mode-select]");
-  const button = document.querySelector("[data-demo-plan-go], [data-demo-mode-go]");
   const currentTemplate = getCurrentTemplate();
   const currentPlan = getCurrentPlan();
   const links = templateLinks[currentTemplate];
-  if (!select || !button || !links) return;
+  if (!links) return;
 
-  select.innerHTML = Object.entries(demoPlanLabels)
-    .filter(([plan]) => Boolean(links[plan]))
-    .map(([plan, label]) => `<option value="${plan}" ${plan === currentPlan ? "selected" : ""}>${label}</option>`)
-    .join("");
+  document.querySelectorAll(".dt-mode-switcher").forEach(element => element.remove());
 
-  button.addEventListener("click", () => {
-    const target = links[select.value];
-    if (target) window.location.href = target;
+  const availablePlans = Object.entries(demoPlanLabels).filter(([plan]) => Boolean(links[plan]));
+  if (availablePlans.length < 2) return;
+
+  const bar = document.createElement("nav");
+  bar.className = "dt-plan-bar";
+  bar.setAttribute("aria-label", "Versiones de la plantilla por plan");
+  bar.innerHTML = `
+    <span class="dt-plan-bar__label">Ver versión</span>
+    <div class="dt-plan-bar__actions">
+      ${availablePlans.map(([plan, label]) => `
+        <button
+          class="dt-plan-button${plan === currentPlan ? " is-active" : ""}"
+          type="button"
+          data-demo-plan-button="${plan}"
+          ${plan === currentPlan ? "aria-current=\"page\"" : ""}
+        >
+          ${label.replace("Plan ", "")}
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  bar.querySelectorAll("[data-demo-plan-button]").forEach(button => {
+    button.addEventListener("click", () => {
+      const plan = button.dataset.demoPlanButton;
+      if (plan === currentPlan) return;
+      const target = links[plan];
+      if (target) window.location.href = target;
+    });
   });
+
+  document.body.prepend(bar);
 }
 
 function initDemoCommercialCta() {
@@ -143,3 +167,5 @@ function initDemoCommercialCta() {
     back.textContent = "Otras demos";
   }
 }
+
+
