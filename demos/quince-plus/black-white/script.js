@@ -374,7 +374,3 @@ function setText(id, val) {
   const el = document.getElementById(id);
   if (el && val !== undefined) el.textContent = val;
 }
-
-
-
-

@@ -1446,6 +1446,45 @@ textarea:focus {
   }
 }
 
+@media (max-width: 1158px) {
+  #incluye.section-pad {
+    padding-block: clamp(2.6rem, 6vw, 4.4rem);
+  }
+
+  #incluye .section-heading {
+    margin-bottom: 1.45rem;
+  }
+
+  #incluye .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+    gap: .72rem;
+  }
+
+  #incluye .feature-card {
+    padding: .82rem;
+    border-radius: 18px;
+  }
+
+  #incluye .feature-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    font-size: .78rem;
+  }
+
+  #incluye .feature-card h3 {
+    margin-top: .62rem;
+    font-size: .92rem;
+    line-height: 1.18;
+  }
+
+  #incluye .feature-card p {
+    margin-top: .36rem;
+    font-size: .82rem;
+    line-height: 1.42;
+  }
+}
+
 @media (max-width: 430px) {
   .hero-actions {
     grid-template-columns: 1fr;

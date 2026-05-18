@@ -52,6 +52,11 @@ const RsvpModal = (() => {
 
       const index = Number(button.dataset.guest);
       const status = button.dataset.rsvpStatus;
+      if (_cfg.perGuestDetails && status === 'no_asiste' && _qty > 1) {
+        removeGuest(index);
+        return;
+      }
+
       const input = qs(`.rsvp-status-input[data-guest="${index}"]`);
       if (input) input.value = status;
 
@@ -114,7 +119,8 @@ const RsvpModal = (() => {
   }
 
   // ── Control de cantidad ───────────────────────────
-  function setQty(n) {
+  function setQty(n, drafts) {
+    const currentGuests = Array.isArray(drafts) ? drafts : getGuests();
     const max = _mode === 'asiste' ? _maxGuests : 1;
     _qty = Math.max(1, Math.min(n, max));
     setText('rsvp-qty-num', String(_qty));
@@ -124,16 +130,17 @@ const RsvpModal = (() => {
     if (btnMinus) btnMinus.disabled = _qty <= 1;
     if (btnPlus)  btnPlus.disabled  = _qty >= max;
 
-    renderGuests();
+    renderGuests(currentGuests);
   }
 
   // ── Renderizar campos de invitados ────────────────
-  function renderGuests() {
+  function renderGuests(drafts = []) {
     const container = document.getElementById('rsvp-guests');
     if (!container) return;
 
     let html = '';
     for (let i = 0; i < _qty; i++) {
+      const draft = drafts[i] || {};
       const isOnly = _qty === 1;
       const label  = isOnly && _mode === 'no_asiste' ? 'Tus datos'
                    : isOnly ? 'Tus datos'
@@ -148,22 +155,26 @@ const RsvpModal = (() => {
                    data-guest="${i}"
                    data-field="nombre"
                    autocomplete="${i === 0 ? 'given-name' : 'off'}"
-                   inputmode="text" />
+                   inputmode="text"
+                   value="${escapeAttr(draft.nombre)}" />
             <input class="rsvp-input"
                    type="text"
                    placeholder="Apellido"
                    data-guest="${i}"
                    data-field="apellido"
                    autocomplete="${i === 0 ? 'family-name' : 'off'}"
-                   inputmode="text" />
+                   inputmode="text"
+                   value="${escapeAttr(draft.apellido)}" />
           </div>
-          ${_cfg.perGuestDetails ? renderGuestDetails(i) : ''}
+          ${_cfg.perGuestDetails ? renderGuestDetails(i, draft) : ''}
         </div>`;
     }
     container.innerHTML = html;
   }
 
-  function renderGuestDetails(index) {
+  function renderGuestDetails(index, draft = {}) {
+    const status = draft.status || 'asiste';
+    const isAttending = status !== 'no_asiste';
     return `
       <div class="rsvp-guest-extra">
         <label class="rsvp-field-label">
@@ -171,37 +182,30 @@ const RsvpModal = (() => {
           <div class="rsvp-status-row">
             <input class="rsvp-status-input"
                    type="hidden"
-                   value="asiste"
+                   value="${escapeAttr(status)}"
                    data-guest="${index}"
                    data-field="status" />
             <div class="rsvp-status-toggle" role="group" aria-label="Asistencia del invitado ${index + 1}">
-              <button class="rsvp-status-btn is-active"
+              <button class="rsvp-status-btn ${isAttending ? 'is-active' : ''}"
                       type="button"
                       data-guest="${index}"
                       data-rsvp-status="asiste"
-                      aria-pressed="true">Sí</button>
-              <button class="rsvp-status-btn"
+                      aria-pressed="${isAttending ? 'true' : 'false'}">Sí</button>
+              <button class="rsvp-status-btn ${isAttending ? '' : 'is-active'}"
                       type="button"
                       data-guest="${index}"
                       data-rsvp-status="no_asiste"
-                      aria-pressed="false">No</button>
+                      aria-pressed="${isAttending ? 'false' : 'true'}">No</button>
             </div>
           </div>
         </label>
-        <div class="rsvp-attendance-details" data-guest-details="${index}">
+        <div class="rsvp-attendance-details" data-guest-details="${index}" ${isAttending ? '' : 'hidden'}>
           <label class="rsvp-field-label">
             <span>¿Posee alguna restricción alimenticia?</span>
             <select class="rsvp-input"
                     data-guest="${index}"
                     data-field="restriccion">
-              <option value="">Seleccionar</option>
-              <option>Sin restricción</option>
-              <option>Vegetariano/a</option>
-              <option>Vegano/a</option>
-              <option>Sin TACC / celiaquía</option>
-              <option>Sin lactosa</option>
-              <option>Alergia a frutos secos</option>
-              <option>Otra restricción</option>
+              ${renderRestrictionOptions(draft.restriccion)}
             </select>
           </label>
           ${_cfg.includeSongRequest === false ? '' : `
@@ -213,13 +217,43 @@ const RsvpModal = (() => {
                      data-guest="${index}"
                      data-field="cancion"
                      autocomplete="off"
-                     inputmode="text" />
+                     inputmode="text"
+                     value="${escapeAttr(draft.cancion)}" />
             </label>
           `}
         </div>
       </div>`;
   }
 
+  function removeGuest(index) {
+    const guests = getGuests();
+    guests.splice(index, 1);
+    setQty(_qty - 1, guests);
+  }
+
+  function renderRestrictionOptions(selected = '') {
+    const options = [
+      ['', 'Seleccionar'],
+      ['Sin restricción', 'Sin restricción'],
+      ['Vegetariano/a', 'Vegetariano/a'],
+      ['Vegano/a', 'Vegano/a'],
+      ['Sin TACC / celiaquía', 'Sin TACC / celiaquía'],
+      ['Sin lactosa', 'Sin lactosa'],
+      ['Alergia a frutos secos', 'Alergia a frutos secos'],
+      ['Otra restricción', 'Otra restricción'],
+    ];
+    return options.map(([value, label]) => (
+      `<option value="${escapeAttr(value)}"${value === selected ? ' selected' : ''}>${label}</option>`
+    )).join('');
+  }
+
+  function escapeAttr(value = '') {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
   // ── Obtener datos de los campos ───────────────────
   function getGuests() {
     const guests = [];
@@ -358,6 +392,3 @@ const RsvpModal = (() => {
 
   return { init };
 })();
-
-
-

@@ -1,35 +1,35 @@
-﻿{
+{
     "nombre":  "Isabella",
     "frase":  "Hay noches que marcan para siempre.",
     "fraseSub":  "Esta es una de ellas.",
     "fecha":  "2026-09-19T21:00:00",
-    "fechaDisplay":  "SÃ¡bado Â· 19 de Septiembre Â· 2026",
+    "fechaDisplay":  "Sábado · 19 de Septiembre · 2026",
     "hora":  "21:00 hs",
     "heroFoto":  "",
     "splash":  true,
     "bienvenida":  {
                        "titulo":  "Una noche para recordar.",
-                       "texto":  "Quince aÃ±os siendo exactamente quien soy. Cada paso hasta acÃ¡ fue con ustedes. Gracias por estar, gracias por venir. Esta noche la hacemos juntos."
+                       "texto":  "Quince años siendo exactamente quien soy. Cada paso hasta acá fue con ustedes. Gracias por estar, gracias por venir. Esta noche la hacemos juntos."
                    },
     "lugar":  {
                   "nombre":  "Palacio San Telmo",
-                  "barrio":  "San Telmo Â· Buenos Aires",
+                  "barrio":  "San Telmo · Buenos Aires",
                   "direccion":  "Av. San Juan 100, C.A.B.A.",
                   "mapsUrl":  "https://maps.app.goo.gl/LINK"
               },
     "dresscode":  {
-                      "texto":  "Elegante Â· Formal",
-                      "nota":  "El blanco y negro estÃ¡n reservados para la festejada."
+                      "texto":  "Elegante · Formal",
+                      "nota":  "El blanco y negro están reservados para la festejada."
                   },
     "regalos":  {
-                    "texto":  "Tu presencia ya es todo. Si querÃ©s hacerme un detalle, podÃ©s hacerlo por acÃ¡.",
+                    "texto":  "Tu presencia ya es todo. Si querés hacerme un detalle, podés hacerlo por acá.",
                     "alias":  "isabella.gomez",
                     "cbu":  "0000003100025264839001",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {
                      "numero":  "5491155550000",
-                     "mensaje":  "Â¡Hola! Confirmo mi asistencia a los 15 de Isabella ðŸ¤"
+                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Isabella 🤍"
                  },
     "musica":  {
                    "src":  "../../../assets/music/party-soft.mp3",
@@ -46,7 +46,7 @@
               ],
     "footer":  {
                    "mensaje":  "Nos vemos esta noche.",
-                   "firma":  "Isabella Â· 2026"
+                   "firma":  "Isabella · 2026"
                },
     "tema":  {
                  "acento":  "#0a0a0a"

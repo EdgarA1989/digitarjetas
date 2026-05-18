@@ -322,19 +322,23 @@ function initFormulario(config) {
   let qty = 1;
   const MAX = 20;
 
-  function setQty(n) {
+  function setQty(n, drafts) {
+    const currentGuests = Array.isArray(drafts) ? drafts : getGuests(qty);
     qty = Math.max(1, Math.min(n, MAX));
     if (numEl) numEl.textContent = String(qty);
     if (btnMenos) btnMenos.disabled = qty <= 1;
     if (btnMas)   btnMas.disabled   = qty >= MAX;
-    renderGuests();
+    renderGuests(currentGuests);
   }
 
-  function renderGuests() {
+  function renderGuests(drafts = []) {
     const container = document.getElementById("form-guests");
     if (!container) return;
     let html = '';
     for (let i = 0; i < qty; i++) {
+      const draft = drafts[i] || {};
+      const status = draft.status || "asiste";
+      const isAttending = status !== "no_asiste";
       const label = qty === 1 ? 'Tus datos' : `Invitado ${i + 1}`;
       html += `
         <div class="form-guest">
@@ -342,36 +346,31 @@ function initFormulario(config) {
           <div class="form-guest-fields">
             <input class="form-input" type="text" placeholder="Nombre"
                    data-guest="${i}" data-field="nombre"
-                   autocomplete="${i === 0 ? 'given-name' : 'off'}" />
+                   autocomplete="${i === 0 ? 'given-name' : 'off'}"
+                   value="${escapeAttr(draft.nombre)}" />
             <input class="form-input" type="text" placeholder="Apellido"
                    data-guest="${i}" data-field="apellido"
-                   autocomplete="${i === 0 ? 'family-name' : 'off'}" />
+                   autocomplete="${i === 0 ? 'family-name' : 'off'}"
+                   value="${escapeAttr(draft.apellido)}" />
           </div>
           <div class="form-guest-extra">
             <label class="form-field form-field--compact">
               <span class="form-label">Asistencia</span>
               <div class="form-status-toggle" role="group" aria-label="Asistencia del invitado ${i + 1}">
-                <input class="form-status-input" type="hidden" value="asiste"
+                <input class="form-status-input" type="hidden" value="${escapeAttr(status)}"
                        data-guest="${i}" data-field="status" />
-                <button class="form-status-btn is-active" type="button"
+                <button class="form-status-btn ${isAttending ? 'is-active' : ''}" type="button"
                         data-guest="${i}" data-form-status="asiste"
-                        aria-pressed="true">Si</button>
-                <button class="form-status-btn" type="button"
+                        aria-pressed="${isAttending ? 'true' : 'false'}">Sí</button>
+                <button class="form-status-btn ${isAttending ? '' : 'is-active'}" type="button"
                         data-guest="${i}" data-form-status="no_asiste"
-                        aria-pressed="false">No</button>
+                        aria-pressed="${isAttending ? 'false' : 'true'}">No</button>
               </div>
             </label>
-            <label class="form-field form-field--compact form-attendance-details" data-form-guest-details="${i}">
-              <span class="form-label">Posee alguna restriccion alimenticia</span>
+            <label class="form-field form-field--compact form-attendance-details" data-form-guest-details="${i}" ${isAttending ? '' : 'hidden'}>
+              <span class="form-label">Posee alguna restricción alimenticia</span>
               <select class="form-input" data-guest="${i}" data-field="restriccion">
-                <option value="">Seleccionar</option>
-                <option>Sin restriccion</option>
-                <option>Vegetariano/a</option>
-                <option>Vegano/a</option>
-                <option>Sin TACC / celiaquia</option>
-                <option>Sin lactosa</option>
-                <option>Alergia a frutos secos</option>
-                <option>Otra restriccion</option>
+                ${renderRestrictionOptions(draft.restriccion)}
               </select>
             </label>
           </div>
@@ -391,6 +390,11 @@ function initFormulario(config) {
 
     const index = Number(button.dataset.guest);
     const status = button.dataset.formStatus;
+    if (status === "no_asiste" && qty > 1) {
+      removeFormGuest(index);
+      return;
+    }
+
     const input = document.querySelector(`.form-status-input[data-guest="${index}"]`);
     if (input) input.value = status;
 
@@ -438,6 +442,36 @@ function initFormulario(config) {
       formWrap.style.display = "";
     });
   }
+
+  function removeFormGuest(index) {
+    const guests = getGuests(qty);
+    guests.splice(index, 1);
+    setQty(qty - 1, guests);
+  }
+}
+
+function renderRestrictionOptions(selected = '') {
+  const options = [
+    ['', 'Seleccionar'],
+    ['Sin restricción', 'Sin restricción'],
+    ['Vegetariano/a', 'Vegetariano/a'],
+    ['Vegano/a', 'Vegano/a'],
+    ['Sin TACC / celiaquía', 'Sin TACC / celiaquía'],
+    ['Sin lactosa', 'Sin lactosa'],
+    ['Alergia a frutos secos', 'Alergia a frutos secos'],
+    ['Otra restricción', 'Otra restricción'],
+  ];
+  return options.map(([value, label]) => (
+    `<option value="${escapeAttr(value)}"${value === selected ? ' selected' : ''}>${label}</option>`
+  )).join('');
+}
+
+function escapeAttr(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 function getGuests(qty) {
@@ -649,7 +683,3 @@ function formatDateLong(dateStr) {
   const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
   return `${dias[d.getDay()]} · ${d.getDate()} de ${meses[d.getMonth()]} · ${d.getFullYear()}`;
 }
-
-
-
-

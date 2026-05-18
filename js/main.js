@@ -222,6 +222,7 @@ const features = [
   ["12", "Datos de regalo o alias", "Agregá alias, cuenta o información útil."],
   ["13", "Cronograma del evento", "Mostrá los momentos importantes de la jornada."],
   ["14", "Mensaje personalizado", "Un cierre cálido para tus invitados."],
+  ["15", "Registro en planilla online", "Las confirmaciones pueden quedar organizadas en una planilla para consultar fácilmente."],
 ];
 
 const benefits = [

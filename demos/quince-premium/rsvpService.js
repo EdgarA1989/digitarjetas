@@ -98,6 +98,3 @@ const RsvpService = (() => {
 
   return { send };
 })();
-
-
-

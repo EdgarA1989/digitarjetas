@@ -73,7 +73,9 @@ const legacyModeToPlan = {
 
 document.addEventListener("DOMContentLoaded", () => {
   initDemoMediaState();
-  initDemoPlanSwitcher();
+  // Pausado temporalmente para grabaciones de pantalla.
+  // Volver a activar esta linea para mostrar el menu superior de versiones:
+  // initDemoPlanSwitcher();
   initDemoLightboxState();
   initDemoCommercialCta();
 });

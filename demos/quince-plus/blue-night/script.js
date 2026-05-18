@@ -450,7 +450,3 @@ function initFireIcons() {
   document.querySelectorAll('.section-tag, .cover-tag, .hero-tag, .agendar-label')
     .forEach(el => { el.innerHTML = el.innerHTML.replace('//', FLAME); });
 }
-
-
-
-

@@ -374,6 +374,41 @@ body.dark .rsvp-input option,
   background: #151426;
 }
 
+body[data-template="trap"],
+body[data-template="trap-azul"],
+body[data-template="urbana"],
+body[data-template="elegante"] {
+  --rsvp-text: #f8f6ff;
+  --rsvp-text-sub: rgba(248, 246, 255, .78);
+  --rsvp-input-bg: rgba(255, 255, 255, .1);
+  --rsvp-border: rgba(255, 255, 255, .2);
+  --rsvp-card: rgba(255, 255, 255, .08);
+}
+
+body[data-template="trap"] .rsvp-input,
+body[data-template="trap-azul"] .rsvp-input,
+body[data-template="urbana"] .rsvp-input,
+body[data-template="elegante"] .rsvp-input {
+  color: var(--rsvp-text);
+  background-color: var(--rsvp-input-bg);
+}
+
+body[data-template="trap"] .rsvp-input::placeholder,
+body[data-template="trap-azul"] .rsvp-input::placeholder,
+body[data-template="urbana"] .rsvp-input::placeholder,
+body[data-template="elegante"] .rsvp-input::placeholder {
+  color: rgba(248, 246, 255, .62);
+  opacity: 1;
+}
+
+body[data-template="trap"] .rsvp-input option,
+body[data-template="trap-azul"] .rsvp-input option,
+body[data-template="urbana"] .rsvp-input option,
+body[data-template="elegante"] .rsvp-input option {
+  color: #f8f6ff;
+  background: #12111f;
+}
+
 @media (min-width: 680px) {
   .dt-demo-cta__actions {
     grid-template-columns: minmax(0, 3fr) minmax(130px, 1fr);
