@@ -1,33 +1,33 @@
-{
+﻿{
     "nombre":  "Melody",
-    "frase":  "Quince años siendo exactamente quien soy.",
-    "fraseSub":  "La noche más épica de tu vida empieza acá.",
+    "frase":  "Quince aÃ±os siendo exactamente quien soy.",
+    "fraseSub":  "La noche mÃ¡s Ã©pica de tu vida empieza acÃ¡.",
     "fecha":  "2026-10-03T21:00:00",
-    "fechaDisplay":  "Sábado · 03 de Octubre · 2026",
+    "fechaDisplay":  "SÃ¡bado Â· 03 de Octubre Â· 2026",
     "hora":  "21:00 hs",
     "bienvenida":  {
                        "titulo":  "Sin ensayo. Sin segundo tiempo.",
-                       "texto":  "Quince años de ser exactamente quien soy, sin filtros. Esta noche lo celebramos a lo grande. Grabalo todo porque esto no se repite."
+                       "texto":  "Quince aÃ±os de ser exactamente quien soy, sin filtros. Esta noche lo celebramos a lo grande. Grabalo todo porque esto no se repite."
                    },
     "lugar":  {
-                  "nombre":  "Salón Stage",
-                  "barrio":  "Villa del Parque · CABA",
-                  "direccion":  "Av. San Martín 3850, CABA",
+                  "nombre":  "SalÃ³n Stage",
+                  "barrio":  "Villa del Parque Â· CABA",
+                  "direccion":  "Av. San MartÃ­n 3850, CABA",
                   "mapsUrl":  "https://maps.google.com/?q=Av+San+Martin+3850+CABA"
               },
     "dresscode":  {
                       "texto":  "Street Glam / Elegante con actitud",
-                      "nota":  "El azul está reservado para la festejada."
+                      "nota":  "El azul estÃ¡ reservado para la festejada."
                   },
     "regalos":  {
-                    "texto":  "Tu presencia vale más que cualquier regalo. Pero si querés sumar al show, acá van los datos.",
+                    "texto":  "Tu presencia vale mÃ¡s que cualquier regalo. Pero si querÃ©s sumar al show, acÃ¡ van los datos.",
                     "alias":  "Melody.rap",
                     "cbu":  "0000003100025264839001",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {
                      "numero":  "5491155550000",
-                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Melody 🎤"
+                     "mensaje":  "Â¡Hola! Confirmo mi asistencia a los 15 de Melody ðŸŽ¤"
                  },
     "musica":  {
                    "src":  "../../../assets/music/party-soft.mp3",
@@ -44,7 +44,7 @@
               ],
     "footer":  {
                    "mensaje":  "Esta noche la hacemos historia.",
-                   "firma":  "Melo· 2026"
+                   "firma":  "MeloÂ· 2026"
                },
     "tema":  {
                  "acento":  "#1e90ff",
@@ -55,7 +55,10 @@
                  "maxGuests":  6,
                  "submitMode":  "formsubmit",
                  "emailTo":  "edgar.andrada@gmail.com",
-                 "googleSheetsUrl":  ""
+                 "googleSheetsUrl":  "",
+                 "hideDeclineButton":  true,
+                 "perGuestDetails":  true,
+                 "includeSongRequest":  true
              },
     "assets":  {
                    "imagesBasePath":  "../../../assets/img/demos/blue-night/",

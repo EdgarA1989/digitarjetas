@@ -1,32 +1,32 @@
-{
+﻿{
     "nombre":  "Valentina",
-    "frase":  "Cada momento de esta noche lo viví pensando en vos.",
+    "frase":  "Cada momento de esta noche lo vivÃ­ pensando en vos.",
     "fecha":  "2026-10-17T21:00:00",
-    "fechaDisplay":  "Sábado · 17 de Octubre · 2026",
+    "fechaDisplay":  "SÃ¡bado Â· 17 de Octubre Â· 2026",
     "hora":  "21:00 hs",
     "bienvenida":  {
-                       "titulo":  "Un momento único.",
-                       "texto":  "Quince años son el comienzo de todo. Quiero vivirlos rodeada de las personas que más quiero. Esta noche es nuestra."
+                       "titulo":  "Un momento Ãºnico.",
+                       "texto":  "Quince aÃ±os son el comienzo de todo. Quiero vivirlos rodeada de las personas que mÃ¡s quiero. Esta noche es nuestra."
                    },
     "lugar":  {
-                  "nombre":  "Salón Versalles",
-                  "barrio":  "Palermo · CABA",
+                  "nombre":  "SalÃ³n Versalles",
+                  "barrio":  "Palermo Â· CABA",
                   "direccion":  "Av. Santa Fe 3200, CABA",
                   "mapsUrl":  "https://maps.google.com/?q=Av+Santa+Fe+3200+CABA"
               },
     "dresscode":  {
                       "texto":  "Formal / Cocktail",
-                      "nota":  "El azul y el plateado están reservados para la festejada."
+                      "nota":  "El azul y el plateado estÃ¡n reservados para la festejada."
                   },
     "regalos":  {
-                    "texto":  "Tu presencia es el mejor regalo. Si querés tener un gesto, te dejo mis datos.",
+                    "texto":  "Tu presencia es el mejor regalo. Si querÃ©s tener un gesto, te dejo mis datos.",
                     "alias":  "valentina.garcia",
                     "cbu":  "0000003100025264839001",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {
                      "numero":  "5491155550000",
-                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Valentina 🎉"
+                     "mensaje":  "Â¡Hola! Confirmo mi asistencia a los 15 de Valentina ðŸŽ‰"
                  },
     "musica":  {
                    "src":  "../../../assets/music/party-soft.mp3",
@@ -43,7 +43,7 @@
               ],
     "footer":  {
                    "mensaje":  "Gracias por ser parte de este momento.",
-                   "firma":  "Con amor, Valentina · 2026"
+                   "firma":  "Con amor, Valentina Â· 2026"
                },
     "tema":  {
                  "acento":  "#6baed6",
@@ -54,7 +54,10 @@
                  "maxGuests":  6,
                  "submitMode":  "mailto",
                  "emailTo":  "edgar.andrada@gmail.com",
-                 "googleSheetsUrl":  ""
+                 "googleSheetsUrl":  "",
+                 "hideDeclineButton":  true,
+                 "perGuestDetails":  true,
+                 "includeSongRequest":  true
              },
     "assets":  {
                    "imagesBasePath":  "../../../assets/img/demos/aurora/",

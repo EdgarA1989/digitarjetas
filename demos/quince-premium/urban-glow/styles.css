@@ -1471,6 +1471,88 @@ body {
 
 .rsvp-guest-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
 
+.rsvp-guest-extra {
+  display: grid;
+  gap: .65rem;
+  margin-top: .65rem;
+}
+
+.rsvp-field-label {
+  display: grid;
+  gap: .38rem;
+}
+
+.rsvp-field-label span {
+  color: var(--rsvp-text-sub);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.rsvp-status-row {
+  display: grid;
+}
+
+.rsvp-status-toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .35rem;
+  padding: .28rem;
+  border: 1px solid var(--rsvp-border);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(184, 79, 255, .13), rgba(123, 47, 247, .07)),
+    rgba(255, 255, 255, .035);
+}
+
+.rsvp-status-btn {
+  min-height: 38px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--rsvp-text-sub);
+  background: transparent;
+  font-family: inherit;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.rsvp-status-btn:hover {
+  color: var(--rsvp-text);
+}
+
+.rsvp-status-btn.is-active {
+  color: #fff;
+  background:
+    linear-gradient(135deg, var(--rsvp-btn-bg), #b84fff);
+  box-shadow: 0 10px 24px rgba(123, 47, 247, .28);
+  transform: translateY(-1px);
+}
+
+.rsvp-status-btn[data-rsvp-status="no_asiste"].is-active {
+  color: var(--rsvp-text);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.06));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.rsvp-attendance-details {
+  display: grid;
+  gap: .65rem;
+  padding: .75rem;
+  border: 1px solid var(--rsvp-border);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at top left, rgba(184, 79, 255, .14), transparent 55%),
+    rgba(255,255,255,.025);
+}
+
+.rsvp-attendance-details[hidden] { display: none; }
+
 .rsvp-input {
   width: 100%;
   padding: .6rem .8rem;
@@ -1482,6 +1564,28 @@ body {
   font-family: inherit;
   transition: border-color .2s;
   -webkit-appearance: none;
+}
+
+.rsvp-input option {
+  color: #f0f0f0;
+  background: #161616;
+}
+
+select.rsvp-input {
+  padding-right: 2.2rem;
+  background:
+    linear-gradient(45deg, transparent 50%, var(--rsvp-text-sub) 50%),
+    linear-gradient(135deg, var(--rsvp-text-sub) 50%, transparent 50%),
+    var(--rsvp-input-bg);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 13px) 50%,
+    0 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    100% 100%;
+  background-repeat: no-repeat;
 }
 
 .rsvp-input::placeholder { color: var(--rsvp-text-sub); opacity: .6; }

@@ -313,12 +313,12 @@ function renderTemplates() {
           </div>
           <p>${template.description}</p>
         </div>
-      </div>
-      <div class="template-actions">
-        ${getAvailableDemoPlans(template).length
-          ? `<button class="btn btn--outline btn--small" type="button" data-demo-template="${template.slug}">Ver demo</button>`
-          : `<button class="btn btn--outline btn--small" type="button" disabled>Demo pronto</button>`}
-        <button class="btn btn--primary btn--small" type="button" data-consult-template="${template.slug}">Quiero esta</button>
+        <div class="template-actions">
+          ${getAvailableDemoPlans(template).length
+            ? `<button class="btn btn--outline btn--small" type="button" data-demo-template="${template.slug}">Ver demo</button>`
+            : `<button class="btn btn--outline btn--small" type="button" disabled>Demo pronto</button>`}
+          <button class="btn btn--primary btn--small" type="button" data-consult-template="${template.slug}">Quiero esta</button>
+        </div>
       </div>
     </article>
   `).join("");
@@ -513,6 +513,12 @@ function initSmoothLinks() {
     link.addEventListener("click", event => {
       const href = link.getAttribute("href");
       if (!href || href === "#") return;
+
+      if (href === "#inicio") {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
 
       const target = document.querySelector(href);
       if (!target) return;

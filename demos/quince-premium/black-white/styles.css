@@ -1021,8 +1021,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .btn-rsvp:active { transform: translateY(0); }
 
 .btn-rsvp--asiste {
-  background: var(--rsvp-btn-bg);
-  color:      var(--rsvp-btn-text);
+  background: var(--blanco);
+  color: var(--negro);
+  border: 1px solid var(--blanco);
+  box-shadow: 0 18px 42px rgba(255, 255, 255, 0.12);
+}
+
+.btn-rsvp--asiste:hover {
+  opacity: 1;
+  background: transparent;
+  color: var(--blanco);
 }
 
 .btn-rsvp--no {

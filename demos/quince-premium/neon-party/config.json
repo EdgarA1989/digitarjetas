@@ -1,33 +1,33 @@
-{
+﻿{
     "nombre":  "Valentina",
     "frase":  "La vida empieza ahora.",
     "fraseSub":  "Este 20 de septiembre, todo cambia.",
     "fecha":  "2026-10-03T21:00:00",
-    "fechaDisplay":  "Sábado · 3 de Octubre · 2026",
+    "fechaDisplay":  "SÃ¡bado Â· 3 de Octubre Â· 2026",
     "hora":  "21:00 hs",
     "bienvenida":  {
-                       "titulo":  "Finalmente llegó.",
-                       "texto":  "Quince años siendo exactamente quien soy. Gracias por estar acá para vivirlo conmigo. Esta noche la hacemos nuestra."
+                       "titulo":  "Finalmente llegÃ³.",
+                       "texto":  "Quince aÃ±os siendo exactamente quien soy. Gracias por estar acÃ¡ para vivirlo conmigo. Esta noche la hacemos nuestra."
                    },
     "lugar":  {
-                  "nombre":  "Salón Rotonda",
-                  "barrio":  "Billinghurst · San Martin",
+                  "nombre":  "SalÃ³n Rotonda",
+                  "barrio":  "Billinghurst Â· San Martin",
                   "direccion":  "Triunvirato 4051",
                   "mapsUrl":  "https://maps.app.goo.gl/Xp83ai9xojXE2i4WA"
               },
     "dresscode":  {
                       "texto":  "Smart casual / formal",
-                      "nota":  "El rojo está reservado para la festejada."
+                      "nota":  "El rojo estÃ¡ reservado para la festejada."
                   },
     "regalos":  {
-                    "texto":  "Tu presencia ya es todo. Si querés hacerme un detalle, podés hacerlo por acá.",
+                    "texto":  "Tu presencia ya es todo. Si querÃ©s hacerme un detalle, podÃ©s hacerlo por acÃ¡.",
                     "alias":  "valentina.garcia",
                     "cbu":  "0000003100025264839001",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {
                      "numero":  "5491155550000",
-                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Valentina 🎉"
+                     "mensaje":  "Â¡Hola! Confirmo mi asistencia a los 15 de Valentina ðŸŽ‰"
                  },
     "musica":  {
                    "src":  "../../../assets/music/party-soft.mp3",
@@ -43,8 +43,8 @@
                   "foto horizontal 2.png"
               ],
     "footer":  {
-                   "mensaje":  "Nos vemos en la pista. 🤍",
-                   "firma":  "Valen · 2026"
+                   "mensaje":  "Nos vemos en la pista. ðŸ¤",
+                   "firma":  "Valen Â· 2026"
                },
     "tema":  {
                  "acento":  "#E040FB",
@@ -55,7 +55,10 @@
                  "maxGuests":  6,
                  "submitMode":  "mailto",
                  "emailTo":  "edgar.andrada@gmail.com",
-                 "googleSheetsUrl":  ""
+                 "googleSheetsUrl":  "",
+                 "hideDeclineButton":  true,
+                 "perGuestDetails":  true,
+                 "includeSongRequest":  true
              },
     "assets":  {
                    "imagesBasePath":  "../../../assets/img/demos/neon-party/",

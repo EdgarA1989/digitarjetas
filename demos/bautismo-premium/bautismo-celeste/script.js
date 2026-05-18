@@ -347,6 +347,34 @@ function initFormulario(config) {
                    data-guest="${i}" data-field="apellido"
                    autocomplete="${i === 0 ? 'family-name' : 'off'}" />
           </div>
+          <div class="form-guest-extra">
+            <label class="form-field form-field--compact">
+              <span class="form-label">Asistencia</span>
+              <div class="form-status-toggle" role="group" aria-label="Asistencia del invitado ${i + 1}">
+                <input class="form-status-input" type="hidden" value="asiste"
+                       data-guest="${i}" data-field="status" />
+                <button class="form-status-btn is-active" type="button"
+                        data-guest="${i}" data-form-status="asiste"
+                        aria-pressed="true">Si</button>
+                <button class="form-status-btn" type="button"
+                        data-guest="${i}" data-form-status="no_asiste"
+                        aria-pressed="false">No</button>
+              </div>
+            </label>
+            <label class="form-field form-field--compact form-attendance-details" data-form-guest-details="${i}">
+              <span class="form-label">Posee alguna restriccion alimenticia</span>
+              <select class="form-input" data-guest="${i}" data-field="restriccion">
+                <option value="">Seleccionar</option>
+                <option>Sin restriccion</option>
+                <option>Vegetariano/a</option>
+                <option>Vegano/a</option>
+                <option>Sin TACC / celiaquia</option>
+                <option>Sin lactosa</option>
+                <option>Alergia a frutos secos</option>
+                <option>Otra restriccion</option>
+              </select>
+            </label>
+          </div>
         </div>`;
     }
     container.innerHTML = html;
@@ -357,6 +385,23 @@ function initFormulario(config) {
   if (btnMenos) btnMenos.addEventListener("click", () => setQty(qty - 1));
   if (btnMas)   btnMas.addEventListener("click",   () => setQty(qty + 1));
 
+  document.getElementById("form-guests")?.addEventListener("click", e => {
+    const button = e.target.closest("[data-form-status]");
+    if (!button) return;
+
+    const index = Number(button.dataset.guest);
+    const status = button.dataset.formStatus;
+    const input = document.querySelector(`.form-status-input[data-guest="${index}"]`);
+    if (input) input.value = status;
+
+    button.closest(".form-status-toggle")?.querySelectorAll("[data-form-status]").forEach(item => {
+      item.classList.toggle("is-active", item === button);
+      item.setAttribute("aria-pressed", String(item === button));
+    });
+
+    toggleFormGuestDetails(index, status);
+  });
+
   form.addEventListener("submit", e => {
     e.preventDefault();
     const guests = getGuests(qty);
@@ -365,11 +410,15 @@ function initFormulario(config) {
     const telefono  = document.getElementById("f-telefono").value.trim();
     const mensaje   = document.getElementById("f-mensaje").value.trim();
     const childName = config.childName || "el festejado/a";
+    const attendingCount = guests.filter(g => g.status === "asiste").length;
 
     let texto = `Hola! Quiero confirmar mi asistencia al bautismo de ${childName}.\n`;
-    texto += `👥 ${qty} persona${qty > 1 ? "s" : ""}:\n`;
+    texto += `👥 ${qty} persona${qty > 1 ? "s" : ""} cargada${qty > 1 ? "s" : ""} (${attendingCount} asisten):\n`;
     guests.forEach((g, i) => {
-      texto += `  ${i + 1}. ${g.nombre} ${g.apellido}\n`;
+      texto += `  ${i + 1}. ${g.nombre} ${g.apellido} - ${g.status === "asiste" ? "Asiste" : "No asiste"}\n`;
+      if (g.status === "asiste" && g.restriccion) {
+        texto += `     Restriccion alimenticia: ${g.restriccion}\n`;
+      }
     });
     if (telefono) texto += `📱 Teléfono: ${telefono}\n`;
     if (mensaje)  texto += `💬 Mensaje: ${mensaje}`;
@@ -396,7 +445,9 @@ function getGuests(qty) {
   for (let i = 0; i < qty; i++) {
     const nombre   = (document.querySelector(`.form-input[data-guest="${i}"][data-field="nombre"]`)?.value   || '').trim();
     const apellido = (document.querySelector(`.form-input[data-guest="${i}"][data-field="apellido"]`)?.value || '').trim();
-    guests.push({ nombre, apellido });
+    const status = (document.querySelector(`.form-status-input[data-guest="${i}"][data-field="status"]`)?.value || "asiste").trim();
+    const restriccion = (document.querySelector(`.form-input[data-guest="${i}"][data-field="restriccion"]`)?.value || '').trim();
+    guests.push({ nombre, apellido, status, restriccion });
   }
   return guests;
 }
@@ -407,10 +458,24 @@ function validarGuests(guests) {
   guests.forEach((g, i) => {
     const nEl = document.querySelector(`.form-input[data-guest="${i}"][data-field="nombre"]`);
     const aEl = document.querySelector(`.form-input[data-guest="${i}"][data-field="apellido"]`);
+    const rEl = document.querySelector(`.form-input[data-guest="${i}"][data-field="restriccion"]`);
     if (!g.nombre)   { nEl?.classList.add('error'); valido = false; }
     if (!g.apellido) { aEl?.classList.add('error'); valido = false; }
+    if (g.status === "asiste" && !g.restriccion) { rEl?.classList.add('error'); valido = false; }
   });
   return valido;
+}
+
+function toggleFormGuestDetails(index, status) {
+  const details = document.querySelector(`[data-form-guest-details="${index}"]`);
+  if (!details) return;
+  details.hidden = status !== "asiste";
+  if (status !== "asiste") {
+    details.querySelectorAll("select, input").forEach(field => {
+      field.classList.remove("error");
+      field.value = "";
+    });
+  }
 }
 
 // ── Cover ─────────────────────────────────────────────────────

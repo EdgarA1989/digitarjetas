@@ -1,33 +1,33 @@
-{
+﻿{
     "nombre":  "Valentina",
-    "frase":  "Quince años siendo exactamente quien soy.",
-    "fraseSub":  "La noche más épica de tu vida empieza acá.",
+    "frase":  "Quince aÃ±os siendo exactamente quien soy.",
+    "fraseSub":  "La noche mÃ¡s Ã©pica de tu vida empieza acÃ¡.",
     "fecha":  "2026-09-19T21:00:00",
-    "fechaDisplay":  "Sábado · 19 de Septiembre · 2026",
+    "fechaDisplay":  "SÃ¡bado Â· 19 de Septiembre Â· 2026",
     "hora":  "21:00 hs",
     "bienvenida":  {
                        "titulo":  "Sin ensayo. Sin segundo tiempo.",
-                       "texto":  "Quince años de ser exactamente quien soy, sin filtros. Esta noche lo celebramos a lo grande. Grabalo todo porque esto no se repite."
+                       "texto":  "Quince aÃ±os de ser exactamente quien soy, sin filtros. Esta noche lo celebramos a lo grande. Grabalo todo porque esto no se repite."
                    },
     "lugar":  {
-                  "nombre":  "Salón Stage",
-                  "barrio":  "Villa del Parque · CABA",
-                  "direccion":  "Av. San Martín 3850, CABA",
+                  "nombre":  "SalÃ³n Stage",
+                  "barrio":  "Villa del Parque Â· CABA",
+                  "direccion":  "Av. San MartÃ­n 3850, CABA",
                   "mapsUrl":  "https://maps.google.com/?q=Av+San+Martin+3850+CABA"
               },
     "dresscode":  {
                       "texto":  "Street Glam / Elegante con actitud",
-                      "nota":  "El violeta está reservado para la cumpleañera."
+                      "nota":  "El violeta estÃ¡ reservado para la cumpleaÃ±era."
                   },
     "regalos":  {
-                    "texto":  "Tu presencia vale más que cualquier regalo. Pero si querés sumar al show, acá van los datos.",
+                    "texto":  "Tu presencia vale mÃ¡s que cualquier regalo. Pero si querÃ©s sumar al show, acÃ¡ van los datos.",
                     "alias":  "valentina.rap",
                     "cbu":  "0000003100025264839001",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {
                      "numero":  "5491155550000",
-                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Valentina 🎤"
+                     "mensaje":  "Â¡Hola! Confirmo mi asistencia a los 15 de Valentina ðŸŽ¤"
                  },
     "musica":  {
                    "src":  "../../../assets/music/party-soft.mp3",
@@ -44,7 +44,7 @@
               ],
     "footer":  {
                    "mensaje":  "Esta noche la hacemos historia.",
-                   "firma":  "Valen · 2026"
+                   "firma":  "Valen Â· 2026"
                },
     "tema":  {
                  "acento":  "#b84fff",
@@ -53,9 +53,12 @@
     "rsvp":  {
                  "enabled":  true,
                  "maxGuests":  6,
+                 "hideDeclineButton":  true,
+                 "perGuestDetails":  true,
                  "submitMode":  "mailto",
                  "emailTo":  "edgar.andrada@gmail.com",
-                 "googleSheetsUrl":  ""
+                 "googleSheetsUrl":  "",
+                 "includeSongRequest":  true
              },
     "assets":  {
                    "imagesBasePath":  "../../../assets/img/demos/urban-glow/",

@@ -40,6 +40,29 @@ const RsvpModal = (() => {
     on('rsvp-qty-minus', 'click', () => setQty(_qty - 1));
     on('rsvp-qty-plus',  'click', () => setQty(_qty + 1));
 
+    if (_cfg.hideDeclineButton) {
+      const declineBtn = document.getElementById('btn-no-asiste');
+      if (declineBtn) declineBtn.remove();
+    }
+
+    const guestsContainer = document.getElementById('rsvp-guests');
+    guestsContainer?.addEventListener('click', e => {
+      const button = e.target.closest('[data-rsvp-status]');
+      if (!button) return;
+
+      const index = Number(button.dataset.guest);
+      const status = button.dataset.rsvpStatus;
+      const input = qs(`.rsvp-status-input[data-guest="${index}"]`);
+      if (input) input.value = status;
+
+      button.closest('.rsvp-status-toggle')?.querySelectorAll('[data-rsvp-status]').forEach(item => {
+        item.classList.toggle('is-active', item === button);
+        item.setAttribute('aria-pressed', String(item === button));
+      });
+
+      toggleGuestDetails(index, status);
+    });
+
     const overlay = document.getElementById('rsvp-modal');
     if (overlay) {
       overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
@@ -56,17 +79,20 @@ const RsvpModal = (() => {
     _qty        = 1;
     _submitting = false;
 
-    const texts = TEXTS[mode];
+    const texts = getTexts(mode);
     setText('rsvp-titulo',    texts.titulo);
     setText('rsvp-subtitulo', texts.subtitulo);
     setText('rsvp-submit',    texts.btnLabel);
 
     const qtySection = document.getElementById('rsvp-qty');
-    if (qtySection) qtySection.style.display = mode === 'asiste' ? '' : 'none';
+    if (qtySection) qtySection.style.display = mode === 'asiste' || _cfg.perGuestDetails ? '' : 'none';
+    if (_cfg.perGuestDetails) setTextBySelector('.rsvp-qty-label', '¿Cuántas personas querés cargar?');
 
     setQty(1);
     const cancionInput = document.getElementById('rsvp-cancion-input');
     if (cancionInput) cancionInput.value = '';
+    const cancionWrap = document.querySelector('.rsvp-cancion-wrap');
+    if (cancionWrap) cancionWrap.style.display = _cfg.perGuestDetails ? 'none' : '';
     showState('form');
 
     const overlay = document.getElementById('rsvp-modal');
@@ -131,9 +157,67 @@ const RsvpModal = (() => {
                    autocomplete="${i === 0 ? 'family-name' : 'off'}"
                    inputmode="text" />
           </div>
+          ${_cfg.perGuestDetails ? renderGuestDetails(i) : ''}
         </div>`;
     }
     container.innerHTML = html;
+  }
+
+  function renderGuestDetails(index) {
+    return `
+      <div class="rsvp-guest-extra">
+        <label class="rsvp-field-label">
+          <span>Asistencia</span>
+          <div class="rsvp-status-row">
+            <input class="rsvp-status-input"
+                   type="hidden"
+                   value="asiste"
+                   data-guest="${index}"
+                   data-field="status" />
+            <div class="rsvp-status-toggle" role="group" aria-label="Asistencia del invitado ${index + 1}">
+              <button class="rsvp-status-btn is-active"
+                      type="button"
+                      data-guest="${index}"
+                      data-rsvp-status="asiste"
+                      aria-pressed="true">Sí</button>
+              <button class="rsvp-status-btn"
+                      type="button"
+                      data-guest="${index}"
+                      data-rsvp-status="no_asiste"
+                      aria-pressed="false">No</button>
+            </div>
+          </div>
+        </label>
+        <div class="rsvp-attendance-details" data-guest-details="${index}">
+          <label class="rsvp-field-label">
+            <span>¿Posee alguna restricción alimenticia?</span>
+            <select class="rsvp-input"
+                    data-guest="${index}"
+                    data-field="restriccion">
+              <option value="">Seleccionar</option>
+              <option>Sin restricción</option>
+              <option>Vegetariano/a</option>
+              <option>Vegano/a</option>
+              <option>Sin TACC / celiaquía</option>
+              <option>Sin lactosa</option>
+              <option>Alergia a frutos secos</option>
+              <option>Otra restricción</option>
+            </select>
+          </label>
+          ${_cfg.includeSongRequest === false ? '' : `
+            <label class="rsvp-field-label">
+              <span>Canción que no puede faltar</span>
+              <input class="rsvp-input"
+                     type="text"
+                     placeholder="Artista · Canción"
+                     data-guest="${index}"
+                     data-field="cancion"
+                     autocomplete="off"
+                     inputmode="text" />
+            </label>
+          `}
+        </div>
+      </div>`;
   }
 
   // ── Obtener datos de los campos ───────────────────
@@ -142,7 +226,16 @@ const RsvpModal = (() => {
     for (let i = 0; i < _qty; i++) {
       const nombre   = (qs(`.rsvp-input[data-guest="${i}"][data-field="nombre"]`)?.value   || '').trim();
       const apellido = (qs(`.rsvp-input[data-guest="${i}"][data-field="apellido"]`)?.value || '').trim();
-      guests.push({ number: i + 1, nombre, apellido });
+      const status = _cfg.perGuestDetails
+        ? (qs(`.rsvp-status-input[data-guest="${i}"][data-field="status"]`)?.value || 'asiste')
+        : _mode;
+      const restriccion = _cfg.perGuestDetails
+        ? (qs(`.rsvp-input[data-guest="${i}"][data-field="restriccion"]`)?.value || '').trim()
+        : '';
+      const cancion = _cfg.perGuestDetails
+        ? (qs(`.rsvp-input[data-guest="${i}"][data-field="cancion"]`)?.value || '').trim()
+        : '';
+      guests.push({ number: i + 1, nombre, apellido, status, restriccion, cancion });
     }
     return guests;
   }
@@ -154,8 +247,10 @@ const RsvpModal = (() => {
     guests.forEach((g, i) => {
       const nEl = qs(`.rsvp-input[data-guest="${i}"][data-field="nombre"]`);
       const aEl = qs(`.rsvp-input[data-guest="${i}"][data-field="apellido"]`);
+      const rEl = qs(`.rsvp-input[data-guest="${i}"][data-field="restriccion"]`);
       if (!g.nombre)   { markError(nEl); ok = false; }
       if (!g.apellido) { markError(aEl); ok = false; }
+      if (_cfg.perGuestDetails && g.status === 'asiste' && !g.restriccion) { markError(rEl); ok = false; }
     });
     return ok;
   }
@@ -177,10 +272,14 @@ const RsvpModal = (() => {
     _submitting = true;
     showState('loading');
 
-    const cancion = (document.getElementById('rsvp-cancion-input')?.value || '').trim();
+    const cancion = _cfg.perGuestDetails ? '' : (document.getElementById('rsvp-cancion-input')?.value || '').trim();
+    const attendingCount = _cfg.perGuestDetails
+      ? guests.filter(guest => guest.status === 'asiste').length
+      : _qty;
     const payload = {
-      status:      _mode,
+      status:      _cfg.perGuestDetails ? (attendingCount > 0 ? 'asiste' : 'no_asiste') : _mode,
       guestCount:  _qty,
+      attendingCount,
       guests,
       cancion,
       template:    document.body.dataset.template || '',
@@ -190,7 +289,7 @@ const RsvpModal = (() => {
 
     try {
       await RsvpService.send(payload, _cfg);
-      setText('rsvp-success-msg', TEXTS[_mode].success);
+      setText('rsvp-success-msg', getTexts(_mode).success);
       showState('success');
     } catch (_err) {
       showState('error');
@@ -218,6 +317,34 @@ const RsvpModal = (() => {
   function setText(id, val) {
     const el = document.getElementById(id);
     if (el) el.textContent = val;
+  }
+
+  function setTextBySelector(selector, val) {
+    const el = document.querySelector(selector);
+    if (el) el.textContent = val;
+  }
+
+  function getTexts(mode) {
+    if (!_cfg.perGuestDetails) return TEXTS[mode];
+    return {
+      titulo: 'Confirmar asistencia',
+      subtitulo: 'Completá tus datos y la asistencia de cada invitado.',
+      btnLabel: 'Enviar confirmación',
+      success: '¡Respuesta enviada! Gracias por avisarnos.',
+    };
+  }
+
+  function toggleGuestDetails(index, status) {
+    const details = document.querySelector(`[data-guest-details="${index}"]`);
+    if (!details) return;
+    details.hidden = status !== 'asiste';
+    if (status !== 'asiste') {
+      details.querySelectorAll('input, select').forEach(field => {
+        field.classList.remove('rsvp-input--error');
+        if (field.tagName === 'SELECT') field.value = '';
+        if (field.tagName === 'INPUT') field.value = '';
+      });
+    }
   }
 
   function on(id, event, fn) {

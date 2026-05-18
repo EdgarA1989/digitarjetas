@@ -19,7 +19,7 @@ const RsvpService = (() => {
     const statusLbl = payload.status === 'asiste' ? 'CONFIRMA ASISTENCIA' : 'NO PUEDE ASISTIR';
 
     const guestLines = payload.guests
-      .map(g => `  ${g.number}. ${g.nombre} ${g.apellido}`)
+      .map(g => `  ${formatGuestLine(g, '\n     ')}`)
       .join('\n');
 
     const subject = `Confirmación · 15 de ${payload.eventName} · ${payload.guests[0]?.nombre || ''} ${payload.guests[0]?.apellido || ''}`;
@@ -30,6 +30,7 @@ const RsvpService = (() => {
       guestLines,
       '',
     ];
+    if (payload.attendingCount !== undefined) lines.push(`Cantidad que asisten: ${payload.attendingCount}`, '');
     if (payload.cancion) lines.push(`Canción sugerida: ${payload.cancion}`, '');
     lines.push(`Enviado: ${new Date(payload.submittedAt).toLocaleString('es-AR')}`);
     const body = lines.join('\n');
@@ -45,7 +46,7 @@ const RsvpService = (() => {
 
     const statusLbl  = payload.status === 'asiste' ? '✅ CONFIRMA ASISTENCIA' : '❌ NO PUEDE ASISTIR';
     const guestLines = payload.guests
-      .map(g => `${g.number}. ${g.nombre} ${g.apellido}`)
+      .map(g => formatGuestLine(g, ' - '))
       .join(' | ');
 
     const bodyData = {
@@ -58,6 +59,7 @@ const RsvpService = (() => {
       Invitados:       guestLines,
       'Fecha y hora':  new Date(payload.submittedAt).toLocaleString('es-AR'),
     };
+    if (payload.attendingCount !== undefined) bodyData['Cantidad que asisten'] = payload.attendingCount;
     if (payload.cancion) bodyData['Canción sugerida'] = payload.cancion;
 
     const res = await fetch(`https://formsubmit.co/ajax/${emailTo}`, {
@@ -81,6 +83,17 @@ const RsvpService = (() => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
+  }
+
+  function formatGuestLine(guest, separator) {
+    const status = guest.status === 'no_asiste' ? 'No asistira' : 'Asistira';
+    const details = [
+      `${guest.number}. ${guest.nombre} ${guest.apellido}`,
+      `Asistencia: ${status}`,
+    ];
+    if (guest.status !== 'no_asiste' && guest.restriccion) details.push(`Restriccion alimenticia: ${guest.restriccion}`);
+    if (guest.status !== 'no_asiste' && guest.cancion) details.push(`Cancion: ${guest.cancion}`);
+    return details.join(separator);
   }
 
   return { send };

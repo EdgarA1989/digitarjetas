@@ -1,32 +1,32 @@
-{
-    "nombre":  "Sofía",
+﻿{
+    "nombre":  "SofÃ­a",
     "frase":  "La vida florece. Y yo quiero vivirla con vos.",
     "fecha":  "2026-11-14T20:00:00",
-    "fechaDisplay":  "Sábado · 14 de Noviembre · 2026",
+    "fechaDisplay":  "SÃ¡bado Â· 14 de Noviembre Â· 2026",
     "hora":  "20:00 hs",
     "bienvenida":  {
                        "titulo":  "Un momento que siempre voy a recordar.",
-                       "texto":  "Cumplir quince es más que una fecha. Es un capítulo nuevo, lleno de luz. Y quiero empezarlo rodeada de las personas que más quiero. Gracias por estar acá."
+                       "texto":  "Cumplir quince es mÃ¡s que una fecha. Es un capÃ­tulo nuevo, lleno de luz. Y quiero empezarlo rodeada de las personas que mÃ¡s quiero. Gracias por estar acÃ¡."
                    },
     "lugar":  {
-                  "nombre":  "Salón La Estancia",
-                  "barrio":  "San Isidro · GBA Norte",
+                  "nombre":  "SalÃ³n La Estancia",
+                  "barrio":  "San Isidro Â· GBA Norte",
                   "direccion":  "Av. del Libertador 1500, San Isidro",
                   "mapsUrl":  "https://maps.google.com/?q=Av+del+Libertador+1500+San+Isidro"
               },
     "dresscode":  {
                       "texto":  "Elegante / Cocktail",
-                      "nota":  "El verde agua está reservado para la festejada."
+                      "nota":  "El verde agua estÃ¡ reservado para la festejada."
                   },
     "regalos":  {
-                    "texto":  "Tu presencia ya lo es todo. Si querés tener un detalle, podés hacerlo por acá.",
+                    "texto":  "Tu presencia ya lo es todo. Si querÃ©s tener un detalle, podÃ©s hacerlo por acÃ¡.",
                     "alias":  "sofia.rodriguez",
                     "cbu":  "0000003100025264839001",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {
                      "numero":  "5491155550000",
-                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Sofía 🌿"
+                     "mensaje":  "Â¡Hola! Confirmo mi asistencia a los 15 de SofÃ­a ðŸŒ¿"
                  },
     "musica":  {
                    "src":  "../../../assets/music/party-soft.mp3",
@@ -43,7 +43,7 @@
               ],
     "footer":  {
                    "mensaje":  "Gracias por ser parte de este momento tan especial.",
-                   "firma":  "Con amor, Sofía · 2026"
+                   "firma":  "Con amor, SofÃ­a Â· 2026"
                },
     "tema":  {
                  "acento":  "#5bbfb5",
@@ -56,7 +56,10 @@
                  "maxGuests":  6,
                  "submitMode":  "mailto",
                  "emailTo":  "edgar.andrada@gmail.com",
-                 "googleSheetsUrl":  ""
+                 "googleSheetsUrl":  "",
+                 "hideDeclineButton":  true,
+                 "perGuestDetails":  true,
+                 "includeSongRequest":  true
              },
     "assets":  {
                    "imagesBasePath":  "../../../assets/img/demos/verde-menta/",
