@@ -77,6 +77,10 @@ function poblarHero(c) {
   setText('hero-frase',     c.frase);
   setText('hero-frase-sub', c.fraseSub);
   setText('hero-fecha',     c.fechaDisplay);
+  setText('inv-hero-nombre',    c.nombre);
+  setText('inv-hero-frase',     c.frase);
+  setText('inv-hero-frase-sub', c.fraseSub);
+  setText('inv-hero-fecha',     c.fechaDisplay);
   document.title = `15 · ${c.nombre}`;
 
   if (c.heroFoto) {
@@ -225,33 +229,29 @@ function initCountdownSnake() {
 
 // ── Splash ────────────────────────────────────────────
 function initSplash(onReveal) {
-  const content = document.getElementById('invitation-content');
-  const cta     = document.getElementById('hero-cta');
-  const player  = document.getElementById('player');
-  if (!content || !cta) return;
+  const cover  = document.getElementById('hero');
+  const cta    = document.getElementById('hero-cta');
+  const player = document.getElementById('player');
+  if (!cover || !cta) return;
 
-  content.classList.add('splash-oculto');
   if (player) player.classList.add('oculto');
 
   cta.addEventListener('click', e => {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    content.classList.remove('splash-oculto');
-    content.classList.add('splash-revelar');
+    cover.classList.add('hero--opening');
 
-    // Doble rAF para que el browser registre el estado inicial antes de animar
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        content.classList.add('splash-visible');
-        if (player) player.classList.remove('oculto');
-        if (onReveal) onReveal();
-        setTimeout(() => {
-          const target = document.getElementById('bienvenida');
-          if (target) window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
-        }, 350);
-      });
-    });
+    // Inicia las animaciones de reveal cuando el cover está casi desaparecido
+    setTimeout(() => {
+      if (onReveal) onReveal();
+    }, 900);
+
+    // Oculta el cover del DOM y muestra el player
+    setTimeout(() => {
+      cover.style.display = 'none';
+      if (player) player.classList.remove('oculto');
+    }, 1150);
   }, { once: true });
 }
 

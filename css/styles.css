@@ -1143,15 +1143,6 @@ body.dark .template-card {
   align-items: start;
 }
 
-.contact-note {
-  font-size: .86rem;
-}
-
-.contact-note code {
-  color: var(--primary);
-  font-weight: 800;
-}
-
 .contact-form {
   display: grid;
   gap: .9rem;
