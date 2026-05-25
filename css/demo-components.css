@@ -143,6 +143,27 @@ body.dt-rsvp-open .dt-plan-bar {
   box-shadow: 0 14px 38px rgba(115, 87, 255, .18);
 }
 
+.dt-plan-trigger__text {
+  display: grid;
+  gap: .05rem;
+  text-align: left;
+}
+
+.dt-plan-trigger__text small {
+  color: var(--dt-muted);
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.dt-plan-trigger__text strong {
+  color: var(--dt-text);
+  font-size: .9rem;
+  line-height: 1.1;
+}
+
 .dt-plan-trigger__icon {
   width: 34px;
   height: 34px;

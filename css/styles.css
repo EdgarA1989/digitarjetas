@@ -445,14 +445,20 @@ p {
 }
 
 .hero-visual {
+  --phone-width: min(310px, 78vw);
+  --card-overlap: clamp(.75rem, 1.8vw, 1.5rem);
+  --floating-card-width: clamp(118px, 12vw, 168px);
   position: relative;
   min-height: 560px;
   display: grid;
   place-items: center;
+  overflow: visible;
 }
 
 .phone-mockup {
-  width: min(310px, 78vw);
+  position: relative;
+  z-index: 1;
+  width: var(--phone-width);
   aspect-ratio: 9 / 18;
   padding: 12px;
   border-radius: 42px;
@@ -555,24 +561,35 @@ body.dark .badge {
 .floating-card {
   position: absolute;
   z-index: 2;
-  max-width: 190px;
-  padding: .7rem .85rem;
+  width: var(--floating-card-width);
+  padding: .64rem .76rem;
   border: 1px solid var(--line);
   border-radius: 18px;
   color: var(--text);
   background: var(--surface);
   box-shadow: var(--shadow-soft);
   font-weight: 800;
-  font-size: .82rem;
+  font-size: .78rem;
   backdrop-filter: blur(14px);
   animation: float 5s ease-in-out infinite;
 }
 
-.floating-card--one { top: 7%; left: 0; }
-.floating-card--two { top: 23%; right: 0; animation-delay: .5s; }
-.floating-card--three { bottom: 19%; left: 0; animation-delay: 1s; }
-.floating-card--four { top: 12%; right: 0; animation-delay: 1.4s; }
-.floating-card--five { top: 47%; left: 0; animation-delay: 1.8s; }
+.floating-card--one,
+.floating-card--three,
+.floating-card--five {
+  left: calc(50% - (var(--phone-width) / 2) - var(--floating-card-width) + var(--card-overlap));
+}
+
+.floating-card--two,
+.floating-card--four {
+  right: calc(50% - (var(--phone-width) / 2) - var(--floating-card-width) + var(--card-overlap));
+}
+
+.floating-card--one { top: 7%; }
+.floating-card--two { top: 23%; animation-delay: .5s; }
+.floating-card--three { bottom: 19%; animation-delay: 1s; }
+.floating-card--four { top: 12%; animation-delay: 1.4s; }
+.floating-card--five { top: 47%; animation-delay: 1.8s; }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -1593,17 +1610,52 @@ textarea:focus {
 }
 
 @media (max-width: 600px) {
-  .floating-card {
-    display: none;
+  .hero-grid {
+    overflow: hidden;
   }
 
   .hero-visual {
-    min-height: 460px;
+    --phone-width: min(284px, 74vw);
+    --card-overlap: clamp(1rem, 5vw, 1.45rem);
+    --floating-card-width: clamp(76px, 20vw, 96px);
+    min-height: 520px;
+    width: 100%;
+    margin-inline: auto;
   }
+
+  .floating-card {
+    display: block;
+    width: var(--floating-card-width);
+    padding: .42rem .46rem;
+    border-radius: 14px;
+    font-size: clamp(.5rem, 2.25vw, .62rem);
+    line-height: 1.2;
+    box-shadow: 0 10px 26px rgba(36, 26, 84, .12);
+  }
+
+  .floating-card--one,
+  .floating-card--three,
+  .floating-card--five {
+    left: calc(50% - (var(--phone-width) / 2) - var(--floating-card-width) + var(--card-overlap));
+  }
+
+  .floating-card--two,
+  .floating-card--four {
+    right: calc(50% - (var(--phone-width) / 2) - var(--floating-card-width) + var(--card-overlap));
+  }
+
+  .floating-card--one { top: 6%; }
+  .floating-card--four { top: 8%; }
+  .floating-card--two { top: 31%; }
+  .floating-card--five { top: 53%; }
+  .floating-card--three { bottom: 2%; }
 }
 
 @media (min-width: 601px) and (max-width: 979px) {
   .hero-visual {
+    --phone-width: min(310px, 64vw);
+    --card-overlap: .7rem;
+    --floating-card-width: clamp(132px, 21vw, 170px);
     width: min(100%, 620px);
     min-height: 590px;
     margin-inline: auto;
@@ -1615,8 +1667,8 @@ textarea:focus {
     font-size: .78rem;
   }
 
-  .floating-card--two { top: 21%; right: .25rem; }
-  .floating-card--four { top: 3%; right: 1rem; }
-  .floating-card--five { top: 46%; left: .25rem; }
+  .floating-card--two { top: 21%; }
+  .floating-card--four { top: 3%; }
+  .floating-card--five { top: 46%; }
 }
 

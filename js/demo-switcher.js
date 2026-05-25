@@ -73,9 +73,7 @@ const legacyModeToPlan = {
 
 document.addEventListener("DOMContentLoaded", () => {
   initDemoMediaState();
-  // Pausado temporalmente para grabaciones de pantalla.
-  // Volver a activar esta linea para mostrar el menu superior de versiones:
-  // initDemoPlanSwitcher();
+  initDemoPlanSwitcher();
   initDemoLightboxState();
   initDemoCommercialCta();
 });
@@ -114,14 +112,17 @@ function initDemoPlanSwitcher() {
   document.querySelectorAll(".dt-mode-switcher").forEach(element => element.remove());
 
   const availablePlans = Object.entries(demoPlanLabels).filter(([plan]) => Boolean(links[plan]));
-  if (availablePlans.length < 1) return;
+  if (availablePlans.length < 2) return;
 
   const bar = document.createElement("nav");
   bar.className = "dt-plan-bar";
   bar.setAttribute("aria-label", "Versiones de la plantilla por plan");
   bar.innerHTML = `
     <button class="dt-plan-trigger" type="button" aria-expanded="false" aria-controls="dt-plan-menu">
-      <span>Otras versiones</span>
+      <span class="dt-plan-trigger__text">
+        <small>Elegir plan</small>
+        <strong>${demoPlanLabels[currentPlan] || "Plan Esencial"}</strong>
+      </span>
       <span class="dt-plan-trigger__icon" aria-hidden="true">
         <span></span>
         <span></span>
