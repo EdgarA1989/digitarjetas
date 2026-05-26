@@ -1615,10 +1615,10 @@ textarea:focus {
   }
 
   .hero-visual {
-    --phone-width: min(284px, 74vw);
-    --card-overlap: clamp(1rem, 5vw, 1.45rem);
-    --floating-card-width: clamp(76px, 20vw, 96px);
-    min-height: 520px;
+    --phone-width: min(238px, 62vw);
+    --card-overlap: clamp(.7rem, 3.8vw, 1.05rem);
+    --floating-card-width: clamp(82px, 21vw, 104px);
+    min-height: 470px;
     width: 100%;
     margin-inline: auto;
   }
@@ -1626,9 +1626,9 @@ textarea:focus {
   .floating-card {
     display: block;
     width: var(--floating-card-width);
-    padding: .42rem .46rem;
+    padding: .42rem .48rem;
     border-radius: 14px;
-    font-size: clamp(.5rem, 2.25vw, .62rem);
+    font-size: clamp(.52rem, 2.2vw, .62rem);
     line-height: 1.2;
     box-shadow: 0 10px 26px rgba(36, 26, 84, .12);
   }
@@ -1646,9 +1646,9 @@ textarea:focus {
 
   .floating-card--one { top: 6%; }
   .floating-card--four { top: 8%; }
-  .floating-card--two { top: 31%; }
-  .floating-card--five { top: 53%; }
-  .floating-card--three { bottom: 2%; }
+  .floating-card--two { top: 29%; }
+  .floating-card--five { top: 50%; }
+  .floating-card--three { bottom: 3%; }
 }
 
 @media (min-width: 601px) and (max-width: 979px) {
