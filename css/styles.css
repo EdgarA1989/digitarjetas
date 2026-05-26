@@ -1615,10 +1615,10 @@ textarea:focus {
   }
 
   .hero-visual {
-    --phone-width: min(212px, 55vw);
-    --card-overlap: clamp(.52rem, 3vw, .85rem);
-    --floating-card-width: clamp(74px, 19vw, 92px);
-    min-height: 430px;
+    --phone-width: clamp(212px, 52vw, 300px);
+    --card-overlap: clamp(.7rem, 4vw, 1.6rem);
+    --floating-card-width: clamp(82px, 22vw, 126px);
+    min-height: clamp(430px, 92vw, 620px);
     width: 100%;
     margin-inline: auto;
   }
@@ -1659,10 +1659,22 @@ textarea:focus {
   }
 
   .invite-preview button {
-    padding: .72rem .58rem;
-    font-size: .84rem;
+    width: 100%;
+    max-width: 100%;
+    padding: .68rem .44rem;
+    font-size: clamp(.72rem, 3vw, .8rem);
     line-height: 1.05;
+    letter-spacing: -.01em;
     white-space: nowrap;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-visual {
+    --phone-width: min(212px, 55vw);
+    --card-overlap: clamp(.52rem, 3vw, .85rem);
+    --floating-card-width: clamp(74px, 19vw, 92px);
+    min-height: 430px;
   }
 }
 
