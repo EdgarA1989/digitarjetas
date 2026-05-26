@@ -1615,10 +1615,10 @@ textarea:focus {
   }
 
   .hero-visual {
-    --phone-width: min(238px, 62vw);
-    --card-overlap: clamp(.7rem, 3.8vw, 1.05rem);
-    --floating-card-width: clamp(82px, 21vw, 104px);
-    min-height: 470px;
+    --phone-width: min(212px, 55vw);
+    --card-overlap: clamp(.52rem, 3vw, .85rem);
+    --floating-card-width: clamp(74px, 19vw, 92px);
+    min-height: 430px;
     width: 100%;
     margin-inline: auto;
   }
@@ -1626,9 +1626,9 @@ textarea:focus {
   .floating-card {
     display: block;
     width: var(--floating-card-width);
-    padding: .42rem .48rem;
+    padding: .38rem .42rem;
     border-radius: 14px;
-    font-size: clamp(.52rem, 2.2vw, .62rem);
+    font-size: clamp(.48rem, 2vw, .58rem);
     line-height: 1.2;
     box-shadow: 0 10px 26px rgba(36, 26, 84, .12);
   }
