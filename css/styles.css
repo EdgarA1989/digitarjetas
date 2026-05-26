@@ -1636,12 +1636,12 @@ textarea:focus {
   .floating-card--one,
   .floating-card--three,
   .floating-card--five {
-    left: calc(50% - (var(--phone-width) / 2) - var(--floating-card-width) + var(--card-overlap));
+    left: .55rem;
   }
 
   .floating-card--two,
   .floating-card--four {
-    right: calc(50% - (var(--phone-width) / 2) - var(--floating-card-width) + var(--card-overlap));
+    right: .55rem;
   }
 
   .floating-card--one { top: 6%; }
@@ -1649,6 +1649,21 @@ textarea:focus {
   .floating-card--two { top: 29%; }
   .floating-card--five { top: 50%; }
   .floating-card--three { bottom: 3%; }
+
+  .phone-screen {
+    padding: .72rem;
+  }
+
+  .invite-preview {
+    padding: .88rem;
+  }
+
+  .invite-preview button {
+    padding: .72rem .58rem;
+    font-size: .84rem;
+    line-height: 1.05;
+    white-space: nowrap;
+  }
 }
 
 @media (min-width: 601px) and (max-width: 979px) {
