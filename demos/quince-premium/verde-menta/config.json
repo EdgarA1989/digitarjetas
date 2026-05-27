@@ -21,7 +21,7 @@
     "regalos":  {
                     "texto":  "Tu presencia ya lo es todo. Si querés tener un detalle, podés hacerlo por acá.",
                     "alias":  "sofia.rodriguez",
-                    "cbu":  "0000003100025264839001",
+                    "nombre":  "Nombre en Mercado Pago",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {

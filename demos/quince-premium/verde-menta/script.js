@@ -119,7 +119,7 @@ function renderDresscode(d) {
 function renderRegalos(r) {
   set('regalos-texto', r.texto);
   set('regalos-alias', r.alias);
-  set('regalos-cbu',   r.cbu);
+  set('regalos-nombre', r.nombre || r.titular || r.cbu);
   set('regalos-banco', r.banco);
 }
 
@@ -266,14 +266,17 @@ function initCover() {
   const btn   = document.getElementById('btn-cover');
   if (!cover || !btn) return;
 
+  window.scrollTo(0, 0);
+  document.documentElement.classList.add('dt-cover-lock');
   document.body.style.overflow = 'hidden';
 
   btn.addEventListener('click', () => {
     cover.classList.add('opening');
-    document.body.style.overflow = '';
     setTimeout(() => {
-      window.scrollTo(0, 0);
       cover.style.display = 'none';
+      document.documentElement.classList.remove('dt-cover-lock');
+      document.body.style.overflow = '';
+      window.scrollTo(0, 0);
       initReveal();
     }, 1300);
   });

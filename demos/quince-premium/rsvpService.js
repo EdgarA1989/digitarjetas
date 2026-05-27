@@ -91,6 +91,7 @@ const RsvpService = (() => {
       `${guest.number}. ${guest.nombre} ${guest.apellido}`,
       `Asistencia: ${status}`,
     ];
+    if (guest.edad) details.push(`Edad: ${guest.edad}`);
     if (guest.status !== 'no_asiste' && guest.restriccion) details.push(`Restriccion alimenticia: ${guest.restriccion}`);
     if (guest.status !== 'no_asiste' && guest.cancion) details.push(`Cancion: ${guest.cancion}`);
     return details.join(separator);

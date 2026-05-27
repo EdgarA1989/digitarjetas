@@ -22,7 +22,7 @@
     "regalos":  {
                     "texto":  "Tu presencia vale más que cualquier regalo. Pero si querés sumar al show, acá van los datos.",
                     "alias":  "Melody.rap",
-                    "cbu":  "0000003100025264839001",
+                    "nombre":  "Nombre en Mercado Pago",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {

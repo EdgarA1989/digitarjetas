@@ -177,28 +177,43 @@ const RsvpModal = (() => {
     const isAttending = status !== 'no_asiste';
     return `
       <div class="rsvp-guest-extra">
-        <label class="rsvp-field-label">
-          <span>Asistencia</span>
+        <div class="rsvp-field-label rsvp-field-label--status">
           <div class="rsvp-status-row">
-            <input class="rsvp-status-input"
-                   type="hidden"
-                   value="${escapeAttr(status)}"
-                   data-guest="${index}"
-                   data-field="status" />
-            <div class="rsvp-status-toggle" role="group" aria-label="Asistencia del invitado ${index + 1}">
-              <button class="rsvp-status-btn ${isAttending ? 'is-active' : ''}"
-                      type="button"
-                      data-guest="${index}"
-                      data-rsvp-status="asiste"
-                      aria-pressed="${isAttending ? 'true' : 'false'}">Sí</button>
-              <button class="rsvp-status-btn ${isAttending ? '' : 'is-active'}"
-                      type="button"
-                      data-guest="${index}"
-                      data-rsvp-status="no_asiste"
-                      aria-pressed="${isAttending ? 'false' : 'true'}">No</button>
+            <label class="rsvp-age-field">
+              <span>Edad</span>
+              <input class="rsvp-input rsvp-age-input"
+                     type="number"
+                     min="0"
+                     max="99"
+                     placeholder="Edad"
+                     data-guest="${index}"
+                     data-field="edad"
+                     autocomplete="off"
+                     inputmode="numeric"
+                     value="${escapeAttr(draft.edad)}" />
+            </label>
+            <div class="rsvp-status-field">
+              <span>Asistencia</span>
+              <input class="rsvp-status-input"
+                     type="hidden"
+                     value="${escapeAttr(status)}"
+                     data-guest="${index}"
+                     data-field="status" />
+              <div class="rsvp-status-toggle" role="group" aria-label="Asistencia del invitado ${index + 1}">
+                <button class="rsvp-status-btn ${isAttending ? 'is-active' : ''}"
+                        type="button"
+                        data-guest="${index}"
+                        data-rsvp-status="asiste"
+                        aria-pressed="${isAttending ? 'true' : 'false'}">Sí</button>
+                <button class="rsvp-status-btn ${isAttending ? '' : 'is-active'}"
+                        type="button"
+                        data-guest="${index}"
+                        data-rsvp-status="no_asiste"
+                        aria-pressed="${isAttending ? 'false' : 'true'}">No</button>
+              </div>
             </div>
           </div>
-        </label>
+        </div>
         <div class="rsvp-attendance-details" data-guest-details="${index}" ${isAttending ? '' : 'hidden'}>
           <label class="rsvp-field-label">
             <span>¿Posee alguna restricción alimenticia?</span>
@@ -210,7 +225,7 @@ const RsvpModal = (() => {
           </label>
           ${_cfg.includeSongRequest === false ? '' : `
             <label class="rsvp-field-label">
-              <span>Canción que no puede faltar</span>
+              <span>Canción que no puede faltar (opcional)</span>
               <input class="rsvp-input"
                      type="text"
                      placeholder="Artista · Canción"
@@ -266,10 +281,13 @@ const RsvpModal = (() => {
       const restriccion = _cfg.perGuestDetails
         ? (qs(`.rsvp-input[data-guest="${i}"][data-field="restriccion"]`)?.value || '').trim()
         : '';
+      const edad = _cfg.perGuestDetails
+        ? (qs(`.rsvp-input[data-guest="${i}"][data-field="edad"]`)?.value || '').trim()
+        : '';
       const cancion = _cfg.perGuestDetails
         ? (qs(`.rsvp-input[data-guest="${i}"][data-field="cancion"]`)?.value || '').trim()
         : '';
-      guests.push({ number: i + 1, nombre, apellido, status, restriccion, cancion });
+      guests.push({ number: i + 1, nombre, apellido, status, edad, restriccion, cancion });
     }
     return guests;
   }

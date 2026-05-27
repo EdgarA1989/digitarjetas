@@ -24,7 +24,7 @@
     "regalos":  {
                     "texto":  "Tu presencia ya es todo. Si querés hacerme un detalle, podés hacerlo por acá.",
                     "alias":  "isabella.gomez",
-                    "cbu":  "0000003100025264839001",
+                    "nombre":  "Nombre en Mercado Pago",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {

@@ -135,7 +135,7 @@ function poblarDresscode(c) {
 function poblarRegalos(c) {
   setText('regalos-texto', c.regalos.texto);
   setText('regalos-alias', c.regalos.alias);
-  setText('regalos-cbu',   c.regalos.cbu);
+  setText('regalos-nombre', c.regalos.nombre || c.regalos.titular || c.regalos.cbu);
 }
 
 function poblarFooter(c) {
@@ -250,6 +250,7 @@ function initSplash(onReveal) {
     // Oculta el cover del DOM y muestra el player
     setTimeout(() => {
       cover.style.display = 'none';
+      document.getElementById('inv-hero')?.scrollIntoView({ block: 'start' });
       if (player) player.classList.remove('oculto');
     }, 1150);
   }, { once: true });

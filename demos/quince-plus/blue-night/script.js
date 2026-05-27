@@ -120,7 +120,7 @@ function renderDresscode(d) {
 function renderRegalos(r) {
   set('regalos-texto', r.texto);
   set('regalos-alias', r.alias);
-  set('regalos-cbu',   r.cbu);
+  set('regalos-nombre', r.nombre || r.titular || r.cbu);
   set('regalos-banco', r.banco);
 }
 
