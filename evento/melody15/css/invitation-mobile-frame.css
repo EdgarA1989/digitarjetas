@@ -1,0 +1,101 @@
+/*
+  DigiTarjetas demos
+  Mantiene todas las invitaciones como experiencias mobile-first.
+  En pantallas grandes no se remaqueta a desktop: se muestra centrada con
+  ancho similar a la plantilla Bautismo Rosa.
+*/
+
+:root {
+  --dt-mobile-frame: min(100%, 600px);
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+main,
+.cover,
+body[data-template="blanconegro"] .hero,
+.lightbox,
+.rsvp-overlay {
+  max-width: 100%;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  html {
+    min-height: 100%;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(255,255,255,.08), transparent 34rem),
+      radial-gradient(circle at 80% 100%, rgba(255,255,255,.06), transparent 30rem),
+      #0f1117;
+  }
+
+  body {
+    width: var(--dt-mobile-frame);
+    min-height: 100vh;
+    margin-inline: auto;
+    position: relative;
+    overflow-x: hidden;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 28px 90px rgba(0,0,0,.35);
+  }
+
+  main {
+    width: 100%;
+    margin-inline: auto;
+    overflow: hidden;
+  }
+
+  .cover,
+  body[data-template="blanconegro"] .hero,
+  .lightbox,
+  .rsvp-overlay {
+    width: var(--dt-mobile-frame) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+  }
+
+  body[data-template="blanconegro"] .hero {
+    inset: 0 auto 0 50% !important;
+  }
+
+  .cover.opening {
+    transform: translateX(-50%) scale(1.04);
+  }
+
+  .cover.hidden {
+    transform: translateX(-50%);
+  }
+
+  body[data-template="blanconegro"] .hero.hero--opening {
+    transform: translateX(-50%);
+  }
+
+  .grain,
+  body::before,
+  body::after {
+    width: var(--dt-mobile-frame);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .dt-plan-bar {
+    right: max(.75rem, calc((100vw - 600px) / 2 + .75rem));
+  }
+}
+
+@media (max-width: 639px) {
+  body {
+    width: 100%;
+  }
+}

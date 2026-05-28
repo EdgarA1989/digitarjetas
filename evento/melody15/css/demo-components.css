@@ -370,6 +370,13 @@ body.dt-rsvp-open .dt-plan-bar {
   appearance: textfield;
 }
 
+.rsvp-textarea {
+  min-height: 86px;
+  resize: vertical;
+  line-height: 1.45;
+  padding-top: .85rem;
+}
+
 .rsvp-status-btn {
   min-height: 40px;
   display: inline-grid;

@@ -1,0 +1,88 @@
+{
+    "eventId":  "melody15",
+    "nombre":  "Melody",
+    "frase":  "Una noche para celebrar, bailar y guardar para siempre.",
+    "fraseSub":  "Quiero compartir mis 15 con vos.",
+    "fecha":  "2026-10-03T21:00:00",
+    "fechaDisplay":  "Sábado · 03 de Octubre · 2026",
+    "hora":  "21:00 hs",
+    "heroFoto":  "../../assets/img/clientes/melody15/portada.webp",
+    "splash":  true,
+    "bienvenida":  {
+                       "titulo":  "Mi noche soñada.",
+                       "texto":  "Llegó el momento de celebrar mis quince años junto a las personas que quiero. Gracias por acompañarme en una noche tan especial."
+                   },
+    "lugar":  {
+                  "nombre":  "Recepciones Rotonda",
+                  "barrio":  "San Martin - Billinghurst",
+                  "direccion":  "Triunvirato 4051",
+                  "mapsUrl":  "https://maps.google.com/"
+              },
+    "dresscode":  {
+                      "texto":  "Elegante · Formal",
+                      "nota":  "Te esperamos con muchas ganas de celebrar juntos."
+                  },
+    "regalos":  {
+                    "texto":  "Tu presencia es el mejor regalo. Si querés tener un detalle conmigo, podés hacerlo por acá.",
+                    "alias":  "melody.15",
+                    "nombre":  "Nombre en Mercado Pago",
+                    "banco":  "Mercado Pago"
+                },
+    "whatsapp":  {
+                     "numero":  "5491100000000",
+                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Melody"
+                 },
+    "musica":  {
+                   "src":  "../../assets/music/clientes/melody15/cancion.mp3",
+                   "titulo":  "Canción del evento",
+                   "artista":  "Melody 15"
+               },
+    "fotos":  [
+                  "foto-1.webp",
+                  "foto-2.webp",
+                  "foto-3.webp",
+                  "foto-4.webp",
+                  "foto-5.webp",
+                  "foto-6.webp"
+              ],
+    "footer":  {
+                   "mensaje":  "Gracias por ser parte de esta noche especial.",
+                   "firma":  "Melody · 2026"
+               },
+    "tema":  {
+                 "acento":  "#0a0a0a"
+             },
+    "rsvp":  {
+                 "enabled":  true,
+                 "maxGuests":  6,
+                 "submitMode":  "google_sheets",
+                 "googleSheetsUrl":  "https://script.google.com/macros/s/AKfycbwUViDr_by463b-rT_T1DgyxC2H4tBoLIGiEmgp3f6JqrZ5XmqprbZz6maQCNUMwpDJ6A/exec",
+                 "hideDeclineButton":  true,
+                 "perGuestDetails":  true,
+                 "includeSongRequest":  true,
+                 "eventId":  "melody15",
+                 "origen":  "melody15",
+                 "estado":  "VALIDO",
+                 "duplicateKey":  [
+                                      "nombre",
+                                      "apellido",
+                                      "edad"
+                                  ],
+                 "duplicateMessage":  "Ya existe una confirmación registrada con esos datos. Si necesitás modificarla, contactanos por WhatsApp."
+             },
+    "assets":  {
+                   "imagesBasePath":  "../../assets/img/clientes/melody15/",
+                   "musicPath":  "../../assets/music/clientes/melody15/cancion.mp3",
+                   "heroImage":  "portada.webp",
+                   "coverImage":  "portada.webp",
+                   "gallery":  [
+                                   "foto-1.webp",
+                                   "foto-2.webp",
+                                   "foto-3.webp",
+                                   "foto-4.webp",
+                                   "foto-5.webp",
+                                   "foto-6.webp"
+                               ],
+                   "placeholderImage":  "../../assets/img/ui/placeholders/placeholder-evento.jpg"
+               }
+}

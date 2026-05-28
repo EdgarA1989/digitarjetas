@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Invitación digital — 15 de Isabella" />
-  <meta property="og:title" content="15 · Isabella" />
-  <meta property="og:description" content="Hay noches que marcan para siempre." />
+  <meta name="description" content="Invitación digital - 15 de Melody" />
+  <meta property="og:title" content="15 · Melody" />
+  <meta property="og:description" content="Te esperamos para celebrar una noche única." />
   <meta property="og:type" content="website" />
-  <title>15 · Isabella</title>
+  <title>15 · Melody</title>
 
 
-  <link rel="icon" type="image/svg+xml" href="../../../assets/img/ui/icons/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="../../assets/img/ui/icons/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="../../../css/demo-components.css" />
-  <link rel="stylesheet" href="../../../css/invitation-mobile-frame.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/demo-components.css" />
+  <link rel="stylesheet" href="css/invitation-mobile-frame.css" />
 </head>
-<body>
+<body data-template="blanconegro" data-event="melody15">
 
   <!-- ── MÚSICA ── -->
   <div id="player" class="player" aria-label="Reproductor de música">
@@ -169,7 +169,7 @@
   <section id="galeria" class="galeria">
     <p class="section-superlabel section-superlabel--light">Galería</p>
     <div id="galeria-grid" class="galeria-grid">
-      <!-- Generado por script.js desde config.json → fotos[] -->
+      <!-- Galería generada desde config.json -->
     </div>
   </section>
 
@@ -178,13 +178,11 @@
     <p class="section-superlabel section-superlabel--light reveal">¿Venís?</p>
     <h2 class="confirmar-titulo reveal">Confirmá tu asistencia</h2>
     <p class="confirmar-texto reveal">Hacé saber que vas a estar. Tu lugar ya te espera.</p>
-    <div class="confirmar-btns reveal">
-      <a id="btn-whatsapp" href="#" class="btn-confirmar btn-wp" target="_blank" rel="noopener noreferrer">
-        Confirmar asistencia →
-      </a>
-      <button id="btn-calendario" class="btn-confirmar btn-cal">
-        Guardar la fecha
-      </button>
+    <div class="rsvp-confirmar-btns reveal">
+      <button id="btn-asiste" class="btn-rsvp btn-rsvp--asiste">Confirmar asistencia</button>
+    </div>
+    <div class="confirmar-btns reveal" style="margin-top:1.25rem">
+      <button id="btn-calendario" class="btn-confirmar btn-cal">Guardar la fecha</button>
     </div>
   </section>
 
@@ -194,22 +192,55 @@
       <div class="footer-linea" aria-hidden="true"></div>
       <p id="footer-mensaje" class="footer-mensaje">Nos vemos esta noche.</p>
       <p id="footer-firma" class="footer-firma">Isabella · 2026</p>
+      <p class="footer-credit">Invitación digital creada con <a href="https://digitarjetas.com.ar/" target="_blank" rel="noopener noreferrer">DigiTarjetas</a></p>
     </div>
   </footer>
 
   </div><!-- /invitation-content -->
-    <section class="dt-demo-tools">
-      <div class="dt-demo-cta">
-        <h2>¿Te gustó esta plantilla?</h2>
-        <p>Podemos personalizarla con tus fotos, colores, música, ubicación, fecha y todos los detalles de tu evento.</p>
-        <div class="dt-demo-cta__actions">
-          <a href="#" data-demo-whatsapp>Quiero esta plantilla</a>
-        </div>
-      </div>
-    </section>
-  <script src="script.js"></script>
 
-  <script>const CURRENT_TEMPLATE = "black-white"; const CURRENT_PLAN = "plus";</script>
-  <script src="../../../js/demo-switcher.js"></script>
+  <!-- ── Modal de confirmación ── -->
+  <div id="rsvp-modal" class="rsvp-overlay" role="dialog" aria-modal="true" aria-labelledby="rsvp-titulo" aria-hidden="true">
+    <div class="rsvp-modal">
+      <button class="rsvp-close" id="rsvp-close" aria-label="Cerrar">✕</button>
+
+      <div id="rsvp-form-body">
+        <h3 class="rsvp-titulo" id="rsvp-titulo">Confirmar asistencia</h3>
+        <p class="rsvp-subtitulo" id="rsvp-subtitulo">Completá los datos de las personas que asistirán.</p>
+        <div class="rsvp-qty" id="rsvp-qty">
+          <p class="rsvp-qty-label">¿Cuántas personas asisten?</p>
+          <div class="rsvp-qty-ctrl">
+            <button class="rsvp-qty-btn" id="rsvp-qty-minus" aria-label="Restar">−</button>
+            <span class="rsvp-qty-num" id="rsvp-qty-num">1</span>
+            <button class="rsvp-qty-btn" id="rsvp-qty-plus" aria-label="Sumar">+</button>
+          </div>
+        </div>
+        <div class="rsvp-guests" id="rsvp-guests"></div>
+        <div class="rsvp-cancion-wrap">
+          <p class="rsvp-cancion-label">¿Qué canción no puede faltar? (opcional)</p>
+          <input class="rsvp-input" id="rsvp-cancion-input" type="text" placeholder="Artista · Canción" autocomplete="off" inputmode="text" />
+        </div>
+        <button class="rsvp-btn-submit" id="rsvp-submit">Confirmar asistencia</button>
+      </div>
+
+      <div id="rsvp-loading" aria-hidden="true" style="display:none">
+        <div class="rsvp-spinner"></div>
+        <p>Enviando...</p>
+      </div>
+
+      <div id="rsvp-success" aria-hidden="true" style="display:none">
+        <div class="rsvp-success-icon" aria-hidden="true">✓</div>
+        <p class="rsvp-success-msg" id="rsvp-success-msg">¡Confirmación enviada!</p>
+        <button class="rsvp-btn-close-success" id="rsvp-close-success">Cerrar</button>
+      </div>
+
+      <div id="rsvp-error" aria-hidden="true" style="display:none">
+        <p class="rsvp-error-msg" id="rsvp-error-msg">Ocurrió un error. Intentá de nuevo.</p>
+        <button class="rsvp-btn-retry" id="rsvp-retry">Reintentar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/demo-switcher.js"></script>
 </body>
 </html>

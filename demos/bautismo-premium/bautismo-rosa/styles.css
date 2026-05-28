@@ -1021,12 +1021,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .form-status-btn.is-active {
   color: var(--blanco);
   background: linear-gradient(135deg, var(--rosa-500), var(--rosa-400));
-  box-shadow: 0 8px 22px rgba(214, 124, 153, 0.28);
+  box-shadow: none;
 }
 .form-status-btn[data-form-status="no_asiste"].is-active {
   color: var(--texto);
   background: var(--blanco);
-  box-shadow: inset 0 0 0 1px var(--rosa-200);
+  box-shadow: none;
 }
 .form-attendance-details {
   padding: 0.75rem;
