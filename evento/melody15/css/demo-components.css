@@ -151,7 +151,7 @@ body.dt-rsvp-open .dt-plan-bar {
 
 .dt-plan-trigger__text small {
   color: var(--dt-muted);
-  font-size: .64rem;
+  font-size: .84rem;
   font-weight: 900;
   letter-spacing: .08em;
   line-height: 1;
@@ -312,7 +312,7 @@ body.dt-rsvp-open .dt-plan-bar {
 
 .rsvp-field-label span {
   color: var(--rsvp-text-sub, var(--dt-muted));
-  font-size: .68rem;
+  font-size: .74rem;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -386,7 +386,7 @@ body.dt-rsvp-open .dt-plan-bar {
   color: var(--rsvp-text-sub, var(--dt-muted));
   background: transparent;
   font: inherit;
-  font-size: .78rem;
+  font-size: .84rem;
   font-weight: 900;
   letter-spacing: .05em;
   text-transform: uppercase;
@@ -458,7 +458,7 @@ body.dark .rsvp-input option,
 
   .rsvp-status-btn {
     min-height: 38px;
-    font-size: .72rem;
+    font-size: .84rem;
   }
 
   .rsvp-age-input {
@@ -632,6 +632,6 @@ body[data-template="verde"] .cover-content {
   .dt-plan-button,
   .dt-plan-link {
     padding-inline: .45rem;
-    font-size: .78rem;
+    font-size: .84rem;
   }
 }

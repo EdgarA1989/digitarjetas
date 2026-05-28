@@ -45,7 +45,7 @@ svg {
     margin-inline: auto;
     position: relative;
     overflow-x: hidden;
-    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 28px 90px rgba(0,0,0,.35);
+    box-shadow: 0 0 0 1px rgba(227,237,247,.12), 0 28px 90px rgba(6,20,38,.35);
   }
 
   main {

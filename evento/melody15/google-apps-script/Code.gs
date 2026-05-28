@@ -25,7 +25,6 @@ const HEADERS_CONFIRMACIONES = [
   "asiste",
   "detalle_restriccion",
   "cancion_sugerida",
-  "observaciones",
   "origen",
   "estado",
 ];
@@ -114,7 +113,6 @@ function normalizeRecords(data) {
     const asiste = normalizeYesNo(record.asiste || record.status);
     const detalleRestriccion = buildRestrictionDetail(record);
     const cancion = clean(record.cancion_sugerida || record.cancion || data.cancion);
-    const observaciones = clean(record.observaciones);
 
     if (!nombre) throw new Error("El nombre es obligatorio.");
     if (!apellido) throw new Error("El apellido es obligatorio.");
@@ -129,7 +127,6 @@ function normalizeRecords(data) {
       asiste,
       detalle_restriccion: detalleRestriccion,
       cancion_sugerida: cancion,
-      observaciones,
       origen,
       estado,
     };
