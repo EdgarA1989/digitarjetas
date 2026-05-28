@@ -579,7 +579,11 @@ let CONFIG = {};
 fetch('config.json')
   .then(r => r.json())
   .then(c => { CONFIG = c; init(c); })
-  .catch(() => { initReveal(); initSmoothScroll(); });
+  .catch(() => {
+    document.documentElement.classList.remove('dt-cover-lock');
+    initReveal();
+    initSmoothScroll();
+  });
 
 
 function normalizeDemoAssets(config) {
@@ -637,6 +641,7 @@ poblarHero(c);
       initSmoothScroll();
     });
   } else {
+    document.documentElement.classList.remove('dt-cover-lock');
     initReveal();
     initSmoothScroll();
   }
@@ -803,8 +808,12 @@ function initSplash(onReveal) {
   const cover  = document.getElementById('hero');
   const cta    = document.getElementById('hero-cta');
   const player = document.getElementById('player');
-  if (!cover || !cta) return;
+  if (!cover || !cta) {
+    document.documentElement.classList.remove('dt-cover-lock');
+    return;
+  }
 
+  document.documentElement.classList.add('dt-cover-lock');
   if (player) player.classList.add('oculto');
 
   cta.addEventListener('click', e => {
@@ -812,6 +821,7 @@ function initSplash(onReveal) {
     e.stopImmediatePropagation();
 
     cover.classList.add('hero--opening');
+    document.documentElement.classList.remove('dt-cover-lock');
 
     // Inicia las animaciones de reveal cuando el cover está casi desaparecido
     setTimeout(() => {
