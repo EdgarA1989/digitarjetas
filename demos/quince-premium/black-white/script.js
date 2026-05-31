@@ -240,6 +240,7 @@ function initSplash(onReveal) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
+    document.getElementById('player-btn')?.click();
     cover.classList.add('hero--opening');
 
     // Inicia las animaciones de reveal cuando el cover está casi desaparecido

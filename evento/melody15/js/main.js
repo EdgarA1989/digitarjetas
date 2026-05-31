@@ -905,6 +905,7 @@ function initSplash(onReveal) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
+    document.getElementById('player-btn')?.click();
     cover.classList.add('hero--opening');
     document.documentElement.classList.remove('dt-cover-lock');
 
@@ -961,11 +962,12 @@ function initPlayer(c) {
 
   btn.addEventListener('click', () => {
     if (audio.paused) {
-      audio.play().catch(() => {});
-      if (play)  play.style.display  = 'none';
-      if (pause) pause.style.display = '';
-      btn.classList.add('playing');
-      btn.setAttribute('aria-label', 'Pausar');
+      audio.play().then(() => {
+        if (play)  play.style.display  = 'none';
+        if (pause) pause.style.display = '';
+        btn.classList.add('playing');
+        btn.setAttribute('aria-label', 'Pausar');
+      }).catch(() => {});
     } else {
       audio.pause();
       if (play)  play.style.display  = '';

@@ -212,6 +212,7 @@ function initCover() {
   document.body.style.overflow = 'hidden';
 
   btn.addEventListener('click', () => {
+    document.getElementById('musica-btn')?.click();
     cover.classList.add('opening');
     document.body.style.overflow = '';
     setTimeout(() => {

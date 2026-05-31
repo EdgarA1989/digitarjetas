@@ -16,7 +16,7 @@
                   "nombre":  "Recepciones Rotonda",
                   "barrio":  "San Martin - Billinghurst",
                   "direccion":  "Triunvirato 4051",
-                  "mapsUrl":  "https://maps.google.com/"
+                  "mapsUrl":  "https://www.google.com/maps/dir/?api=1&destination=Club%20La%20Rotonda%2C%20Triunvirato%204051%2C%20Billinghurst%2C%20Provincia%20de%20Buenos%20Aires"
               },
     "dresscode":  {
                       "texto":  "Elegante · Formal",
@@ -33,7 +33,7 @@
                      "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Melody"
                  },
     "musica":  {
-                   "src":  "../../assets/music/clientes/melody15/cancion.mp3",
+                   "src":  "../../assets/music/party-soft.mp3",
                    "titulo":  "Canción del evento",
                    "artista":  "Melody 15"
                },
@@ -72,7 +72,7 @@
              },
     "assets":  {
                    "imagesBasePath":  "../../assets/img/clientes/melody15/",
-                   "musicPath":  "../../assets/music/clientes/melody15/cancion.mp3",
+                   "musicPath":  "../../assets/music/party-soft.mp3",
                    "heroImage":  "portada.webp",
                    "coverImage":  "portada.webp",
                    "gallery":  [

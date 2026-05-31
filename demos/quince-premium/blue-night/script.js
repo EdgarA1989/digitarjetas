@@ -214,6 +214,7 @@ function initCover() {
   document.body.style.overflow = 'hidden';
 
   btn.addEventListener('click', () => {
+    document.getElementById('musica-btn')?.click();
     cover.classList.add('opening');
     setTimeout(() => {
       window.scrollTo(0, 0);

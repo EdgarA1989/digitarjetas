@@ -239,7 +239,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   animation: lineaDraw 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 .hero-linea--top    { animation-delay: 0.2s; }
-.hero-linea--bottom { animation-delay: 0.65s; }
+.hero-linea--bottom {
+  animation-delay: 0.65s;
+  margin-top: 0.2rem;
+}
 
 /* ── XV ornamento ── */
 .hero-xv {
@@ -250,6 +253,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: rgba(255, 255, 255, 0.78);
   text-transform: uppercase;
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
   opacity: 0;
   animation: fadeUp 0.7s ease 0.15s forwards;
 }
@@ -262,7 +266,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: white;
   letter-spacing: -0.01em;
   line-height: 1;
-  margin: 0.55rem 0;
+  margin: 0.55rem;
+  margin-bottom: 0.5rem;
+  padding: 0 0.14em 0.2em;
+
   overflow: hidden; /* clip chars durante el slide-up */
 }
 
@@ -299,12 +306,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .hero-fecha {
   font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.76rem;
+  font-weight: bold;
+  letter-spacing: 0.24em;
+  color: rgb(255, 255, 255);
   text-transform: uppercase;
-  margin-top: 1.4rem;
+  margin-top: 1.8rem;
   opacity: 0;
   animation: fadeUp 1s ease 1.1s forwards;
 }
@@ -401,7 +408,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .inv-hero-eyebrow {
   font-family: var(--font-sans);
   font-size: 0.76rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.36em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.72);
@@ -442,9 +449,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .inv-hero-fecha {
   font-family: var(--font-sans);
   font-size: 0.76rem;
-  font-weight: 400;
+  font-weight: bold;
   letter-spacing: 0.24em;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgb(255, 255, 255);
   text-transform: uppercase;
   margin-top: 1.8rem;
 }
@@ -1038,9 +1045,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .footer-credit a {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255);
   text-decoration: none;
   border-bottom: 1px solid currentColor;
+  font-weight: bold;
 }
 
 /* El cover (#hero) es fixed y cubre todo; al hacer clic desaparece con .hero--opening */
