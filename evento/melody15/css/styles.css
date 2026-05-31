@@ -84,13 +84,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: rgba(255, 255, 255, 0.68);
 }
 
-/* ── Propiedad animable para el borde giratorio del countdown ── */
-@property --border-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
 /* ── Keyframes globales ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
@@ -119,38 +112,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   from { opacity: 0; transform: translateY(110%); }
   to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes borderSpin {
-  to { --border-angle: 360deg; }
-}
-@keyframes panelFromLeft {
-  0%, 8% {
-    transform: translateX(-100%);
-    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  44% {
-    transform: translateX(0%);
-    animation-timing-function: linear;
-  }
-  62% {
-    transform: translateX(0%);
-    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  92%, 100% { transform: translateX(-100%); }
-}
-@keyframes panelFromRight {
-  0%, 8% {
-    transform: translateX(100%);
-    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  44% {
-    transform: translateX(0%);
-    animation-timing-function: linear;
-  }
-  62% {
-    transform: translateX(0%);
-    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  92%, 100% { transform: translateX(100%); }
+@keyframes countdownGlow {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.1); }
 }
 
 /* =====================================================
@@ -510,69 +474,66 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-align: center;
 }
 
-/* ── Tarjeta con inversión B&N animada por persianas ── */
 .cd-box {
   display: block;
   width: fit-content;
   max-width: calc(100vw - 3rem);
   margin: 1rem auto 0;
-  padding: clamp(0.9rem, 2vw, 1.2rem) clamp(1rem, 2.5vw, 1.6rem);
-  background: var(--blanco);
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
+  padding: 0;
 }
 
-/* Persiana oscura desde la izquierda (afuera → adentro) */
-.cd-box::before {
-  content: '';
-  position: absolute;
-  inset: 0 50% 0 0;
-  background: var(--negro);
-  transform: translateX(-100%);
-  animation: panelFromLeft 15s linear infinite;
-  z-index: 0;
-}
-
-/* Persiana oscura desde la derecha (afuera → adentro) */
-.cd-box::after {
-  content: '';
-  position: absolute;
-  inset: 0 0 0 50%;
-  background: var(--negro);
-  transform: translateX(100%);
-  animation: panelFromRight 15s linear infinite;
-  z-index: 0;
-}
-
-/* Los números flotan sobre los paneles y se invierten automáticamente */
 .countdown-grid {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: clamp(0.45rem, 1.75vw, 0.7rem);
   flex-wrap: nowrap;
   margin-top: 0.5rem;
-  position: relative;
-  z-index: 1;
-  mix-blend-mode: difference;
 }
 
 .cd-bloque {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: clamp(3.8rem, 14vw, 5.5rem);
+  justify-content: center;
+  width: clamp(3.8rem, 14vw, 5.5rem);
+  min-height: clamp(5.6rem, 20vw, 7.2rem);
+  padding: 1rem 0.45rem 0.8rem;
+  border: 1px solid var(--color-navy-border);
+  border-radius: 6px;
+  background: var(--color-dark-secondary);
+  box-shadow: 0 0 20px rgba(31, 69, 107, 0.14), inset 0 0 12px rgba(227, 237, 247, 0.04);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
+
+.cd-bloque::before {
+  content: '';
+  position: absolute;
+  inset: -20% -15%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse 80% 70% at 50% 48%, rgba(31, 69, 107, 0.78) 0%, transparent 68%);
+  animation: countdownGlow 5s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+.cd-bloque:nth-child(1)::before { animation-delay: 0s; }
+.cd-bloque:nth-child(3)::before { animation-delay: 1.25s; }
+.cd-bloque:nth-child(5)::before { animation-delay: 2.5s; }
+.cd-bloque:nth-child(7)::before { animation-delay: 3.75s; }
 
 .cd-num {
   font-family: var(--font-sans);
   font-size: clamp(2.4rem, 9.5vw, 4.4rem);
   font-weight: 400;
-  color: white;
+  color: var(--color-text-soft);
   line-height: 1;
   letter-spacing: 0.01em;
   font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 20px rgba(227, 237, 247, 0.35);
 }
 
 .cd-label {
@@ -581,13 +542,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: white;
+  color: var(--color-text-muted);
   margin-top: 0.65rem;
 }
 
 .cd-sep {
   font-size: clamp(0.7rem, 2.5vw, 1rem);
-  color: white;
+  color: var(--color-dark-medium);
   line-height: 1;
   padding-top: 0.6rem;
   opacity: 0.45;
@@ -1092,7 +1053,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .cd-sep  { font-size: 1.2rem; padding-top: 0.35rem; }
   .countdown-grid { gap: 0.5rem; }
   .cd-bloque { min-width: 3rem; }
-  .cd-box { padding: 1.4rem 0.8rem; }
+  .cd-box { max-width: calc(100vw - 1rem); }
 }
 
 @media (min-width: 640px) {

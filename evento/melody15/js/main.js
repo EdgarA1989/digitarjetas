@@ -883,7 +883,7 @@ function renderCalendario(fechaISO) {
   `;
 }
 
-// ── Countdown border spin (efecto puro CSS: conic-gradient + @property en .cd-box) ───
+// ── Countdown glow (efecto escalonado resuelto en CSS) ─────────────────────────
 function initCountdownSnake() {
   return () => {};
 }

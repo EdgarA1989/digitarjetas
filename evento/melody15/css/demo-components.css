@@ -505,7 +505,7 @@ body[data-template="elegante"] .rsvp-input option {
 body[data-template="blanconegro"] .cd-box {
   width: min(100%, 560px);
   max-width: 100%;
-  padding-inline: clamp(.45rem, 2vw, 1.1rem);
+  padding-inline: 0;
 }
 
 body[data-template="blanconegro"] .countdown-grid {
@@ -515,12 +515,13 @@ body[data-template="blanconegro"] .countdown-grid {
     minmax(0, .86fr) auto
     minmax(0, .72fr) auto
     minmax(0, .72fr);
-  align-items: start;
+  align-items: center;
   gap: clamp(.12rem, 1vw, .45rem);
   width: 100%;
 }
 
 body[data-template="blanconegro"] .cd-bloque {
+  width: auto;
   min-width: 0;
 }
 
@@ -577,7 +578,7 @@ body[data-template="verde"] .cover-content {
   }
 
   body[data-template="blanconegro"] .cd-box {
-    padding-inline: .2rem;
+    padding-inline: 0;
   }
 
   body[data-template="blanconegro"] .countdown-grid {
