@@ -15,6 +15,7 @@ const SHEET_RESUMEN = "Resumen";
 const ORIGEN_EVENTO = "melody15";
 const ESTADO_VALIDO = "VALIDO";
 const ESTADO_DUPLICADO = "DUPLICADO";
+const API_VERSION = "melody15-sin-observaciones-2026-05-28";
 
 const HEADERS_CONFIRMACIONES = [
   "id_confirmacion",
@@ -34,7 +35,12 @@ function doGet(e) {
     const action = normalizeText(e && e.parameter && e.parameter.action);
 
     if (action === "health") {
-      return jsonResponse({ ok: true, message: "API Melody 15 activa." });
+      return jsonResponse({
+        ok: true,
+        message: "API Melody 15 activa.",
+        version: API_VERSION,
+        headers: HEADERS_CONFIRMACIONES,
+      });
     }
 
     if (action === "resumen") {
@@ -63,25 +69,29 @@ function doPost(e) {
 
     ensureConfirmacionesHeaders();
 
-    const duplicate = findDuplicate(records);
-    if (duplicate) {
+    const result = splitNewAndDuplicateRecords(records);
+    if (!result.newRecords.length) {
       return jsonResponse({
         ok: false,
         code: "DUPLICATE",
         duplicate: true,
         duplicado: true,
-        message: "Ya existe una confirmación registrada con esos datos.",
-        record: duplicate,
+        message: buildDuplicateMessage(result.duplicates),
+        duplicates: result.duplicates,
       });
     }
 
-    const saved = saveConfirmaciones(records);
+    const saved = saveConfirmaciones(result.newRecords);
     updateResumen();
 
     return jsonResponse({
       ok: true,
-      message: "Confirmación registrada correctamente.",
+      partial: result.duplicates.length > 0,
+      message: result.duplicates.length
+        ? buildPartialMessage(saved, result.duplicates)
+        : "Confirmación registrada correctamente.",
       saved,
+      duplicates: result.duplicates,
     });
   } catch (error) {
     return jsonResponse({ ok: false, message: getErrorMessage(error) });
@@ -135,44 +145,88 @@ function normalizeRecords(data) {
 
 function saveConfirmaciones(records) {
   const sheet = getSheet(SHEET_CONFIRMACIONES);
-  const rows = records.map(record => HEADERS_CONFIRMACIONES.map(header => record[header] || ""));
+  const headers = ensureConfirmacionesHeaders();
+  const rows = records.map(record => headers.map(header => record[header] || ""));
 
   sheet
-    .getRange(sheet.getLastRow() + 1, 1, rows.length, HEADERS_CONFIRMACIONES.length)
+    .getRange(sheet.getLastRow() + 1, 1, rows.length, headers.length)
     .setValues(rows);
 
   return rows.length;
 }
 
-function findDuplicate(records) {
+function splitNewAndDuplicateRecords(records) {
   const sheet = getSheet(SHEET_CONFIRMACIONES);
   const values = sheet.getDataRange().getValues();
-  if (values.length < 2) return null;
-
-  const headers = values[0].map(normalizeText);
-  const indexes = {
-    nombre: headers.indexOf("nombre"),
-    apellido: headers.indexOf("apellido"),
-    edad: headers.indexOf("edad"),
-    origen: headers.indexOf("origen"),
-    estado: headers.indexOf("estado"),
-  };
-
   const existingKeys = new Set();
-  values.slice(1).forEach(row => {
-    const estado = normalizeText(row[indexes.estado]);
-    if (estado === normalizeText(ESTADO_DUPLICADO)) return;
+  const seenInRequest = new Set();
+  const newRecords = [];
+  const duplicates = [];
 
-    const origen = clean(row[indexes.origen]) || ORIGEN_EVENTO;
-    existingKeys.add(buildDuplicateKey({
-      nombre: row[indexes.nombre],
-      apellido: row[indexes.apellido],
-      edad: row[indexes.edad],
-      origen,
-    }));
+  if (values.length >= 2) {
+    const headers = values[0].map(normalizeText);
+    const indexes = {
+      nombre: headers.indexOf("nombre"),
+      apellido: headers.indexOf("apellido"),
+      edad: headers.indexOf("edad"),
+      origen: headers.indexOf("origen"),
+      estado: headers.indexOf("estado"),
+    };
+
+    values.slice(1).forEach(row => {
+      const estado = normalizeText(indexes.estado >= 0 ? row[indexes.estado] : "");
+      if (estado === normalizeText(ESTADO_DUPLICADO)) return;
+
+      const origen = clean(indexes.origen >= 0 ? row[indexes.origen] : "") || ORIGEN_EVENTO;
+      existingKeys.add(buildDuplicateKey({
+        nombre: indexes.nombre >= 0 ? row[indexes.nombre] : "",
+        apellido: indexes.apellido >= 0 ? row[indexes.apellido] : "",
+        edad: indexes.edad >= 0 ? row[indexes.edad] : "",
+        origen,
+      }));
+    });
+  }
+
+  records.forEach(record => {
+    const key = buildDuplicateKey(record);
+    if (existingKeys.has(key) || seenInRequest.has(key)) {
+      duplicates.push(toPublicRecord(record));
+      return;
+    }
+
+    seenInRequest.add(key);
+    newRecords.push(record);
   });
 
-  return records.find(record => existingKeys.has(buildDuplicateKey(record))) || null;
+  return { newRecords, duplicates };
+}
+
+function toPublicRecord(record) {
+  return {
+    nombre: record.nombre,
+    apellido: record.apellido,
+    edad: record.edad,
+  };
+}
+
+function buildDuplicateMessage(duplicates) {
+  const names = duplicates.map(formatRecordName).filter(Boolean).join(", ");
+  return names
+    ? `Ya existe una confirmación registrada para: ${names}.`
+    : "Ya existe una confirmación registrada con esos datos.";
+}
+
+function buildPartialMessage(saved, duplicates) {
+  const names = duplicates.map(formatRecordName).filter(Boolean).join(", ");
+  return names
+    ? `Se registraron ${saved} invitado(s). Ya estaban registrados: ${names}.`
+    : `Se registraron ${saved} invitado(s). Algunos invitados ya estaban registrados.`;
+}
+
+function formatRecordName(record) {
+  return [record.nombre, record.apellido, record.edad ? `(${record.edad})` : ""]
+    .filter(Boolean)
+    .join(" ");
 }
 
 function updateResumen() {
@@ -245,11 +299,64 @@ function calculateStats() {
 
 function ensureConfirmacionesHeaders() {
   const sheet = getSheet(SHEET_CONFIRMACIONES);
-  const current = sheet.getRange(1, 1, 1, HEADERS_CONFIRMACIONES.length).getValues()[0];
+  const currentWidth = Math.max(sheet.getLastColumn(), HEADERS_CONFIRMACIONES.length);
+  const current = sheet.getRange(1, 1, 1, currentWidth).getValues()[0];
   const hasHeaders = current.some(value => clean(value));
 
   if (!hasHeaders) {
     sheet.getRange(1, 1, 1, HEADERS_CONFIRMACIONES.length).setValues([HEADERS_CONFIRMACIONES]);
+    return HEADERS_CONFIRMACIONES;
+  }
+
+  const normalizedCurrent = current.map(normalizeText);
+  const needsRewrite = HEADERS_CONFIRMACIONES.some((header, index) => normalizedCurrent[index] !== header)
+    || normalizedCurrent.includes("observaciones")
+    || currentWidth > HEADERS_CONFIRMACIONES.length;
+
+  if (needsRewrite) {
+    if (currentWidth > HEADERS_CONFIRMACIONES.length) {
+      migrateShiftedRows(sheet, currentWidth);
+    }
+    sheet.getRange(1, 1, 1, HEADERS_CONFIRMACIONES.length).setValues([HEADERS_CONFIRMACIONES]);
+    if (currentWidth > HEADERS_CONFIRMACIONES.length) {
+      sheet
+        .getRange(1, HEADERS_CONFIRMACIONES.length + 1, sheet.getMaxRows(), currentWidth - HEADERS_CONFIRMACIONES.length)
+        .clearContent();
+    }
+    return HEADERS_CONFIRMACIONES;
+  }
+
+  return HEADERS_CONFIRMACIONES;
+}
+
+function migrateShiftedRows(sheet, currentWidth) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2 || currentWidth <= HEADERS_CONFIRMACIONES.length) return;
+
+  const values = sheet.getRange(2, 1, lastRow - 1, currentWidth).getValues();
+  const origenIndex = HEADERS_CONFIRMACIONES.indexOf("origen");
+  const estadoIndex = HEADERS_CONFIRMACIONES.indexOf("estado");
+  const extraIndex = HEADERS_CONFIRMACIONES.length;
+  let changed = false;
+
+  values.forEach(row => {
+    const posibleOrigen = clean(row[estadoIndex]);
+    const posibleEstado = clean(row[extraIndex]);
+    const estadoNormalizado = normalizeText(posibleEstado);
+    const esEstadoAnterior = [
+      normalizeText(ESTADO_VALIDO),
+      normalizeText(ESTADO_DUPLICADO),
+    ].includes(estadoNormalizado);
+
+    if (posibleOrigen && esEstadoAnterior) {
+      row[origenIndex] = posibleOrigen;
+      row[estadoIndex] = posibleEstado;
+      changed = true;
+    }
+  });
+
+  if (changed) {
+    sheet.getRange(2, 1, values.length, currentWidth).setValues(values);
   }
 }
 

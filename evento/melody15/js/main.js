@@ -292,30 +292,33 @@ const RsvpModal = (() => {
     let html = '';
     for (let i = 0; i < _qty; i++) {
       const draft = drafts[i] || {};
-      const isOnly = _qty === 1;
-      const label  = isOnly && _mode === 'no_asiste' ? 'Tus datos'
-                   : isOnly ? 'Tus datos'
-                   : `Invitado ${i + 1}`;
+      const label = _qty > 1 ? `Invitado ${i + 1}` : '';
       html += `
         <div class="rsvp-guest">
-          <p class="rsvp-guest-label">${label}</p>
+          ${label ? `<p class="rsvp-guest-label">${label}</p>` : ''}
           <div class="rsvp-guest-fields">
-            <input class="rsvp-input"
-                   type="text"
-                   placeholder="Nombre"
-                   data-guest="${i}"
-                   data-field="nombre"
-                   autocomplete="${i === 0 ? 'given-name' : 'off'}"
-                   inputmode="text"
-                   value="${escapeAttr(draft.nombre)}" />
-            <input class="rsvp-input"
-                   type="text"
-                   placeholder="Apellido"
-                   data-guest="${i}"
-                   data-field="apellido"
-                   autocomplete="${i === 0 ? 'family-name' : 'off'}"
-                   inputmode="text"
-                   value="${escapeAttr(draft.apellido)}" />
+            <label class="rsvp-field-label rsvp-name-field">
+              <span>Nombre</span>
+              <input class="rsvp-input"
+                     type="text"
+                     placeholder="Nombre"
+                     data-guest="${i}"
+                     data-field="nombre"
+                     autocomplete="${i === 0 ? 'given-name' : 'off'}"
+                     inputmode="text"
+                     value="${escapeAttr(draft.nombre)}" />
+            </label>
+            <label class="rsvp-field-label rsvp-name-field">
+              <span>Apellido</span>
+              <input class="rsvp-input"
+                     type="text"
+                     placeholder="Apellido"
+                     data-guest="${i}"
+                     data-field="apellido"
+                     autocomplete="${i === 0 ? 'family-name' : 'off'}"
+                     inputmode="text"
+                     value="${escapeAttr(draft.apellido)}" />
+            </label>
           </div>
           ${_cfg.perGuestDetails ? renderGuestDetails(i, draft) : ''}
         </div>`;
@@ -330,7 +333,7 @@ const RsvpModal = (() => {
       <div class="rsvp-guest-extra">
         <div class="rsvp-field-label rsvp-field-label--status">
           <div class="rsvp-status-row">
-            <label class="rsvp-age-field">
+            <label class="rsvp-field-label rsvp-age-field">
               <span>Edad</span>
               <input class="rsvp-input rsvp-age-input"
                      type="number"
@@ -447,25 +450,91 @@ const RsvpModal = (() => {
   function validate(guests) {
     clearErrors();
     let ok = true;
+    let missingCount = 0;
+    let firstError = null;
+
+    const addError = (el, message) => {
+      markError(el, message);
+      if (!firstError && el) firstError = el;
+      missingCount += 1;
+      ok = false;
+    };
+
     guests.forEach((g, i) => {
       const nEl = qs(`.rsvp-input[data-guest="${i}"][data-field="nombre"]`);
       const aEl = qs(`.rsvp-input[data-guest="${i}"][data-field="apellido"]`);
       const eEl = qs(`.rsvp-input[data-guest="${i}"][data-field="edad"]`);
       const rEl = qs(`.rsvp-input[data-guest="${i}"][data-field="restriccion"]`);
-      if (!g.nombre)   { markError(nEl); ok = false; }
-      if (!g.apellido) { markError(aEl); ok = false; }
-      if (!g.edad)     { markError(eEl); ok = false; }
-      if (_cfg.perGuestDetails && g.status === 'asiste' && !g.restriccion) { markError(rEl); ok = false; }
+      if (!g.nombre) addError(nEl, 'Completá el nombre.');
+      if (!g.apellido) addError(aEl, 'Completá el apellido.');
+      if (!g.edad) addError(eEl, 'Indicá la edad.');
+      if (_cfg.perGuestDetails && g.status === 'asiste' && !g.restriccion) {
+        addError(rEl, 'Seleccioná una opción.');
+      }
     });
+
+    if (!ok) {
+      const message = missingCount === 1
+        ? 'Falta completar 1 dato obligatorio para enviar la confirmación.'
+        : `Faltan completar ${missingCount} datos obligatorios para enviar la confirmación.`;
+      toggleValidationAlert(true, message);
+      focusFirstError(firstError);
+    }
+
     return ok;
   }
 
-  function markError(el) {
-    if (el) el.classList.add('rsvp-input--error');
+  function markError(el, message) {
+    if (!el) return;
+    el.classList.add('rsvp-input--error');
+    el.setAttribute('aria-invalid', 'true');
+
+    const label = el.closest('.rsvp-field-label') || el.parentElement;
+    const errorId = `rsvp-error-${el.dataset.guest || 'main'}-${el.dataset.field || el.id || 'field'}`;
+    el.setAttribute('aria-describedby', errorId);
+    if (!label || label.querySelector('.rsvp-field-error')) return;
+
+    label.classList.add('rsvp-field-label--error');
+    const error = document.createElement('small');
+    error.className = 'rsvp-field-error';
+    error.id = errorId;
+    error.textContent = message;
+    label.appendChild(error);
   }
 
   function clearErrors() {
-    document.querySelectorAll('.rsvp-input--error').forEach(el => el.classList.remove('rsvp-input--error'));
+    document.querySelectorAll('.rsvp-input--error').forEach(el => {
+      el.classList.remove('rsvp-input--error');
+      el.removeAttribute('aria-invalid');
+      el.removeAttribute('aria-describedby');
+    });
+    document.querySelectorAll('.rsvp-field-label--error').forEach(el => el.classList.remove('rsvp-field-label--error'));
+    document.querySelectorAll('.rsvp-field-error').forEach(el => el.remove());
+    toggleValidationAlert(false);
+  }
+
+  function toggleValidationAlert(show, message = '') {
+    const alert = document.getElementById('rsvp-validation-alert');
+    if (!alert) return;
+    if (message) alert.textContent = message;
+    alert.hidden = !show;
+    if (show) {
+      alert.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      const modal = alert.closest('.rsvp-modal');
+      if (modal) {
+        modal.classList.remove('rsvp-modal--needs-attention');
+        window.requestAnimationFrame(() => modal.classList.add('rsvp-modal--needs-attention'));
+        window.setTimeout(() => modal.classList.remove('rsvp-modal--needs-attention'), 360);
+      }
+    }
+  }
+
+  function focusFirstError(el) {
+    if (!el) return;
+    window.setTimeout(() => {
+      el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      el.focus({ preventScroll: true });
+    }, 80);
   }
 
   // ── Envío ─────────────────────────────────────────
@@ -495,8 +564,8 @@ const RsvpModal = (() => {
     };
 
     try {
-      await RsvpService.send(payload, _cfg);
-      setText('rsvp-success-msg', getTexts(_mode).success);
+      const result = await RsvpService.send(payload, _cfg);
+      setText('rsvp-success-msg', buildSuccessMessage(result));
       showState('success');
     } catch (err) {
       const message = err?.message || 'Ocurrió un error. Intentá de nuevo.';
@@ -543,6 +612,18 @@ const RsvpModal = (() => {
     };
   }
 
+  function buildSuccessMessage(result = {}) {
+    if (result.partial && Array.isArray(result.duplicates) && result.duplicates.length) {
+      const names = result.duplicates
+        .map(item => [item.nombre, item.apellido, item.edad ? `(${item.edad})` : ''].filter(Boolean).join(' '))
+        .join(', ');
+      const savedText = result.saved === 1 ? 'Se registró 1 invitado nuevo.' : `Se registraron ${result.saved || 0} invitados nuevos.`;
+      return `${savedText} Ya estaba registrado: ${names}.`;
+    }
+
+    return result.message || getTexts(_mode).success;
+  }
+
   function toggleGuestDetails(index, status) {
     const details = document.querySelector(`[data-guest-details="${index}"]`);
     if (!details) return;
@@ -550,9 +631,13 @@ const RsvpModal = (() => {
     if (status !== 'asiste') {
       details.querySelectorAll('input, select').forEach(field => {
         field.classList.remove('rsvp-input--error');
+        field.removeAttribute('aria-invalid');
+        field.removeAttribute('aria-describedby');
         if (field.tagName === 'SELECT') field.value = '';
         if (field.tagName === 'INPUT') field.value = '';
       });
+      details.querySelectorAll('.rsvp-field-label--error').forEach(field => field.classList.remove('rsvp-field-label--error'));
+      details.querySelectorAll('.rsvp-field-error').forEach(error => error.remove());
     }
   }
 
