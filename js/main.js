@@ -6,12 +6,14 @@ const PLAN_LABELS = {
   esencial: "Plan Esencial",
   plus: "Plan Plus",
   premium: "Plan Premium",
+  completo: "Plan Completo",
 };
 
 const PLAN_SHORT_LABELS = {
   esencial: "Esencial",
   plus: "Plus",
   premium: "Premium",
+  completo: "Completo",
 };
 
 // Agregar nuevas plantillas aca:
@@ -124,17 +126,21 @@ const templates = [
     bg: "linear-gradient(145deg, #d4efec, #5bbfb5 54%, #3d9d93)",
   },
   {
-    name: "Romance",
-    slug: "romance",
+    name: "Casamiento Dorado",
+    slug: "casamiento-dorado",
     category: "Casamientos",
     style: "casamientos",
-    availablePlans: ["esencial", "plus"],
-    description: "Una propuesta cálida y elegante para celebrar una historia de amor.",
-    image: "assets/img/template-romance.jpg",
-    previewImage: "assets/img/template-romance.jpg",
-    previewType: "preview",
-    demos: { esencial: "#", plus: "#", premium: "" },
-    bg: "linear-gradient(145deg, #fff0e8, #e6a187 50%, #b96b86)",
+    availablePlans: ["esencial", "plus", "premium"],
+    description: "Plantilla elegante de casamiento con paleta ivory y dorado. Incluye galería, música, timeline, datos de regalo y formulario RSVP con múltiples invitados.",
+    image: "assets/img/demos/casamiento-dorado/casamiento_hero.png",
+    previewImage: "assets/img/demos/casamiento-dorado/casamiento_hero.png",
+    previewType: "demo",
+    demos: {
+      esencial: "./demos/casamiento-escencial/casamiento-dorado/",
+      plus:     "./demos/casamiento-plus/casamiento-dorado/",
+      premium:  "./demos/casamiento-premium/casamiento-dorado/",
+    },
+    bg: "linear-gradient(145deg, #F3E8D7, #C6A46C 55%, #A8864A)",
   },
   {
     name: "Bautismo Celeste",

@@ -58,6 +58,12 @@ const templateLinks = {
     premium: "../../bautismo-premium/bautismo-rosa/",
     label: "Bautismo Rosa",
   },
+  "casamiento-dorado": {
+    esencial: "../../casamiento-escencial/casamiento-dorado/",
+    plus:     "../../casamiento-plus/casamiento-dorado/",
+    premium:  "../../casamiento-premium/casamiento-dorado/",
+    label:    "Casamiento Dorado",
+  },
 };
 
 const demoPlanLabels = {

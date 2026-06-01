@@ -1,0 +1,83 @@
+{
+  "pareja": {
+    "nombre1": "Sofía",
+    "nombre2": "Martín",
+    "display": "Sofía & Martín"
+  },
+  "frase": "El amor no se mide, se vive. Y nosotros elegimos vivirlo juntos para siempre.",
+  "fecha": "2026-11-28T19:00:00",
+  "fechaDisplay": "Sábado · 28 de Noviembre · 2026",
+  "hora": "19:00 hs",
+  "bienvenida": {
+    "titulo": "Con inmensa alegría",
+    "texto": "los invitamos a compartir el día más importante de nuestras vidas. Queremos celebrar este momento rodeados de las personas que más amamos."
+  },
+  "lugar": {
+    "nombre": "Estancia La Primavera",
+    "barrio": "Pilar · Buenos Aires",
+    "direccion": "Ruta 25, Km 38, Pilar, Buenos Aires",
+    "mapsUrl": "https://maps.google.com/?q=Estancia+La+Primavera+Pilar+Buenos+Aires"
+  },
+  "timeline": [
+    { "hora": "18:30", "evento": "Recepción de invitados" },
+    { "hora": "19:00", "evento": "Ceremonia civil" },
+    { "hora": "20:30", "evento": "Cocktail y fotografías" },
+    { "hora": "22:00", "evento": "Cena" },
+    { "hora": "00:00", "evento": "Brindis y baile" }
+  ],
+  "dresscode": {
+    "activo": true,
+    "texto": "Formal / Cocktail",
+    "nota": "El blanco y el marfil están reservados para la novia."
+  },
+  "regalos": {
+    "texto": "Tu presencia es nuestro mayor regalo. Si querés tener un gesto con nosotros, te dejamos nuestros datos.",
+    "alias": "sofia.y.martin",
+    "titular": "Sofía García",
+    "banco": "Mercado Pago / cualquier banco"
+  },
+  "whatsapp": {
+    "numero": "5491155550000",
+    "mensaje": "¡Hola! Confirmo mi asistencia al casamiento de Sofía & Martín 💍"
+  },
+  "musica": {
+    "src": "",
+    "titulo": "Perfect",
+    "artista": "Ed Sheeran"
+  },
+  "rsvp": {
+    "perGuestDetails": true,
+    "maxGuests": 8,
+    "hideDeclineButton": false,
+    "includeSongRequest": true,
+    "submitMode": "mailto",
+    "emailTo": "demo@digitarjetas.com.ar"
+  },
+  "mensajeFinal": {
+    "titulo": "Gracias por estar",
+    "texto": "Cada uno de ustedes es parte de esta historia. Los esperamos con el corazón lleno."
+  },
+  "footer": {
+    "mensaje": "Nos veremos pronto.",
+    "firma": "Sofía & Martín · 2026"
+  },
+  "tema": {
+    "acento": "#C6A46C",
+    "acento2": "#A8864A"
+  },
+  "assets": {
+    "imagesBasePath": "../../../assets/img/demos/casamiento-dorado/",
+    "musicPath": "../../../assets/music/wedding-soft.mp3",
+    "heroImage": "casamiento_hero.png",
+    "gallery": [
+      "casamiento1.png",
+      "casamiento2.png",
+      "casamiento3.png",
+      "casamiento4.png",
+      "casamiento5.png",
+      "casamiento6.png"
+    ],
+    "placeholderImage": "../../../assets/img/ui/placeholders/placeholder-evento.jpg"
+  },
+  "_assetsHelp": "Demos dentro de demos/*/* usan ../../../assets/. Clientes copiados a clientes/nombre-cliente/ deben usar ../../assets/."
+}
