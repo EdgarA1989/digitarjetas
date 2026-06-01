@@ -2,7 +2,7 @@
 // Bautismo Rosa · Plan Premium · DigiTarjetas
 // ─────────────────────────────────────────────────────────────
 
-const WHATSAPP_FALLBACK = "549XXXXXXXXXX";
+const WHATSAPP_FALLBACK = "5491151498796";
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("./config.json")

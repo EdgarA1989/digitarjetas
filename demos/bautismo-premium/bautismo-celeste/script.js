@@ -5,7 +5,7 @@
 // ── Editá acá ──
 // El número de WhatsApp se lee desde config.json
 // Si no hay config, se usa este valor como fallback:
-const WHATSAPP_FALLBACK = "549XXXXXXXXXX";
+const WHATSAPP_FALLBACK = "5491151498796";
 
 // ── Init ─────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {

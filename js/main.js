@@ -1,6 +1,6 @@
 // DigiTarjetas
 // Cambiar este numero por el WhatsApp real, solo numeros con codigo de pais.
-const WHATSAPP_NUMBER = "549XXXXXXXXXX";
+const WHATSAPP_NUMBER = "5491151498796";
 
 const PLAN_LABELS = {
   esencial: "Plan Esencial",
@@ -214,21 +214,22 @@ const filters = [
 ];
 
 const features = [
-  ["01", "Diseño personalizado", "Colores, textos y estilo adaptados a tu evento."],
-  ["02", "Link para WhatsApp", "Un enlace claro y listo para compartir con invitados."],
-  ["03", "Cuenta regresiva", "Genera expectativa hasta el día del evento."],
-  ["04", "Ubicación con Google Maps", "Tus invitados llegan fácil al lugar correcto."],
-  ["05", "Galería de fotos", "Sumá imágenes importantes y momentos especiales."],
-  ["06", "Música de fondo", "Acompañá la invitación con una canción elegida."],
-  ["07", "Confirmación de asistencia", "Organizá mejor quiénes van a participar."],
-  ["08", "Formulario de confirmación", "Una forma simple de recibir respuestas."],
-  ["09", "Botón para agendar fecha", "Tus invitados pueden guardar el evento."],
-  ["10", "Dress code", "Indicá el estilo de vestimenta de forma clara."],
-  ["11", "Frase especial", "Un mensaje emotivo que represente la celebración."],
-  ["12", "Datos de regalo o alias", "Agregá alias, cuenta o información útil."],
-  ["13", "Cronograma del evento", "Mostrá los momentos importantes de la jornada."],
-  ["14", "Mensaje personalizado", "Un cierre cálido para tus invitados."],
-  ["15", "Registro en planilla online", "Las confirmaciones pueden quedar organizadas en una planilla para consultar fácilmente."],
+  ["01", "Diseño personalizado", "Colores, textos y estilo adaptados al tipo de evento y a la estética que quieras transmitir.", "Todos los planes"],
+  ["02", "Link para compartir por WhatsApp", "Un enlace claro, moderno y fácil de enviar a familiares, amigos e invitados.", "Todos los planes"],
+  ["03", "Cuenta regresiva", "Genera expectativa y acompaña la emoción hasta el gran día del evento.", "Todos los planes"],
+  ["04", "Ubicación con Google Maps", "Tus invitados acceden rápido a la ubicación exacta y llegan más fácil al lugar.", "Todos los planes"],
+  ["05", "Botón para agendar fecha", "Tus invitados pueden guardar el evento en su calendario y recordarlo fácilmente.", "Todos los planes"],
+  ["06", "Confirmación simple por WhatsApp", "Una forma rápida y directa para que tus invitados avisen si van a asistir.", "Plan Esencial"],
+  ["07", "Galería de fotos", "Sumá imágenes especiales para que la experiencia se vea más personal, emotiva y visual.", "Plus y Premium"],
+  ["08", "Música de fondo", "Acompañá la experiencia con una canción que represente el momento o el estilo del evento.", "Plus y Premium"],
+  ["09", "Frase especial", "Agregá un mensaje emotivo que le dé identidad y calidez a la propuesta.", "Plus y Premium"],
+  ["10", "Dress code", "Indicá de forma clara el estilo de vestimenta para acompañar mejor la propuesta del evento.", "Plus y Premium"],
+  ["11", "Datos de regalo o alias", "Incluí alias, cuenta o información útil de forma prolija, simple y bien integrada.", "Plus y Premium"],
+  ["12", "Secciones personalizadas / cronograma", "Mostrá horarios, momentos clave o detalles especiales de forma ordenada.", "Plus y Premium"],
+  ["13", "Confirmación inteligente por WhatsApp", "El invitado usa un selector para indicar cuántas personas confirma y recibe un mensaje listo para enviar.", "Plan Plus"],
+  ["14", "Formulario integrado de confirmación", "La confirmación sucede dentro de la invitación, sin Google Forms visible y con una experiencia más cuidada.", "Plan Premium"],
+  ["15", "Registro en planilla online", "Las confirmaciones quedan organizadas para consultar invitados, cantidades y datos importantes.", "Plan Premium"],
+  ["16", "Resumen de confirmaciones", "Accedé a confirmados, adultos, menores y datos clave del evento.", "Plan Premium"],
 ];
 
 const benefits = [
@@ -277,9 +278,12 @@ function renderFeatures() {
   const grid = document.getElementById("features-grid");
   if (!grid) return;
 
-  grid.innerHTML = features.map(([icon, title, text]) => `
+  grid.innerHTML = features.map(([icon, title, text, plan]) => `
     <article class="feature-card reveal">
-      <span class="feature-icon" aria-hidden="true">${icon}</span>
+      <div class="feature-card__top">
+        <span class="feature-icon" aria-hidden="true">${icon}</span>
+        <span class="feature-plan">${plan}</span>
+      </div>
       <h3>${title}</h3>
       <p>${text}</p>
     </article>

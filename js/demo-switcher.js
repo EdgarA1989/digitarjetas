@@ -3,7 +3,7 @@
 // const CURRENT_TEMPLATE = "aurora";
 // const CURRENT_PLAN = "plus"; // "esencial", "plus" o "premium"
 // Cambiar DEMO_WHATSAPP_NUMBER por el numero real.
-const DEMO_WHATSAPP_NUMBER = "549XXXXXXXXXX";
+const DEMO_WHATSAPP_NUMBER = "5491151498796";
 
 // Para agregar una nueva plantilla o demo Plus:
 // 1. Crear la carpeta correspondiente: ../../quince-plus/nombre-plantilla/

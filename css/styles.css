@@ -664,6 +664,112 @@ body.dark .badge {
   margin-top: 1rem;
 }
 
+#como-funciona .steps-grid {
+  gap: 1.2rem;
+}
+
+#como-funciona .step-card {
+  position: relative;
+  min-width: 0;
+  padding: 1.25rem;
+}
+
+#como-funciona .step-card:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1.2rem;
+  width: 1px;
+  height: 1.2rem;
+  background: color-mix(in srgb, var(--primary) 24%, var(--line));
+}
+
+.step-card__top {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#como-funciona .step-number {
+  width: auto;
+  height: auto;
+  display: block;
+  border-radius: 0;
+  color: var(--primary);
+  background: transparent;
+  font-family: var(--font-title);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.step-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--line));
+  border-radius: 16px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 7%, var(--surface));
+}
+
+.step-icon svg {
+  width: 27px;
+  height: 27px;
+}
+
+#como-funciona .step-card h3 {
+  margin-top: 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1.22;
+}
+
+#como-funciona .step-card p {
+  margin-top: .55rem;
+  font-size: .91rem;
+  line-height: 1.55;
+}
+
+.steps-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem 1.1rem;
+  justify-content: center;
+  margin-top: 1.6rem;
+  padding: .9rem 0;
+  border-block: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+.steps-benefits span::before {
+  content: "✓";
+  margin-right: .36rem;
+  color: var(--primary);
+  font-weight: 900;
+}
+
+.feature-card__top {
+  display: flex;
+  gap: .65rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feature-plan {
+  padding: .28rem .5rem;
+  border: 1px solid color-mix(in srgb, var(--primary) 24%, var(--line));
+  border-radius: 999px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 7%, transparent);
+  font-size: .68rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+}
+
 .plan-card {
   position: relative;
 }
@@ -754,6 +860,18 @@ body.dark .badge {
   position: absolute;
   left: 0;
   color: var(--primary);
+  font-weight: 900;
+}
+
+.plan-card__value {
+  display: block;
+  margin-bottom: .35rem;
+  color: var(--text);
+  font-weight: 900;
+}
+
+.plan-feature--highlight {
+  color: var(--text);
   font-weight: 900;
 }
 
@@ -1400,6 +1518,10 @@ textarea:focus {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  #como-funciona .step-card:not(:last-child)::after {
+    content: none;
+  }
+
   .form-row {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1502,6 +1624,29 @@ textarea:focus {
   .plan-card .btn {
     width: 100%;
     margin-top: auto;
+  }
+}
+
+@media (min-width: 1120px) {
+  #como-funciona .steps-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #como-funciona .step-card:not(:last-child)::after {
+    content: "›";
+    right: -.86rem;
+    left: auto;
+    bottom: auto;
+    top: 50%;
+    width: .52rem;
+    height: auto;
+    color: color-mix(in srgb, var(--primary) 48%, var(--muted));
+    background: transparent;
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    transform: translateY(-50%);
   }
 }
 

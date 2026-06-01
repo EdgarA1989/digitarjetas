@@ -252,7 +252,6 @@ function initLightbox() {
     lb.classList.remove('open');
     lb.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    img.src = '';
   };
 
   close.addEventListener('click', closeLb);
