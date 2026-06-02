@@ -79,7 +79,7 @@ const legacyModeToPlan = {
 
 document.addEventListener("DOMContentLoaded", () => {
   initDemoMediaState();
-  initDemoPlanSwitcher();
+  // initDemoPlanSwitcher(); // TEMPORALMENTE DESACTIVADO · reactivar al terminar capturas
   initDemoLightboxState();
   initDemoCommercialCta();
 });

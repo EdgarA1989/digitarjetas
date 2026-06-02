@@ -697,9 +697,7 @@ body {
 .galeria-item:first-child,
 .galeria-item:last-child {
   grid-column: 1 / -1;
-  aspect-ratio: 16/9;
-  background-size: contain;
-  background-repeat: no-repeat;
+  aspect-ratio: 2.8 / 1;
   background-color: var(--bg2);
 }
 

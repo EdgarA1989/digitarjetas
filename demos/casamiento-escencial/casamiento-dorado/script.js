@@ -173,9 +173,11 @@ function initCover() {
   const cover = document.getElementById('cover');
   const btn   = document.getElementById('btn-cover');
   if (!cover || !btn) return;
+  document.documentElement.style.overflow = 'hidden';
   document.body.style.overflow = 'hidden';
   btn.addEventListener('click', () => {
     cover.classList.add('opening');
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
     setTimeout(() => {
       cover.style.display = 'none';

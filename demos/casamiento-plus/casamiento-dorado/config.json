@@ -41,7 +41,7 @@
     "mensaje": "¡Hola! Confirmo mi asistencia al casamiento de Sofía & Martín 💍"
   },
   "musica": {
-    "src": "",
+    "src": "../../../assets/music/perfect.mp3",
     "titulo": "Perfect",
     "artista": "Ed Sheeran"
   },
@@ -67,7 +67,7 @@
   },
   "assets": {
     "imagesBasePath": "../../../assets/img/demos/casamiento-dorado/",
-    "musicPath": "../../../assets/music/wedding-soft.mp3",
+    "musicPath": "../../../assets/music/perfect.mp3",
     "heroImage": "casamiento_hero.png",
     "gallery": [
       "casamiento1.png",

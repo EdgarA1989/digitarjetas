@@ -1088,10 +1088,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .confirmar  { padding: 9rem 2rem; }
   .footer     { padding: 6rem 2rem; }
 
-  .galeria-item:first-child,
-  .galeria-item:last-child {
-    aspect-ratio: 21 / 9;
-  }
 }
 
 

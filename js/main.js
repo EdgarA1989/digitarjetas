@@ -30,8 +30,10 @@ const templates = [
     style: "quince",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado, sofisticado y moderno para fiestas de 15 con estilo premium.",
-    image: "assets/img/demos/aurora/preview.jpg",
-    previewImage: "assets/img/demos/aurora/preview.jpg",
+    image: "assets/img/demos/aurora/preview.png",
+    previewImage: "assets/img/demos/aurora/preview.png",
+    decorativeMedia: true,
+    darkPreview: true,
     previewType: "demo",
     demos: {
       esencial: "./demos/quince/aurora/",
@@ -47,8 +49,10 @@ const templates = [
     style: "quince",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Una plantilla con energía, actitud y estética urbana para eventos con personalidad.",
-    image: "assets/img/demos/urban-glow/preview.jpg",
-    previewImage: "assets/img/demos/urban-glow/preview.jpg",
+    image: "assets/img/demos/urban-glow/preview.png",
+    previewImage: "assets/img/demos/urban-glow/preview.png",
+    decorativeMedia: true,
+    darkPreview: true,
     previewType: "demo",
     demos: {
       esencial: "./demos/quince/urban-glow/",
@@ -64,8 +68,9 @@ const templates = [
     style: "quince",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño nocturno, moderno y elegante con tonos azules, luces y detalles brillantes.",
-    image: "assets/img/demos/blue-night/preview.jpg",
-    previewImage: "assets/img/demos/blue-night/preview.jpg",
+    image: "assets/img/demos/blue-night/preview.png",
+    previewImage: "assets/img/demos/blue-night/preview.png",
+    darkPreview: true,
     previewType: "demo",
     demos: {
       esencial: "./demos/quince/blue-night/",
@@ -81,8 +86,9 @@ const templates = [
     style: "quince",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Una propuesta minimalista, elegante y editorial con contraste blanco y negro.",
-    image: "assets/img/demos/black-white/preview.jpg",
-    previewImage: "assets/img/demos/black-white/preview.jpg",
+    image: "assets/img/demos/black-white/preview.png",
+    previewImage: "assets/img/demos/black-white/preview.png",
+    darkPreview: true,
     previewType: "demo",
     demos: {
       esencial: "./demos/quince/black-white/",
@@ -98,8 +104,9 @@ const templates = [
     style: "quince",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño intenso, moderno y vibrante para una fiesta con mucha actitud.",
-    image: "assets/img/demos/neon-party/preview.jpg",
-    previewImage: "assets/img/demos/neon-party/preview.jpg",
+    image: "assets/img/demos/neon-party/preview.png",
+    previewImage: "assets/img/demos/neon-party/preview.png",
+    darkPreview: true,
     previewType: "demo",
     demos: {
       esencial: "./demos/quince/neon-party/",
@@ -115,8 +122,8 @@ const templates = [
     style: "quince",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Una plantilla luminosa, fresca y delicada con detalles verdes y estilo natural.",
-    image: "assets/img/demos/verde-menta/preview.jpg",
-    previewImage: "assets/img/demos/verde-menta/preview.jpg",
+    image: "assets/img/demos/verde-menta/preview.png",
+    previewImage: "assets/img/demos/verde-menta/preview.png",
     previewType: "demo",
     demos: {
       esencial: "./demos/quince/verde-menta/",
@@ -132,8 +139,9 @@ const templates = [
     style: "casamientos",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Plantilla elegante de casamiento con paleta ivory y dorado. Incluye galería, música, timeline, datos de regalo y formulario RSVP con múltiples invitados.",
-    image: "assets/img/demos/casamiento-dorado/casamiento_hero.png",
-    previewImage: "assets/img/demos/casamiento-dorado/casamiento_hero.png",
+    image: "assets/img/demos/casamiento-dorado/preview.png",
+    previewImage: "assets/img/demos/casamiento-dorado/preview.png",
+    darkPreview: true,
     previewType: "demo",
     demos: {
       esencial: "./demos/casamiento-escencial/casamiento-dorado/",
@@ -149,9 +157,9 @@ const templates = [
     style: "bautismos",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado, luminoso y elegante para bautismos. Incluye galería, música, dress code y datos de regalo.",
-    image: "assets/img/demos/bautismo-celeste/preview.jpg",
+    image: "assets/img/demos/bautismo-celeste/preview.png",
     previewVideo: "assets/videos/previews/bautismo-celeste.mp4",
-    previewImage: "assets/img/demos/bautismo-celeste/preview.jpg",
+    previewImage: "assets/img/demos/bautismo-celeste/preview.png",
     previewType: "demo",
     demos: {
       esencial: "./demos/bautismo-esencial/bautismo-celeste/",
@@ -167,8 +175,8 @@ const templates = [
     style: "bautismos",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado y femenino para bautismos de niña. Incluye galería asimétrica, música, dress code y datos de regalo.",
-    image: "assets/img/demos/bautismo-rosa/preview.jpg",
-    previewImage: "assets/img/demos/bautismo-rosa/preview.jpg",
+    image: "assets/img/demos/bautismo-rosa/preview.png",
+    previewImage: "assets/img/demos/bautismo-rosa/preview.png",
     previewType: "demo",
     demos: {
       esencial: "./demos/bautismo-esencial/bautismo-rosa/",
@@ -245,17 +253,6 @@ const benefits = [
 
 let activeFilter = "all";
 let lastFocusedElement = null;
-let templatePreviewObserver = null;
-const templatePreviewStates = new WeakMap();
-const activeTemplatePreviewCards = new Set();
-const TEMPLATE_PREVIEW_FILES = [
-  "portada_preview.webp",
-  "inicio_preview.webp",
-  "medio_preview.webp",
-  "final_preview.webp",
-];
-const TEMPLATE_PREVIEW_DURATIONS = [5500, 2800, 2800, 3200];
-const TEMPLATE_PREVIEW_TRANSITION = 900;
 
 document.addEventListener("DOMContentLoaded", () => {
   renderFeatures();
@@ -319,11 +316,11 @@ function renderTemplates() {
 
   grid.innerHTML = visibleTemplates.map(template => `
     <article class="template-card reveal">
-      <div class="template-card__body" style="--template-bg: ${template.bg}; --template-image: url('${template.image}')">
+      <div class="template-card__body${template.decorativeMedia ? " template-card__body--decorative-media" : ""}" style="--template-bg: ${template.bg}; --template-image: url('${template.image}')">
         <div class="template-card__media">
-          <div class="template-mini-phone" aria-hidden="true">
-            <div class="template-mini-screen${hasTemplatePreviewMedia(template) ? "" : " is-fallback"}">
-              ${getTemplatePreviewMedia(template)}
+          <div class="template-mini-phone${template.darkPreview ? " template-mini-phone--light-frame" : ""}" aria-hidden="true">
+            <div class="template-mini-screen">
+              ${template.previewImage ? `<img class="template-preview-media template-preview-media--${template.slug}" src="${template.previewImage}" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">` : ""}
             </div>
           </div>
         </div>
@@ -348,7 +345,6 @@ function renderTemplates() {
   empty?.classList.toggle("is-visible", visibleTemplates.length === 0);
   renderMoreModelsCta(visibleTemplates.length);
   initReveal();
-  initTemplatePreviewSequences();
 }
 
 function renderBenefits() {
@@ -367,192 +363,6 @@ function getAvailableDemoPlans(template) {
   return template.availablePlans.filter(plan => {
     const url = template.demos?.[plan];
     return Boolean(url && url !== "#");
-  });
-}
-
-function hasTemplatePreviewMedia(template) {
-  return Boolean(template.slug || template.previewVideo || template.previewGif || template.previewImage || template.image);
-}
-
-function getTemplatePreviewMedia(template) {
-  const previewPaths = getTemplatePreviewPaths(template);
-  const initialPreview = template.previewImage || template.image || previewPaths[0];
-  const firstPreview = previewPaths[0] || initialPreview;
-  if (!initialPreview) return "";
-
-  return `
-    <img
-      class="template-preview-spacer"
-      src="${initialPreview}"
-      alt=""
-      aria-hidden="true"
-      loading="lazy"
-    >
-    <div
-      class="template-preview-layer template-preview-layer--a is-active"
-      role="img"
-      aria-label="Vista previa de ${template.name}"
-      style="background-image: url('${firstPreview}')"
-      data-preview-fallback="${template.previewImage || template.image || ""}"
-      data-preview-index="0"
-      data-preview-paths="${previewPaths.join("|")}"
-    ></div>
-    <div class="template-preview-layer template-preview-layer--b" aria-hidden="true"></div>
-  `;
-}
-
-function getTemplatePreviewPaths(template) {
-  const templateSlug = template.previewSlug || template.slug;
-  if (!templateSlug) return [];
-  return TEMPLATE_PREVIEW_FILES.map(file => `assets/img/demos/${templateSlug}/${file}`);
-}
-
-function initTemplatePreviewSequences() {
-  const cards = document.querySelectorAll(".template-card");
-  if (!cards.length) return;
-
-  stopAllTemplatePreviewSequences();
-  if (templatePreviewObserver) templatePreviewObserver.disconnect();
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  templatePreviewObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        startTemplatePreviewSequence(entry.target);
-      } else {
-        stopTemplatePreviewSequence(entry.target);
-      }
-    });
-  }, {
-    rootMargin: "80px 0px",
-    threshold: 0.35,
-  });
-
-  cards.forEach(card => templatePreviewObserver.observe(card));
-}
-
-function startTemplatePreviewSequence(card) {
-  const state = getTemplatePreviewState(card);
-  if (!state || state.timer || state.isLoading) return;
-
-  activeTemplatePreviewCards.add(card);
-
-  if (!state.isReady) {
-    state.isLoading = true;
-    preloadTemplatePreviewPaths(state.sourcePaths).then(paths => {
-      state.isLoading = false;
-      state.paths = paths;
-      state.isReady = true;
-
-      if (!paths.length) return;
-      state.index = 0;
-      state.current.style.backgroundImage = `url('${paths[0]}')`;
-
-      if (paths.length > 1 && activeTemplatePreviewCards.has(card)) {
-        scheduleTemplatePreview(card, state);
-      }
-    });
-    return;
-  }
-
-  if (state.paths.length > 1) scheduleTemplatePreview(card, state);
-}
-
-function stopTemplatePreviewSequence(card) {
-  const state = templatePreviewStates.get(card);
-  if (state?.timer) {
-    window.clearTimeout(state.timer);
-    state.timer = null;
-  }
-  activeTemplatePreviewCards.delete(card);
-}
-
-function stopAllTemplatePreviewSequences() {
-  activeTemplatePreviewCards.forEach(card => stopTemplatePreviewSequence(card));
-  activeTemplatePreviewCards.clear();
-}
-
-function scheduleTemplatePreview(card, state) {
-  if (state.timer || state.paths.length < 2) return;
-
-  state.timer = window.setTimeout(() => {
-    state.timer = null;
-    rotateTemplatePreview(card, state);
-  }, TEMPLATE_PREVIEW_DURATIONS[state.index] || 2800);
-}
-
-function rotateTemplatePreview(card, state) {
-  const nextIndex = (state.index + 1) % state.paths.length;
-  const nextPath = state.paths[nextIndex];
-  if (!nextPath) return;
-
-  preloadTemplatePreviewImage(nextPath).then(loadedPath => {
-    if (!loadedPath) {
-      state.paths = state.paths.filter(path => path !== nextPath);
-      if (state.index >= state.paths.length) state.index = 0;
-      if (activeTemplatePreviewCards.has(card)) scheduleTemplatePreview(card, state);
-      return;
-    }
-
-    state.next.style.backgroundImage = `url('${loadedPath}')`;
-    state.next.classList.add("is-entering");
-    state.current.classList.add("is-leaving");
-
-    window.setTimeout(() => {
-      state.current.classList.remove("is-active", "is-leaving");
-      state.current.style.backgroundImage = "";
-      state.next.classList.remove("is-entering");
-      state.next.classList.add("is-active");
-      [state.current, state.next] = [state.next, state.current];
-      state.index = nextIndex;
-
-      if (activeTemplatePreviewCards.has(card)) {
-        scheduleTemplatePreview(card, state);
-      }
-    }, TEMPLATE_PREVIEW_TRANSITION);
-  });
-}
-
-function getTemplatePreviewState(card) {
-  const existingState = templatePreviewStates.get(card);
-  if (existingState) return existingState;
-
-  const layers = Array.from(card.querySelectorAll(".template-preview-layer"));
-  const current = layers.find(layer => layer.classList.contains("is-active")) || layers[0];
-  const next = layers.find(layer => layer !== current);
-  if (!current || !next) return null;
-
-  const state = {
-    current,
-    next,
-    sourcePaths: (current.dataset.previewPaths || "").split("|").filter(Boolean),
-    paths: [],
-    index: Number(current.dataset.previewIndex || 0),
-    timer: null,
-    isReady: false,
-    isLoading: false,
-  };
-
-  templatePreviewStates.set(card, state);
-  return state;
-}
-
-function preloadTemplatePreviewPaths(paths) {
-  return Promise.all(paths.map(path => preloadTemplatePreviewImage(path)))
-    .then(results => results.filter(Boolean));
-}
-
-function preloadTemplatePreviewImage(path) {
-  return new Promise(resolve => {
-    const image = new Image();
-    image.onerror = () => resolve("");
-    image.onload = () => {
-      const decode = typeof image.decode === "function"
-        ? image.decode().catch(() => undefined)
-        : Promise.resolve();
-      decode.then(() => resolve(path));
-    };
-    image.src = path;
   });
 }
 

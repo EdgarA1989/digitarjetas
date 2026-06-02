@@ -1,9 +1,9 @@
 {
-    "nombre":  "Melody",
+    "nombre":  "Agustina",
     "frase":  "Quince años siendo exactamente quien soy.",
     "fraseSub":  "La noche más épica de tu vida empieza acá.",
-    "fecha":  "2026-10-03T21:00:00",
-    "fechaDisplay":  "Sábado · 03 de Octubre · 2026",
+    "fecha":  "2026-12-05T21:00:00",
+    "fechaDisplay":  "Sábado · 05 de Diciembre · 2026",
     "hora":  "21:00 hs",
     "bienvenida":  {
                        "titulo":  "Sin ensayo. Sin segundo tiempo.",
@@ -21,18 +21,18 @@
                   },
     "regalos":  {
                     "texto":  "Tu presencia vale más que cualquier regalo. Pero si querés sumar al show, acá van los datos.",
-                    "alias":  "Melody.rap",
+                    "alias":  "agustina.rap",
                     "nombre":  "Nombre en Mercado Pago",
                     "banco":  "Mercado Pago / cualquier banco"
                 },
     "whatsapp":  {
                      "numero":  "5491151498796",
-                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Melody 🎤"
+                     "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Agustina 🎤"
                  },
     "musica":  {
-                   "src":  "../../../assets/music/party-soft.mp3",
-                   "titulo":  "Titanium",
-                   "artista":  "David Guetta ft. Sia"
+                   "src":  "../../../assets/music/viva_la_vida.mp3",
+                   "titulo":  "Viva la Vida",
+                   "artista":  "Coldplay"
                },
     "fotos":  [
                   "foto horizontal 1.png",
@@ -44,7 +44,7 @@
               ],
     "footer":  {
                    "mensaje":  "Esta noche la hacemos historia.",
-                   "firma":  "Melo· 2026"
+                   "firma":  "Agus · 2026"
                },
     "tema":  {
                  "acento":  "#1e90ff",
@@ -62,7 +62,7 @@
              },
     "assets":  {
                    "imagesBasePath":  "../../../assets/img/demos/blue-night/",
-                   "musicPath":  "../../../assets/music/party-soft.mp3",
+                   "musicPath":  "../../../assets/music/viva_la_vida.mp3",
                    "heroImage":  "",
                    "coverImage":  "",
                    "gallery":  [

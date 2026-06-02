@@ -619,8 +619,7 @@ h1, h2 { line-height: 1; }
 }
 .galeria-item:first-child,
 .galeria-item:last-child {
-  grid-column: 1 / -1; aspect-ratio: 16/9;
-  background-size: contain; background-repeat: no-repeat;
+  grid-column: 1 / -1; aspect-ratio: 2.8 / 1;
   background-color: #0e0010;
 }
 .galeria-item:hover { opacity: .85; }

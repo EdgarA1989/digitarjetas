@@ -187,10 +187,12 @@ function setCountdown(id, value) {
 function initCover() {
   const cover = document.getElementById('cover'), btn = document.getElementById('btn-cover');
   if (!cover || !btn) return;
+  document.documentElement.style.overflow = 'hidden';
   document.body.style.overflow = 'hidden';
   btn.addEventListener('click', () => {
     document.getElementById('musica-btn')?.click();
     cover.classList.add('opening');
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
     setTimeout(() => {
       cover.style.display = 'none';

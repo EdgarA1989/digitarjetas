@@ -30,9 +30,9 @@
                      "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Valentina 🎤"
                  },
     "musica":  {
-                   "src":  "../../../assets/music/party-soft.mp3",
-                   "titulo":  "Titanium",
-                   "artista":  "David Guetta ft. Sia"
+                   "src":  "../../../assets/music/viva_la_vida.mp3",
+                   "titulo":  "Viva la Vida",
+                   "artista":  "Coldplay"
                },
     "fotos":  [
                   "foto horizontal 1.png",
@@ -52,7 +52,7 @@
              },
     "assets":  {
                    "imagesBasePath":  "../../../assets/img/demos/urban-glow/",
-                   "musicPath":  "../../../assets/music/party-soft.mp3",
+                   "musicPath":  "../../../assets/music/viva_la_vida.mp3",
                    "heroImage":  "",
                    "coverImage":  "",
                    "gallery":  [
