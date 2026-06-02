@@ -133,6 +133,23 @@ const templates = [
     bg: "linear-gradient(145deg, #d4efec, #5bbfb5 54%, #3d9d93)",
   },
   {
+    name: "Editorial Olivo",
+    slug: "casamiento-editorial-olivo",
+    category: "Casamientos",
+    style: "casamientos",
+    availablePlans: ["esencial", "plus", "premium"],
+    description: "Invitación de boda con estética editorial boutique. Tonos oliva, marfil y terracota. Diseño cálido, moderno y premium.",
+    image: "assets/img/demos/casamiento-editorial-olivo/preview.png",
+    previewImage: "assets/img/demos/casamiento-editorial-olivo/preview.png",
+    previewType: "demo",
+    demos: {
+      esencial: "./demos/casamiento-escencial/casamiento-editorial-olivo/",
+      plus:     "./demos/casamiento-plus/casamiento-editorial-olivo/",
+      premium:  "./demos/casamiento-premium/casamiento-editorial-olivo/",
+    },
+    bg: "linear-gradient(145deg, #EDE7DC, #6F7764 55%, #42483A)",
+  },
+  {
     name: "Casamiento Dorado",
     slug: "casamiento-dorado",
     category: "Casamientos",
@@ -214,11 +231,11 @@ const templates = [
 ];
 
 const filters = [
-  { label: "Ver todas", value: "all" },
   { label: "15 años", value: "quince" },
   { label: "Bautismo", value: "bautismos" },
   { label: "Casamiento", value: "casamientos" },
   { label: "Eventos", value: "eventos" },
+  { label: "Ver todas", value: "all" },
 ];
 
 const features = [
@@ -241,17 +258,17 @@ const features = [
 ];
 
 const benefits = [
-  "Más práctico que una invitación impresa",
-  "Fácil de compartir",
-  "Ideal para WhatsApp",
-  "Diseño adaptable a cada evento",
-  "Confirmaciones organizadas",
-  "Ahorro de tiempo",
-  "Experiencia moderna para los invitados",
-  "Compatible con celulares",
+  "Todo en un solo link",
+  "Lista para compartir por WhatsApp",
+  "Diseño adaptado a tu evento",
+  "Experiencia moderna para invitados",
+  "Confirmaciones más ordenadas",
+  "Formulario integrado sin Google Forms",
+  "Planilla online con registros",
+  "Resumen claro de invitados",
 ];
 
-let activeFilter = "all";
+let activeFilter = "quince";
 let lastFocusedElement = null;
 
 document.addEventListener("DOMContentLoaded", () => {

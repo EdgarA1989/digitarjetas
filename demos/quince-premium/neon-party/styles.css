@@ -608,41 +608,95 @@ h1, h2 { line-height: 1; }
 .galeria-section { padding-left: 0; padding-right: 0; max-width: 100%; }
 .galeria-section .section-label { padding: 0 1.5rem; max-width: var(--max); margin: 0 auto .9rem; display: block; }
 
-.galeria-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
-}
-.galeria-item {
+/* Swiper coverflow */
+.galeria-swiper { width: 100%; padding: 2rem 0 3.5rem; }
+.galeria-swiper .swiper-slide {
+  width: 260px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
   background: var(--surface);
-  background-size: cover; background-position: center;
-  aspect-ratio: 1; overflow: hidden; cursor: pointer;
-  transition: opacity var(--trans);
+  cursor: pointer;
+  transition: box-shadow .35s ease;
 }
-.galeria-item:first-child,
-.galeria-item:last-child {
-  grid-column: 1 / -1; aspect-ratio: 2.8 / 1;
-  background-color: #0e0010;
+.galeria-swiper .swiper-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 30%;
+  display: block; pointer-events: none;
 }
-.galeria-item:hover { opacity: .85; }
+.galeria-swiper .swiper-slide-active {
+  box-shadow: 0 0 40px rgba(224,64,251,.5);
+}
+.galeria-pagination { bottom: 12px !important; }
+.galeria-pagination .swiper-pagination-bullet {
+  background: var(--muted); opacity: .5; width: 6px; height: 6px;
+}
+.galeria-pagination .swiper-pagination-bullet-active {
+  background: var(--accent); opacity: 1;
+  width: 18px; border-radius: 3px; transition: width .25s;
+}
 
-/* Lightbox */
-.lightbox {
-  position: fixed; inset: 0; z-index: 1000;
-  background: rgba(0,0,0,.92); backdrop-filter: blur(10px);
-  display: flex; align-items: center; justify-content: center;
+/* Lightbox galería */
+.galeria-lb {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(8,8,8,.96);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1.4rem;
   opacity: 0; pointer-events: none;
   transition: opacity .3s ease;
-  padding: 1.5rem;
+  padding: 1rem;
 }
-.lightbox.open { opacity: 1; pointer-events: auto; }
-.lightbox-img { max-width: 100%; max-height: 90vh; border-radius: var(--radius); object-fit: contain; }
-.lightbox-close {
-  position: absolute; top: 1.25rem; right: 1.25rem;
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,255,255,.1); color: #fff;
-  font-size: 1rem; display: flex; align-items: center; justify-content: center;
-  transition: background var(--trans); cursor: pointer; border: none;
+.galeria-lb.open { opacity: 1; pointer-events: auto; }
+.galeria-lb-img {
+  max-width: min(92vw, 380px);
+  max-height: 72vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  border: 1px solid rgba(224,64,251,.25);
+  box-shadow: 0 0 50px rgba(224,64,251,.22);
+  display: block;
 }
-.lightbox-close:hover { background: rgba(255,255,255,.2); }
+.galeria-lb-figure {
+  position: relative;
+  display: inline-flex;
+}
+.galeria-lb-close {
+  position: absolute; top: -14px; right: -14px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(18,18,18,.85);
+  border: 1px solid rgba(224,64,251,.45);
+  color: #fff; font-size: .9rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 1;
+  transition: background var(--trans), border-color var(--trans), box-shadow var(--trans);
+}
+.galeria-lb-close:hover {
+  background: rgba(224,64,251,.25);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(224,64,251,.5);
+}
+.galeria-lb-arrows {
+  display: flex; gap: 2rem; align-items: center; justify-content: center;
+}
+.galeria-lb-prev,
+.galeria-lb-next {
+  width: 50px; height: 50px; border-radius: 50%;
+  background: rgba(255,255,255,.05);
+  border: 1.5px solid rgba(224,64,251,.45);
+  color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background var(--trans), border-color var(--trans), box-shadow var(--trans);
+}
+.galeria-lb-prev:hover,
+.galeria-lb-next:hover {
+  background: rgba(224,64,251,.18);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(224,64,251,.5);
+}
 
 /* ══════════════════════════════════════════════════════
    MÚSICA

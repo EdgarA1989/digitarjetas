@@ -45,7 +45,8 @@ aplicarTema(c.tema);
   renderEvento(c);
   renderDresscode(c.dresscode);
   renderRegalos(c.regalos);
-  renderGaleria(c.fotos);
+  renderGallery(c.fotos);
+  initGalleryLightbox();
   renderMusica(c.musica);
   renderConfirmar(c);
   renderFooter(c.footer);
@@ -57,7 +58,6 @@ aplicarTema(c.tema);
   initParticles('hero-particles');
   initCover();
   initCopy();
-  initLightbox();
   initMusica();
   initCalendar(c);
   initFireIcons();
@@ -124,18 +124,142 @@ function renderRegalos(r) {
   set('regalos-banco', r.banco);
 }
 
-// ── Render galería ────────────────────────────────────
-function renderGaleria(fotos) {
-  const grid = document.getElementById('galeria-grid');
-  if (!grid) return;
-  grid.innerHTML = fotos.map((src, i) => `
-    <div class="galeria-item reveal"
-         style="background-image:url('${src}')"
-         data-src="${src}"
-         role="img"
-         aria-label="Foto ${i + 1}">
-    </div>
-  `).join('');
+// ══════════════════════════════════════════════════════
+//  GALERÍA CARD STACK
+// ══════════════════════════════════════════════════════
+const GC = { images:[], total:0, current:0, busy:false, dragging:false, dragStartX:0, dragDelta:0, didDrag:false };
+const GC_STACK = [
+  { x:0,     z:0,    r:0, shadow:0    },
+  { x:7.25,  z:-100, r:2, shadow:.15  },
+  { x:13,    z:-200, r:4, shadow:.28  },
+  { x:17.25, z:-300, r:6, shadow:.38  },
+  { x:20,    z:-400, r:8, shadow:.48  },
+];
+const GC_VISIBLE = GC_STACK.length, GC_THRESHOLD = 60;
+
+function gcCard(gi) { return document.querySelector(`.gallery-card[data-gi="${gi}"]`); }
+function gcRelPos(gi) { return ((gi - GC.current) % GC.total + GC.total) % GC.total; }
+function gcSetPos(card, pos, animate) {
+  const hidden = pos >= GC_VISIBLE, st = GC_STACK[Math.min(pos, GC_VISIBLE - 1)];
+  card.style.transition  = animate ? 'transform 0.38s cubic-bezier(0.25,0.1,0.25,1), opacity 0.3s ease' : 'none';
+  card.style.zIndex      = hidden ? '0' : String(GC.total - pos);
+  card.style.opacity     = hidden ? '0' : '1';
+  card.style.pointerEvents = pos === 0 ? 'auto' : 'none';
+  card.style.transform   = `translate3d(${st.x}%, 0, ${st.z}px) rotateZ(${st.r}deg)`;
+  const sh = card.querySelector('.gallery-card__shadow');
+  if (sh) { sh.style.transition = animate ? 'opacity 0.38s ease' : 'none'; sh.style.opacity = String(hidden ? 0 : st.shadow); }
+}
+function gcRefresh(animate) {
+  document.querySelectorAll('.gallery-card').forEach(card => gcSetPos(card, gcRelPos(Number(card.dataset.gi)), animate));
+  gcUpdateCounter();
+}
+function gcUpdateCounter() {
+  const el = document.querySelector('[data-gallery-counter]');
+  if (el) el.textContent = `${GC.current + 1} / ${GC.total}`;
+}
+function gcGoNext() {
+  if (GC.busy || GC.total < 2) return;
+  GC.busy = true;
+  const outCard = gcCard(GC.current);
+  GC.current = (GC.current + 1) % GC.total;
+  if (outCard) { outCard.style.transition = 'transform 0.42s cubic-bezier(0.55,0,1,0.45), opacity 0.32s ease'; outCard.style.zIndex = String(GC.total + 1); outCard.style.transform = 'translate3d(-115%, 0, 0) rotateZ(-10deg)'; outCard.style.opacity = '0'; }
+  document.querySelectorAll('.gallery-card').forEach(card => { if (card !== outCard) gcSetPos(card, gcRelPos(Number(card.dataset.gi)), true); });
+  gcUpdateCounter();
+  setTimeout(() => { if (outCard) gcSetPos(outCard, gcRelPos(Number(outCard.dataset.gi)), false); GC.busy = false; }, 440);
+}
+function gcGoPrev() {
+  if (GC.busy || GC.total < 2) return;
+  GC.busy = true;
+  GC.current = (GC.current - 1 + GC.total) % GC.total;
+  const inCard = gcCard(GC.current);
+  if (inCard) { inCard.style.transition = 'none'; inCard.style.zIndex = String(GC.total + 1); inCard.style.opacity = '1'; inCard.style.transform = 'translate3d(-115%, 0, 0) rotateZ(-8deg)'; const sh = inCard.querySelector('.gallery-card__shadow'); if (sh) sh.style.opacity = '0'; }
+  document.querySelectorAll('.gallery-card').forEach(card => { if (card !== inCard) gcSetPos(card, gcRelPos(Number(card.dataset.gi)), true); });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (inCard) { inCard.style.transition = 'transform 0.42s cubic-bezier(0.25,0.1,0.25,1), opacity 0.3s ease'; inCard.style.transform = 'translate3d(0, 0, 0) rotateZ(0deg)'; }
+    gcUpdateCounter();
+    setTimeout(() => { GC.busy = false; }, 440);
+  }));
+}
+function gcInitDrag(container) {
+  container.addEventListener('pointerdown', e => { if (GC.busy || (e.button !== 0 && e.pointerType === 'mouse')) return; GC.dragging = true; GC.didDrag = false; GC.dragStartX = e.clientX; GC.dragDelta = 0; container.setPointerCapture(e.pointerId); });
+  container.addEventListener('pointermove', e => { if (!GC.dragging) return; GC.dragDelta = e.clientX - GC.dragStartX; if (Math.abs(GC.dragDelta) > 5) GC.didDrag = true; gcDragUpdate(); });
+  container.addEventListener('pointerup',     gcDragEnd);
+  container.addEventListener('pointercancel', gcDragEnd);
+}
+function gcDragUpdate() {
+  const d = GC.dragDelta, progress = Math.min(Math.abs(d) / GC_THRESHOLD, 1);
+  const active = gcCard(GC.current);
+  if (!active) return;
+  active.style.transition = 'none';
+  active.style.transform  = `translate3d(${d}px, 0, 0) rotateZ(${(d < 0 ? -1 : 1) * progress * 7}deg)`;
+  if (d < 0) { const next = gcCard((GC.current + 1) % GC.total); if (next) { const st = GC_STACK[1]; next.style.transition = 'none'; next.style.transform = `translate3d(${st.x * (1 - progress)}%, 0, ${st.z * (1 - progress)}px) rotateZ(${st.r * (1 - progress)}deg)`; const sh = next.querySelector('.gallery-card__shadow'); if (sh) sh.style.opacity = String(st.shadow * (1 - progress)); } }
+}
+function gcDragEnd() {
+  if (!GC.dragging) return;
+  GC.dragging = false;
+  const d = GC.dragDelta; GC.dragDelta = 0;
+  if (!GC.didDrag) return;
+  if (d < -GC_THRESHOLD) gcGoNext(); else if (d > GC_THRESHOLD) gcGoPrev(); else gcRefresh(true);
+}
+function renderGallery(fotos) {
+  const carousel = document.querySelector('[data-gallery-carousel]');
+  if (!carousel || !fotos?.length) { document.getElementById('galeria')?.style.setProperty('display','none'); return; }
+  GC.images = fotos; GC.total = fotos.length; GC.current = 0; GC.busy = false;
+  carousel.innerHTML = fotos.map((src, i) => `
+    <div class="gallery-card" data-gi="${i}">
+      <img src="${src}" alt="Foto ${i + 1}" loading="lazy">
+      <div class="gallery-card__shadow" aria-hidden="true"></div>
+    </div>`).join('');
+  carousel.querySelectorAll('img').forEach(img => img.addEventListener('error', () => img.closest('.gallery-card')?.classList.add('is-missing')));
+  gcRefresh(false);
+  gcInitDrag(carousel);
+  carousel.addEventListener('click', e => { if (GC.didDrag) return; const card = e.target.closest('.gallery-card[data-gi]'); if (card && gcRelPos(Number(card.dataset.gi)) === 0) openLightbox(GC.current); });
+  document.querySelector('.gallery-prev')?.addEventListener('click', gcGoPrev);
+  document.querySelector('.gallery-next')?.addEventListener('click', gcGoNext);
+}
+
+// ── Lightbox ──────────────────────────────────────────
+let _lbIndex = 0, _lbHistoryOn = false;
+function openLightbox(index) {
+  const lb = document.querySelector('[data-gallery-lightbox]');
+  if (!lb || !GC.total) return;
+  _lbShowImage(index);
+  lb.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  if (!_lbHistoryOn) { history.pushState({ galleryLb: true }, ''); _lbHistoryOn = true; }
+  lb.querySelector('.lightbox-close')?.focus();
+}
+function closeLightbox() {
+  const lb = document.querySelector('[data-gallery-lightbox]');
+  if (!lb || lb.getAttribute('aria-hidden') !== 'false') return;
+  lb.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  const wasOn = _lbHistoryOn; _lbHistoryOn = false;
+  if (wasOn) history.back();
+}
+function _lbShowImage(index) {
+  const n = ((index % GC.total) + GC.total) % GC.total; _lbIndex = n;
+  const img = document.querySelector('[data-lightbox-image]');
+  const ctr = document.querySelector('[data-lightbox-counter]');
+  if (img) { img.src = GC.images[n]; img.alt = `Foto ${n + 1}`; }
+  if (ctr) ctr.textContent = `${n + 1} / ${GC.total}`;
+}
+function goToNextImage() { _lbShowImage(_lbIndex + 1); }
+function goToPrevImage() { _lbShowImage(_lbIndex - 1); }
+function initGalleryLightbox() {
+  const lb = document.querySelector('[data-gallery-lightbox]');
+  if (!lb) return;
+  lb.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+  lb.querySelector('.lightbox-prev')?.addEventListener('click', goToPrevImage);
+  lb.querySelector('.lightbox-next')?.addEventListener('click', goToNextImage);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (lb.getAttribute('aria-hidden') !== 'false') return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') goToNextImage();
+    if (e.key === 'ArrowLeft')  goToPrevImage();
+  });
+  window.addEventListener('popstate', () => { if (_lbHistoryOn) { _lbHistoryOn = false; lb.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; } });
 }
 
 // ── Render música ─────────────────────────────────────
@@ -253,34 +377,6 @@ function showToast() {
   setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
-// ── Lightbox ──────────────────────────────────────────
-function initLightbox() {
-  const lb    = document.getElementById('lightbox');
-  const img   = document.getElementById('lightbox-img');
-  const close = document.getElementById('lightbox-close');
-  if (!lb) return;
-
-  document.addEventListener('click', e => {
-    const item = e.target.closest('.galeria-item');
-    if (!item) return;
-    const src = item.dataset.src;
-    if (!src) return;
-    img.src = src;
-    lb.classList.add('open');
-    lb.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  });
-
-  const closeLb = () => {
-    lb.classList.remove('open');
-    lb.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  };
-
-  close.addEventListener('click', closeLb);
-  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
-}
 
 // ── Música + ecualizador ──────────────────────────────
 function initMusica() {

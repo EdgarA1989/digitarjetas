@@ -58,6 +58,12 @@ const templateLinks = {
     premium: "../../bautismo-premium/bautismo-rosa/",
     label: "Bautismo Rosa",
   },
+  "casamiento-editorial-olivo": {
+    esencial: "../../casamiento-escencial/casamiento-editorial-olivo/",
+    plus:     "../../casamiento-plus/casamiento-editorial-olivo/",
+    premium:  "../../casamiento-premium/casamiento-editorial-olivo/",
+    label:    "Editorial Olivo",
+  },
   "casamiento-dorado": {
     esencial: "../../casamiento-escencial/casamiento-dorado/",
     plus:     "../../casamiento-plus/casamiento-dorado/",
@@ -79,9 +85,12 @@ const legacyModeToPlan = {
 
 document.addEventListener("DOMContentLoaded", () => {
   initDemoMediaState();
+  initDemoAudioLifecycle();
   initDemoPlanSwitcher();
+  initDemoPlansModal();
   initDemoLightboxState();
   initDemoCommercialCta();
+  initDemoPlanSwitch();
 });
 
 function initDemoMediaState() {
@@ -95,6 +104,81 @@ function initDemoMediaState() {
       document.body.classList.toggle("dt-no-media", !hasPhotos && !hasMusic);
     })
     .catch(() => {});
+}
+
+function pauseDemoAudio() {
+  document.querySelectorAll("#musica-btn.playing, #player-btn.playing").forEach(button => {
+    button.click();
+  });
+
+  document.querySelectorAll("audio").forEach(audio => {
+    if (!audio.paused) audio.pause();
+  });
+
+  document.querySelectorAll("#musica-btn, #player-btn").forEach(button => {
+    const playIcon = button.querySelector(".icon-play");
+    const pauseIcon = button.querySelector(".icon-pause");
+
+    if (button.classList.contains("playing")) button.classList.remove("playing");
+    if (button.getAttribute("aria-label") !== "Reproducir") {
+      button.setAttribute("aria-label", "Reproducir");
+    }
+    if (playIcon) playIcon.style.display = "";
+    if (pauseIcon) pauseIcon.style.display = "none";
+  });
+
+  document.querySelectorAll("#musica-waves, #eq-bars").forEach(element => {
+    if (element.classList.contains("active")) element.classList.remove("active");
+  });
+  document.querySelectorAll("#musica-esfera").forEach(element => {
+    if (element.classList.contains("sonando")) element.classList.remove("sonando");
+  });
+  document.querySelectorAll("#musica-disc").forEach(element => {
+    if (element.classList.contains("spinning")) element.classList.remove("spinning");
+  });
+}
+
+function initDemoAudioLifecycle() {
+  const shouldPauseForClick = target => {
+    const externalLink = target.closest("a[href]");
+    if (externalLink) {
+      const href = externalLink.getAttribute("href") || "";
+      if (/^(https?:|mailto:|tel:)/i.test(href) || externalLink.target === "_blank") {
+        return true;
+      }
+    }
+
+    return Boolean(target.closest(
+      "#btn-asiste, #btn-wa, #btn-whatsapp, #btn-ics, #btn-calendario, " +
+      "[data-plus-rsvp-submit], [data-demo-plan-button], [data-demo-plans], " +
+      "[data-demo-return], [data-demo-whatsapp]"
+    ));
+  };
+
+  const hasBlockingOverlay = () => document.querySelector(
+    ".lightbox.open, .rsvp-overlay.open, .plus-rsvp:not([hidden]), .dt-plans-modal.is-open"
+  );
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") pauseDemoAudio();
+  });
+  window.addEventListener("blur", pauseDemoAudio);
+  window.addEventListener("pagehide", pauseDemoAudio);
+
+  document.addEventListener("click", event => {
+    if (event.target instanceof Element && shouldPauseForClick(event.target)) {
+      pauseDemoAudio();
+    }
+  }, true);
+
+  const observer = new MutationObserver(() => {
+    if (hasBlockingOverlay()) pauseDemoAudio();
+  });
+  observer.observe(document.body, {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class", "hidden", "aria-hidden"],
+  });
 }
 
 function getCurrentTemplate() {
@@ -146,6 +230,7 @@ function initDemoPlanSwitcher() {
           ${label.replace("Plan ", "")}
         </button>
       `).join("")}
+      <button class="dt-plan-link" type="button" data-demo-plans>Planes</button>
       <a class="dt-plan-link" href="../../../#plantillas">Volver</a>
     </div>
   `;
@@ -169,8 +254,15 @@ function initDemoPlanSwitcher() {
       const plan = button.dataset.demoPlanButton;
       if (plan === currentPlan) return;
       const target = links[plan];
-      if (target) window.location.href = target;
+      if (!target) return;
+      sessionStorage.setItem("dt-skip-cover", "1");
+      window.location.href = target;
     });
+  });
+
+  bar.querySelector("[data-demo-plans]")?.addEventListener("click", () => {
+    closeMenu();
+    openDemoPlansModal();
   });
 
   document.body.prepend(bar);
@@ -185,6 +277,233 @@ function initDemoPlanSwitcher() {
     closeMenu();
     trigger.focus();
   });
+}
+
+function initDemoPlansModal() {
+  injectDemoPlansModalStyles();
+  getDemoPlansModal();
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeDemoPlansModal();
+  });
+}
+
+function getDemoPlansModal() {
+  let modal = document.getElementById("dt-plans-modal");
+  if (modal) return modal;
+
+  modal = document.createElement("div");
+  modal.className = "dt-plans-modal";
+  modal.id = "dt-plans-modal";
+  modal.setAttribute("aria-hidden", "true");
+  modal.innerHTML = `
+    <div class="dt-plans-modal__backdrop" data-dt-plans-close></div>
+    <section class="dt-plans-modal__card" role="dialog" aria-modal="true" aria-labelledby="dt-plans-modal-title">
+      <button class="dt-plans-modal__close" type="button" aria-label="Cerrar" data-dt-plans-close>&times;</button>
+      <div class="dt-plans-modal__header">
+        <span>Comparar planes</span>
+        <h2 id="dt-plans-modal-title">Elegí el plan ideal para tu invitación</h2>
+      </div>
+      <img class="dt-plans-modal__image" src="" alt="Comparativa de planes DigiTarjetas">
+    </section>
+  `;
+
+  modal.querySelectorAll("[data-dt-plans-close]").forEach(element => {
+    element.addEventListener("click", closeDemoPlansModal);
+  });
+
+  document.body.append(modal);
+  return modal;
+}
+
+function openDemoPlansModal() {
+  const modal = getDemoPlansModal();
+  const image = modal.querySelector(".dt-plans-modal__image");
+  pauseDemoAudio();
+  if (image) image.src = getDemoPlansImageSrc();
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.dataset.dtPlansModalOverflow = document.body.style.overflow || "";
+  document.body.style.overflow = "hidden";
+  modal.querySelector(".dt-plans-modal__close")?.focus();
+}
+
+function closeDemoPlansModal() {
+  const modal = document.getElementById("dt-plans-modal");
+  if (!modal || !modal.classList.contains("is-open")) return;
+
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = document.body.dataset.dtPlansModalOverflow || "";
+  delete document.body.dataset.dtPlansModalOverflow;
+}
+
+function getDemoPlansImageSrc() {
+  const imageName = isCurrentDemoDark() ? "planes_oscuro.png" : "planes_claro.png";
+  return `../../../assets/img/ui/planes/${imageName}`;
+}
+
+function isCurrentDemoDark() {
+  if (document.body.classList.contains("dark")) return true;
+
+  const currentTemplate = getCurrentTemplate();
+  const darkTemplates = ["black-white", "blue-night", "casamiento-dorado", "neon-party", "urban-glow"];
+  const lightTemplates = ["aurora", "bautismo-celeste", "bautismo-rosa", "casamiento-editorial-olivo", "verde-menta"];
+  if (darkTemplates.includes(currentTemplate)) return true;
+  if (lightTemplates.includes(currentTemplate)) return false;
+
+  const color = getComputedStyle(document.body).backgroundColor
+    || getComputedStyle(document.documentElement).backgroundColor;
+  const match = color.match(/\d+(\.\d+)?/g);
+  if (!match || match.length < 3) return window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const [r, g, b] = match.slice(0, 3).map(Number);
+  const luminance = (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
+  return luminance < 128;
+}
+
+function injectDemoPlansModalStyles() {
+  if (document.getElementById("dt-plans-modal-styles")) return;
+
+  const style = document.createElement("style");
+  style.id = "dt-plans-modal-styles";
+  style.textContent = `
+    .dt-plans-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: grid;
+      place-items: center;
+      padding: clamp(1rem, 4vw, 2rem);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease;
+    }
+    .dt-plans-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .dt-plans-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 9, 22, .72);
+      backdrop-filter: blur(14px);
+    }
+    .dt-plans-modal__card {
+      position: relative;
+      width: min(980px, 100%);
+      max-height: calc(100svh - 2rem);
+      overflow: auto;
+      padding: clamp(.9rem, 2vw, 1.25rem);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 28px;
+      background: color-mix(in srgb, #ffffff 92%, #f2effb);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .32);
+      transform: translateY(14px) scale(.98);
+      transition: transform .22s ease;
+    }
+    .dt-plans-modal.is-open .dt-plans-modal__card {
+      transform: translateY(0) scale(1);
+    }
+    .dt-plans-modal__header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: .2rem 3rem 1rem .2rem;
+      color: #17152a;
+    }
+    .dt-plans-modal__header span {
+      color: #7357ff;
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .dt-plans-modal__header h2 {
+      margin: 0;
+      font-family: "Poppins", system-ui, sans-serif;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      line-height: 1.05;
+      text-align: right;
+    }
+    .dt-plans-modal__close {
+      position: absolute;
+      top: .9rem;
+      right: .9rem;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(23,21,42,.12);
+      border-radius: 999px;
+      color: #17152a;
+      background: rgba(255,255,255,.82);
+      font-size: 1.7rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .dt-plans-modal__image {
+      width: 100%;
+      height: auto;
+      max-height: calc(100svh - 8rem);
+      object-fit: contain;
+      border-radius: 20px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .dt-plans-modal__card {
+        background: color-mix(in srgb, #11142c 92%, #070816);
+      }
+      .dt-plans-modal__header {
+        color: #f8f4ff;
+      }
+      .dt-plans-modal__close {
+        color: #f8f4ff;
+        border-color: rgba(255,255,255,.16);
+        background: rgba(17,20,44,.88);
+      }
+    }
+    @media (max-width: 640px) {
+      .dt-plans-modal {
+        padding: .5rem;
+      }
+      .dt-plans-modal__backdrop {
+        background: rgba(8, 9, 22, .38);
+        backdrop-filter: none;
+      }
+      .dt-plans-modal__card {
+        width: 100%;
+        max-height: calc(100svh - 1rem);
+        padding: .45rem;
+        overflow: auto;
+        border: 0;
+        border-radius: 18px;
+        background: rgba(255,255,255,.98);
+        box-shadow: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .dt-plans-modal__header {
+        display: none;
+      }
+      .dt-plans-modal__close {
+        position: sticky;
+        top: .25rem;
+        left: calc(100% - 42px);
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        margin-bottom: .35rem;
+      }
+      .dt-plans-modal__image {
+        width: auto;
+        min-width: 760px;
+        max-width: none;
+        max-height: none;
+        border-radius: 14px;
+      }
+    }
+  `;
+  document.head.append(style);
 }
 
 function initDemoCommercialCta() {
@@ -318,4 +637,30 @@ function initDemoLightboxState() {
   syncOverlayState();
 }
 
+function initDemoPlanSwitch() {
+  if (!sessionStorage.getItem("dt-skip-cover")) return;
+  sessionStorage.removeItem("dt-skip-cover");
 
+  setTimeout(() => {
+    let elapsed = 0;
+    const MAX_WAIT = 60;
+    const INTERVAL = 80;
+
+    const timer = setInterval(() => {
+      elapsed += INTERVAL;
+      if (elapsed > MAX_WAIT) { clearInterval(timer); return; }
+
+      const cover = document.getElementById("cover");
+      if (!cover) { clearInterval(timer); return; }
+      if (cover.classList.contains("opening") || getComputedStyle(cover).display === "none") {
+        clearInterval(timer); return;
+      }
+
+      const btn = document.getElementById("btn-cover");
+      if (!btn) return;
+
+      btn.click();
+      clearInterval(timer);
+    }, INTERVAL);
+  }, 3000);
+}

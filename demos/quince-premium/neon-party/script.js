@@ -56,7 +56,6 @@ aplicarTema(c.tema);
   startCountdown(c.fecha);
   initCover();
   initCopy();
-  initLightbox();
   initMusica(c.musica);
   initCalendar(c);
 }
@@ -144,18 +143,94 @@ function renderRegalos(r) {
   set('regalos-banco',  r.banco);
 }
 
-// ── Render galería ──────────────────────────────────
+// ── Render galería · Swiper coverflow ───────────────
 function renderGaleria(fotos) {
-  const grid = document.getElementById('galeria-grid');
-  if (!grid) return;
-  grid.innerHTML = fotos.map((src, i) => `
-    <div class="galeria-item reveal"
-         style="background-image:url('${src}')"
-         data-src="${src}"
-         role="img"
-         aria-label="Foto ${i + 1}">
+  const wrapper = document.getElementById('galeria-grid');
+  if (!wrapper) return;
+  wrapper.innerHTML = fotos.map((src, i) => `
+    <div class="swiper-slide" data-index="${i}">
+      <img src="${src}" alt="Foto ${i + 1}" loading="lazy" />
     </div>
   `).join('');
+
+  const firstImg = wrapper.querySelector('.swiper-slide[data-index="0"] img');
+  if (firstImg) firstImg.style.objectPosition = 'center center';
+
+  const sw = new Swiper('.galeria-swiper', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    loop: fotos.length > 2,
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 0,
+      depth: 200,
+      modifier: 1.5,
+      scale: 0.82,
+      slideShadows: true,
+    },
+    autoplay: {
+      delay: 2800,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    pagination: {
+      el: '.galeria-pagination',
+      clickable: true,
+    },
+  });
+
+  initGaleriaLightbox(fotos, sw);
+}
+
+// ── Lightbox galería ────────────────────────────────
+function initGaleriaLightbox(fotos, sw) {
+  const lb    = document.getElementById('galeria-lb');
+  const img   = document.getElementById('galeria-lb-img');
+  const close = document.getElementById('galeria-lb-close');
+  const prev  = document.getElementById('galeria-lb-prev');
+  const next  = document.getElementById('galeria-lb-next');
+  if (!lb || !img) return;
+
+  let current = 0;
+
+  function show(index) {
+    current = ((index % fotos.length) + fotos.length) % fotos.length;
+    img.src = fotos[current];
+  }
+
+  function open(index) {
+    show(index);
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    sw?.autoplay?.stop();
+  }
+
+  function closeLb() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    sw?.autoplay?.start();
+  }
+
+  document.querySelector('.galeria-swiper')?.addEventListener('click', e => {
+    const slide = e.target.closest('.swiper-slide[data-index]');
+    if (!slide) return;
+    open(parseInt(slide.dataset.index, 10));
+  });
+
+  close.addEventListener('click', closeLb);
+  prev.addEventListener('click',  () => show(current - 1));
+  next.addEventListener('click',  () => show(current + 1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')      closeLb();
+    if (e.key === 'ArrowLeft')   show(current - 1);
+    if (e.key === 'ArrowRight')  show(current + 1);
+  });
 }
 
 // ── Render música ───────────────────────────────────
@@ -229,35 +304,6 @@ function showToast() {
   if (!toast) return;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2200);
-}
-
-// ── Galería + Lightbox ──────────────────────────────
-function initLightbox() {
-  const lb    = document.getElementById('lightbox');
-  const img   = document.getElementById('lightbox-img');
-  const close = document.getElementById('lightbox-close');
-  if (!lb) return;
-
-  document.addEventListener('click', e => {
-    const item = e.target.closest('.galeria-item');
-    if (!item) return;
-    const src = item.dataset.src;
-    if (!src) return;
-    img.src = src;
-    lb.classList.add('open');
-    lb.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  });
-
-  const closeLb = () => {
-    lb.classList.remove('open');
-    lb.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  };
-
-  close.addEventListener('click', closeLb);
-  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 }
 
 // ── Música ──────────────────────────────────────────

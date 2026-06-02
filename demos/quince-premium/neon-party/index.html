@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="../../../css/demo-components.css" />
   <link rel="stylesheet" href="../../../css/invitation-mobile-frame.css" />
@@ -191,12 +192,27 @@
   <!-- ═══ GALERÍA ═══ -->
   <section id="galeria" class="section galeria-section">
     <p class="section-label reveal">momentos</p>
-    <div class="galeria-grid" id="galeria-grid"></div>
-    <div class="lightbox" id="lightbox" aria-hidden="true">
-      <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
-      <img class="lightbox-img" id="lightbox-img" alt="Foto ampliada" />
+    <div class="swiper galeria-swiper">
+      <div class="swiper-wrapper" id="galeria-grid"></div>
+      <div class="swiper-pagination galeria-pagination"></div>
     </div>
   </section>
+
+  <!-- ═══ LIGHTBOX GALERÍA ═══ -->
+  <div id="galeria-lb" class="galeria-lb" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <div class="galeria-lb-figure">
+      <button class="galeria-lb-close" id="galeria-lb-close" aria-label="Cerrar">✕</button>
+      <img class="galeria-lb-img" id="galeria-lb-img" alt="Foto ampliada" />
+    </div>
+    <div class="galeria-lb-arrows">
+      <button class="galeria-lb-prev" id="galeria-lb-prev" aria-label="Anterior">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="galeria-lb-next" id="galeria-lb-next" aria-label="Siguiente">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
 
   <!-- ═══ CONFIRMACIÓN + AGENDAR ═══ -->
   <section id="confirmar" class="section confirmar-section reveal">
@@ -273,6 +289,7 @@
         </div>
       </div>
     </section>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="../rsvpService.js"></script>
   <script src="../rsvpModal.js"></script>
   <script src="script.js"></script>

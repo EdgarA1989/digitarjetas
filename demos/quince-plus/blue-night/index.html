@@ -200,14 +200,28 @@
     </section>
 
     <!-- ── GALERÍA ── -->
-    <section id="galeria" class="section galeria-section">
+    <section id="galeria" class="section gallery-section">
       <p class="section-tag reveal">// momentos</p>
-      <div class="galeria-grid" id="galeria-grid"></div>
-      <div class="lightbox" id="lightbox" aria-hidden="true">
-        <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
-        <img class="lightbox-img" id="lightbox-img" alt="Foto ampliada" />
+      <div class="gallery-shell">
+        <button class="gallery-nav gallery-prev" type="button" aria-label="Imagen anterior">&#8249;</button>
+        <div class="gallery-carousel" data-gallery-carousel></div>
+        <button class="gallery-nav gallery-next" type="button" aria-label="Imagen siguiente">&#8250;</button>
       </div>
+      <p class="gallery-counter" data-gallery-counter aria-live="polite">1 / 6</p>
     </section>
+
+  <!-- ── LIGHTBOX GALERÍA ── -->
+  <div class="gallery-lightbox" data-gallery-lightbox aria-hidden="true" role="dialog" aria-modal="true" aria-label="Galería de fotos">
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Foto anterior">&#8249;</button>
+    <figure class="lightbox-figure">
+      <div class="lightbox-img-wrap">
+        <button class="lightbox-close" type="button" aria-label="Cerrar galería">×</button>
+        <img class="lightbox-image" data-lightbox-image alt="">
+      </div>
+      <figcaption class="lightbox-counter" data-lightbox-counter aria-live="polite">1 / 6</figcaption>
+    </figure>
+    <button class="lightbox-nav lightbox-next" type="button" aria-label="Foto siguiente">&#8250;</button>
+  </div>
 
     <!-- ── CONFIRMACIÓN ── -->
     <section id="confirmar" class="section confirmar-section reveal">

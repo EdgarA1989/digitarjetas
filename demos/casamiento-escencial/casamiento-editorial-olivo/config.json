@@ -1,0 +1,50 @@
+{
+  "pareja": {
+    "nombre1": "Clara",
+    "nombre2": "Julián",
+    "display": "Clara & Julián"
+  },
+  "frase": "Hay encuentros que se vuelven hogar.",
+  "fecha": "2027-03-14T18:30:00",
+  "fechaDisplay": "Sábado · 14 de Marzo · 2027",
+  "hora": "18:30 hs",
+  "bienvenida": {
+    "titulo": "Con inmensa alegría",
+    "texto": "Queremos compartir con ustedes una tarde especial, rodeados de amor, música y las personas que forman parte de nuestra historia."
+  },
+  "lugar": {
+    "nombre": "Finca Las Moras",
+    "barrio": "Luján · Buenos Aires",
+    "direccion": "Luján, Buenos Aires",
+    "mapsUrl": "https://maps.google.com/?q=Finca+Las+Moras+Luján+Buenos+Aires"
+  },
+  "timeline": [
+    { "hora": "18:30", "evento": "Recepción" },
+    { "hora": "19:00", "evento": "Ceremonia" },
+    { "hora": "20:00", "evento": "Cocktail" },
+    { "hora": "21:30", "evento": "Cena" },
+    { "hora": "00:00", "evento": "Brindis y fiesta" }
+  ],
+  "whatsapp": {
+    "numero": "5491151498796",
+    "mensaje": "¡Hola! Confirmo mi asistencia al casamiento de Clara & Julián 🌿"
+  },
+  "mensajeFinal": {
+    "titulo": "Gracias por ser parte",
+    "texto": "Gracias por ser parte de este día. Los esperamos para celebrar juntos."
+  },
+  "footer": {
+    "mensaje": "Los esperamos con el corazón lleno.",
+    "firma": "Clara & Julián · 2027"
+  },
+  "tema": {
+    "acento": "#6F7764",
+    "acento2": "#42483A"
+  },
+  "assets": {
+    "imagesBasePath": "../../../assets/img/demos/casamiento-editorial-olivo/",
+    "heroImage": "hero-cover.jpg",
+    "placeholderImage": "../../../assets/img/ui/placeholders/placeholder-evento.jpg"
+  },
+  "_assetsHelp": "Demos dentro de demos/*/* usan ../../../assets/. Clientes copiados a clientes/nombre-cliente/ usan ../../assets/."
+}
