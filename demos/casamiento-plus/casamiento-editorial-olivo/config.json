@@ -76,6 +76,7 @@
     "imagesBasePath": "../../../assets/img/demos/casamiento-editorial-olivo/",
     "musicPath": "../../../assets/music/perfect.mp3",
     "heroImage": "hero-cover.jpg",
+    "heroPortada": "hero_portada.jpg",
     "placeholderImage": "../../../assets/img/ui/placeholders/placeholder-evento.jpg"
   },
   "_assetsHelp": "Demos dentro de demos/*/* usan ../../../assets/. Clientes copiados a clientes/nombre-cliente/ usan ../../assets/."

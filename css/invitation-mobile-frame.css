@@ -18,7 +18,6 @@ body {
 main,
 .cover,
 body[data-template="blanconegro"] .hero,
-.lightbox,
 .rsvp-overlay {
   max-width: 100%;
 }
@@ -56,7 +55,6 @@ svg {
 
   .cover,
   body[data-template="blanconegro"] .hero,
-  .lightbox,
   .rsvp-overlay {
     width: var(--dt-mobile-frame) !important;
     left: 50% !important;

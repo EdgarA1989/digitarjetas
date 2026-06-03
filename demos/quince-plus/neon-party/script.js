@@ -144,17 +144,24 @@ function renderRegalos(r) {
 }
 
 // ── Render galería · Swiper coverflow ───────────────
+function getGaleriaPosition(src) {
+  const normalized = String(src || '').toLowerCase();
+  if (normalized.includes('foto horizontal 1')) return '78% center';
+  if (normalized.includes('foto horizontal 2')) return '95% center';
+  return 'center center';
+}
+
 function renderGaleria(fotos) {
   const wrapper = document.getElementById('galeria-grid');
   if (!wrapper) return;
   wrapper.innerHTML = fotos.map((src, i) => `
     <div class="swiper-slide" data-index="${i}">
-      <img src="${src}" alt="Foto ${i + 1}" loading="lazy" />
+      <img src="${src}" alt="Foto ${i + 1}" loading="lazy" style="object-position: ${getGaleriaPosition(src)}" />
     </div>
   `).join('');
 
   const firstImg = wrapper.querySelector('.swiper-slide[data-index="0"] img');
-  if (firstImg) firstImg.style.objectPosition = 'center center';
+  if (firstImg) firstImg.style.objectPosition = getGaleriaPosition(fotos[0]);
 
   const sw = new Swiper('.galeria-swiper', {
     effect: 'coverflow',

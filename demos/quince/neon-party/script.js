@@ -144,13 +144,21 @@ function renderRegalos(r) {
 }
 
 // ── Render galería ──────────────────────────────────
+function getGaleriaPosition(src) {
+  const normalized = String(src || '').toLowerCase();
+  if (normalized.includes('foto horizontal 1')) return '78% center';
+  if (normalized.includes('foto horizontal 2')) return '95% center';
+  return 'center center';
+}
+
 function renderGaleria(fotos) {
   const grid = document.getElementById('galeria-grid');
   if (!grid) return;
   grid.innerHTML = fotos.map((src, i) => `
     <div class="galeria-item reveal"
-         style="background-image:url('${src}')"
+         data-bg-pending="true"
          data-src="${src}"
+         style="background-position: ${getGaleriaPosition(src)}"
          role="img"
          aria-label="Foto ${i + 1}">
     </div>

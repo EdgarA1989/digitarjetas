@@ -19,7 +19,8 @@ function normalizeDemoAssets(config) {
     if (isAbsolute(v)) return v;
     return imageBase ? imageBase + localName(v) : v;
   };
-  config._heroImage = imageUrl(assets.heroImage || '');
+  config._heroImage   = imageUrl(assets.heroImage   || '');
+  config._heroPortada = imageUrl(assets.heroPortada || '');
   const musicPath = assets.musicPath || config.musica?.src || '';
   if (config.musica) config.musica.src = musicPath;
   config._gallery = (assets.gallery || []).map(img => imageUrl(img));
@@ -86,6 +87,8 @@ function renderHero(c) {
   set('hero-names', display);
   set('hero-frase', c.frase);
   set('hero-fecha', c.fechaDisplay);
+  const portada = document.getElementById('hero-portada');
+  if (portada && c._heroPortada) portada.src = c._heroPortada;
 }
 
 // ── Bienvenida ──────────────────────────────────────

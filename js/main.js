@@ -268,7 +268,7 @@ const benefits = [
   "Resumen claro de invitados",
 ];
 
-let activeFilter = "quince";
+let activeFilter = getInitialTemplateFilter();
 let lastFocusedElement = null;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -283,6 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initForm();
   initWhatsappLinks();
   initTemplateActions();
+  initMoreModelsModal();
   initModal();
   initReveal();
   setYear();
@@ -302,6 +303,35 @@ function renderFeatures() {
       <p>${text}</p>
     </article>
   `).join("");
+}
+
+function getInitialTemplateFilter() {
+  const params = new URLSearchParams(window.location.search);
+  const category = params.get("categoria") || params.get("category") || "";
+  const normalized = category.toLowerCase();
+  const allowedFilters = filters.map(filter => filter.value);
+  const aliases = {
+    "15": "quince",
+    "15-anos": "quince",
+    "15-anios": "quince",
+    quince: "quince",
+    quinces: "quince",
+    bautismo: "bautismos",
+    bautismos: "bautismos",
+    comunion: "bautismos",
+    comuniones: "bautismos",
+    casamiento: "casamientos",
+    casamientos: "casamientos",
+    boda: "casamientos",
+    bodas: "casamientos",
+    evento: "eventos",
+    eventos: "eventos",
+    all: "all",
+    todas: "all",
+  };
+  const filter = aliases[normalized] || normalized;
+
+  return allowedFilters.includes(filter) ? filter : "quince";
 }
 
 function renderFilters() {
@@ -337,7 +367,7 @@ function renderTemplates() {
         <div class="template-card__media">
           <div class="template-mini-phone${template.darkPreview ? " template-mini-phone--light-frame" : ""}" aria-hidden="true">
             <div class="template-mini-screen">
-              ${template.previewImage ? `<img class="template-preview-media template-preview-media--${template.slug}" src="${template.previewImage}" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">` : ""}
+              ${template.previewImage ? `<img class="template-preview-media template-preview-media--${template.slug}" src="${template.previewImage}" alt="" aria-hidden="true" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.display='none'">` : ""}
             </div>
           </div>
         </div>
@@ -421,7 +451,7 @@ function renderMoreModelsCta(visibleCount) {
       <strong>¿Querés ver más estilos?</strong>
       <p>${info.text}</p>
     </div>
-    <a class="btn btn--primary" href="${info.url}">Más modelos</a>
+    <button class="btn btn--primary" type="button" data-more-models>Más modelos</button>
   `;
 }
 
@@ -639,8 +669,18 @@ function handleConsultAction(template) {
 }
 
 function initModal() {
-  document.querySelectorAll("[data-modal-close]").forEach(element => {
-    element.addEventListener("click", closeModal);
+  document.addEventListener("click", event => {
+    if (event.target.closest("[data-modal-close]")) closeModal();
+  });
+}
+
+function initMoreModelsModal() {
+  document.addEventListener("click", event => {
+    const button = event.target.closest("[data-more-models]");
+    if (!button) return;
+
+    event.preventDefault();
+    openMoreModelsModal();
   });
 }
 
@@ -652,6 +692,9 @@ function openPlanModal({ title, text, template, action }) {
   if (!modal || !modalTitle || !modalText || !modalActions) return;
 
   lastFocusedElement = document.activeElement;
+  modal.classList.remove("modal--more-models");
+  const eyebrow = modal.querySelector(".eyebrow");
+  if (eyebrow) eyebrow.textContent = "Modalidad";
   modalTitle.textContent = title;
   modalText.textContent = text;
   modalActions.innerHTML = getAvailableDemoPlans(template).map(plan => `
@@ -671,6 +714,35 @@ function openPlanModal({ title, text, template, action }) {
         window.open(getWhatsappUrl(getTemplateMessage(template, plan)), "_blank", "noopener");
       }
     });
+  });
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("menu-open");
+  modal.querySelector("[data-modal-close]")?.focus();
+}
+
+function openMoreModelsModal() {
+  const modal = document.getElementById("template-modal");
+  const modalTitle = document.getElementById("modal-title");
+  const modalText = document.getElementById("modal-text");
+  const modalActions = document.getElementById("modal-actions");
+  if (!modal || !modalTitle || !modalText || !modalActions) return;
+
+  lastFocusedElement = document.activeElement;
+  modal.classList.add("modal--more-models");
+  const eyebrow = modal.querySelector(".eyebrow");
+  if (eyebrow) eyebrow.textContent = "Catálogo";
+  modalTitle.textContent = "Más modelos en camino";
+  modalText.textContent = "Estamos trabajando en nuevas plantillas para ampliar el catálogo. Si no encontrás el estilo que buscás, podemos crear una invitación personalizada especialmente para tu evento.";
+  modalActions.innerHTML = `
+    <button class="btn btn--primary" type="button" data-more-models-whatsapp>Diseñar mi invitación</button>
+    <button class="btn btn--outline" type="button" data-modal-close>Cerrar</button>
+  `;
+
+  modalActions.querySelector("[data-more-models-whatsapp]")?.addEventListener("click", () => {
+    closeModal();
+    window.open(getWhatsappUrl("Hola, quiero diseñar una invitación personalizada para mi evento."), "_blank", "noopener");
   });
 
   modal.classList.add("is-open");

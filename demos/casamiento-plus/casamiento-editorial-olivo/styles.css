@@ -231,10 +231,20 @@ body {
   position: relative;
   min-height: 100dvh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   background: var(--bg-dark2);
   overflow: hidden;
+}
+
+.hero-portada {
+  width: 100%;
+  height: 58dvh;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  flex-shrink: 0;
 }
 
 /* Aureola de luz central con tono oliva */
@@ -263,9 +273,15 @@ body {
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 4rem clamp(1.5rem, 6vw, 2.5rem) 3.5rem;
+  padding: 1.8rem clamp(1.5rem, 6vw, 2.5rem) 2rem;
   width: 100%;
   max-width: var(--max);
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-pre {
@@ -274,19 +290,19 @@ body {
   letter-spacing: 0.34em;
   text-transform: uppercase;
   color: rgba(198,170,120,.55);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
   display: block;
 }
 
 /* Regla superior con champagne */
 .hero-rule-top {
   width: 1px;
-  height: 40px;
+  height: 22px;
   background: linear-gradient(to bottom, transparent, rgba(198,170,120,.45));
-  margin: 0 auto 2rem;
+  margin: 0 auto 1rem;
 }
 
-.hero-names-wrap { margin-bottom: 2rem; }
+.hero-names-wrap { margin-bottom: 0.8rem; }
 
 .hero-names {
   font-family: var(--font-display);
@@ -296,7 +312,7 @@ body {
   color: #F0EAE0;
   line-height: 1.04;
   letter-spacing: 0.01em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 /* Regla inferior: horizontal con ancho editorial */
@@ -316,7 +332,7 @@ body {
   color: rgba(240,234,224,.60);
   line-height: 1.65;
   max-width: 260px;
-  margin: 1.75rem auto;
+  margin: 0.8rem auto;
 }
 
 .hero-fecha {
@@ -325,7 +341,7 @@ body {
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(198,170,120,.50);
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero-cta {

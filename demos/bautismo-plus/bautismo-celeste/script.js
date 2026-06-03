@@ -264,11 +264,13 @@ function initGaleria(config) {
     item.className = "galeria-item reveal";
 
     if (photos[i]) {
-      const img = new Image();
+      const img = document.createElement("img");
       img.alt = `Foto ${i + 1}`;
       img.dataset.index = i;
-      img.onload  = () => item.appendChild(img);
+      img.loading = "lazy";
+      img.decoding = "async";
       img.onerror = () => appendPlaceholder(item, i + 1);
+      item.appendChild(img);
       img.src = photos[i];
     } else {
       appendPlaceholder(item, i + 1);

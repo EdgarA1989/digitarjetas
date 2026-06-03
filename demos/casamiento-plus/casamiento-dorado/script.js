@@ -118,7 +118,7 @@ function renderGaleria(fotos) {
   if (!grid || !fotos.length) return;
   grid.innerHTML = fotos.map((src, i) => `
     <div class="galeria-item reveal"
-         style="background-image:url('${src}');--delay:${(i%3)*.1}s"
+         style="--delay:${(i%3)*.1}s"
          data-src="${src}" data-index="${i}"
          role="img" tabindex="0" aria-label="Foto ${i+1}"></div>`).join('');
 }

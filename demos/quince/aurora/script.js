@@ -128,7 +128,7 @@ function renderGaleria(fotos) {
   if (!grid) return;
   grid.innerHTML = fotos.map((src, i) => `
     <div class="galeria-item reveal"
-         style="background-image:url('${src}')"
+         data-bg-pending="true"
          data-src="${src}"
          role="img"
          aria-label="Foto ${i + 1}">

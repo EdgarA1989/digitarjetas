@@ -83,11 +83,30 @@ const legacyModeToPlan = {
   formulario: "premium",
 };
 
+const templateCatalogFilters = {
+  aurora: "quince",
+  "urban-glow": "quince",
+  "blue-night": "quince",
+  "black-white": "quince",
+  "neon-party": "quince",
+  "verde-menta": "quince",
+  "bautismo-celeste": "bautismos",
+  "bautismo-rosa": "bautismos",
+  "casamiento-editorial-olivo": "casamientos",
+  "casamiento-dorado": "casamientos",
+};
+
+const demoSwitcherBaseUrl = (() => {
+  const script = document.currentScript;
+  return script?.src ? new URL("../", script.src).href : "../../../";
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
   initDemoMediaState();
+  initDemoImagePerformance();
   initDemoAudioLifecycle();
   initDemoPlanSwitcher();
-  initDemoPlansModal();
+  initDemoGalleryLightbox();
   initDemoLightboxState();
   initDemoCommercialCta();
   initDemoPlanSwitch();
@@ -104,6 +123,73 @@ function initDemoMediaState() {
       document.body.classList.toggle("dt-no-media", !hasPhotos && !hasMusic);
     })
     .catch(() => {});
+}
+
+function initDemoImagePerformance() {
+  const optimizeImage = image => {
+    if (!(image instanceof HTMLImageElement)) return;
+    if (!image.hasAttribute("decoding")) image.decoding = "async";
+    if (!image.hasAttribute("loading") && !isLikelyHeroImage(image)) image.loading = "lazy";
+    if (!image.hasAttribute("fetchpriority") && image.loading === "lazy") image.setAttribute("fetchpriority", "low");
+  };
+
+  const loadDeferredBackground = element => {
+    if (!(element instanceof HTMLElement) || element.dataset.dtBgLoaded === "1") return;
+    const src = element.dataset.src || element.dataset.bg;
+    if (!src) return;
+
+    element.style.backgroundImage = `url('${src}')`;
+    element.dataset.dtBgLoaded = "1";
+  };
+
+  const observeDeferredBackground = element => {
+    if (!(element instanceof HTMLElement)) return;
+    if (element.dataset.dtBgObserved === "1" || element.dataset.dtBgLoaded === "1") return;
+    if (!element.dataset.src && !element.dataset.bg) return;
+
+    element.dataset.dtBgObserved = "1";
+    if (!("IntersectionObserver" in window)) {
+      loadDeferredBackground(element);
+      return;
+    }
+
+    backgroundObserver.observe(element);
+  };
+
+  const scan = root => {
+    const scope = root instanceof Element ? root : document;
+    scope.querySelectorAll("img").forEach(optimizeImage);
+    scope.querySelectorAll(".galeria-item[data-src], .gallery-card[data-src], [data-bg]").forEach(observeDeferredBackground);
+  };
+
+  const backgroundObserver = "IntersectionObserver" in window
+    ? new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          loadDeferredBackground(entry.target);
+          backgroundObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: "480px 0px" })
+    : null;
+
+  scan(document);
+
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(node => {
+        if (!(node instanceof Element)) return;
+        if (node.matches("img")) optimizeImage(node);
+        if (node.matches(".galeria-item[data-src], .gallery-card[data-src], [data-bg]")) observeDeferredBackground(node);
+        scan(node);
+      });
+    });
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+function isLikelyHeroImage(image) {
+  const value = `${image.id || ""} ${image.className || ""}`.toLowerCase();
+  return value.includes("hero") || value.includes("cover") || value.includes("portada");
 }
 
 function pauseDemoAudio() {
@@ -156,7 +242,7 @@ function initDemoAudioLifecycle() {
   };
 
   const hasBlockingOverlay = () => document.querySelector(
-    ".lightbox.open, .rsvp-overlay.open, .plus-rsvp:not([hidden]), .dt-plans-modal.is-open"
+    ".lightbox.open, .rsvp-overlay.open, .plus-rsvp:not([hidden])"
   );
 
   document.addEventListener("visibilitychange", () => {
@@ -230,8 +316,8 @@ function initDemoPlanSwitcher() {
           ${label.replace("Plan ", "")}
         </button>
       `).join("")}
-      <button class="dt-plan-link" type="button" data-demo-plans>Planes</button>
-      <a class="dt-plan-link" href="../../../#plantillas">Volver</a>
+      <button class="dt-plan-link dt-plan-link--details" type="button" data-demo-plans data-open-plan-comparison>Detalles planes</button>
+      <a class="dt-plan-link" href="${getDemoCatalogReturnUrl()}">Volver</a>
     </div>
   `;
 
@@ -260,9 +346,12 @@ function initDemoPlanSwitcher() {
     });
   });
 
-  bar.querySelector("[data-demo-plans]")?.addEventListener("click", () => {
+  bar.querySelector("[data-demo-plans]")?.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
     closeMenu();
-    openDemoPlansModal();
+    pauseDemoAudio();
+    openPlanComparisonFromDemo(getDemoPreferredPlanModalTheme());
   });
 
   document.body.prepend(bar);
@@ -279,231 +368,51 @@ function initDemoPlanSwitcher() {
   });
 }
 
-function initDemoPlansModal() {
-  injectDemoPlansModalStyles();
-  getDemoPlansModal();
+function openPlanComparisonFromDemo(theme = "dark") {
+  ensurePlanComparisonModal()
+    .then(() => {
+      window.PlanComparisonModal?.open({ theme });
+    })
+    .catch(error => {
+      console.warn("[DigiTarjetas] No se pudo abrir la comparativa de planes.", error);
+    });
+}
 
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeDemoPlansModal();
+function getDemoPreferredPlanModalTheme() {
+  const savedTheme = localStorage.getItem("digitarjetas-theme");
+  if (savedTheme === "light" || savedTheme === "dark") return savedTheme;
+  if (document.documentElement.dataset.theme === "light" || document.body.classList.contains("theme-light")) return "light";
+  return "dark";
+}
+
+function ensurePlanComparisonModal() {
+  if (window.PlanComparisonModal?.open) return Promise.resolve();
+
+  return Promise.all([
+    loadDemoAsset("css", "assets/css/plan-comparison-modal.css"),
+    loadDemoAsset("js", "assets/js/plan-comparison-data.js"),
+  ]).then(() => loadDemoAsset("js", "assets/js/plan-comparison-modal.js"));
+}
+
+function loadDemoAsset(type, path) {
+  const url = new URL(path, demoSwitcherBaseUrl).href;
+  const selector = type === "css" ? `link[href="${url}"]` : `script[src="${url}"]`;
+  const existing = document.querySelector(selector);
+  if (existing) return Promise.resolve();
+
+  return new Promise((resolve, reject) => {
+    const element = type === "css" ? document.createElement("link") : document.createElement("script");
+    if (type === "css") {
+      element.rel = "stylesheet";
+      element.href = url;
+    } else {
+      element.src = url;
+      element.defer = true;
+    }
+    element.onload = resolve;
+    element.onerror = reject;
+    document.head.append(element);
   });
-}
-
-function getDemoPlansModal() {
-  let modal = document.getElementById("dt-plans-modal");
-  if (modal) return modal;
-
-  modal = document.createElement("div");
-  modal.className = "dt-plans-modal";
-  modal.id = "dt-plans-modal";
-  modal.setAttribute("aria-hidden", "true");
-  modal.innerHTML = `
-    <div class="dt-plans-modal__backdrop" data-dt-plans-close></div>
-    <section class="dt-plans-modal__card" role="dialog" aria-modal="true" aria-labelledby="dt-plans-modal-title">
-      <button class="dt-plans-modal__close" type="button" aria-label="Cerrar" data-dt-plans-close>&times;</button>
-      <div class="dt-plans-modal__header">
-        <span>Comparar planes</span>
-        <h2 id="dt-plans-modal-title">Elegí el plan ideal para tu invitación</h2>
-      </div>
-      <img class="dt-plans-modal__image" src="" alt="Comparativa de planes DigiTarjetas">
-    </section>
-  `;
-
-  modal.querySelectorAll("[data-dt-plans-close]").forEach(element => {
-    element.addEventListener("click", closeDemoPlansModal);
-  });
-
-  document.body.append(modal);
-  return modal;
-}
-
-function openDemoPlansModal() {
-  const modal = getDemoPlansModal();
-  const image = modal.querySelector(".dt-plans-modal__image");
-  pauseDemoAudio();
-  if (image) image.src = getDemoPlansImageSrc();
-
-  modal.classList.add("is-open");
-  modal.setAttribute("aria-hidden", "false");
-  document.body.dataset.dtPlansModalOverflow = document.body.style.overflow || "";
-  document.body.style.overflow = "hidden";
-  modal.querySelector(".dt-plans-modal__close")?.focus();
-}
-
-function closeDemoPlansModal() {
-  const modal = document.getElementById("dt-plans-modal");
-  if (!modal || !modal.classList.contains("is-open")) return;
-
-  modal.classList.remove("is-open");
-  modal.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = document.body.dataset.dtPlansModalOverflow || "";
-  delete document.body.dataset.dtPlansModalOverflow;
-}
-
-function getDemoPlansImageSrc() {
-  const imageName = isCurrentDemoDark() ? "planes_oscuro.png" : "planes_claro.png";
-  return `../../../assets/img/ui/planes/${imageName}`;
-}
-
-function isCurrentDemoDark() {
-  if (document.body.classList.contains("dark")) return true;
-
-  const currentTemplate = getCurrentTemplate();
-  const darkTemplates = ["black-white", "blue-night", "casamiento-dorado", "neon-party", "urban-glow"];
-  const lightTemplates = ["aurora", "bautismo-celeste", "bautismo-rosa", "casamiento-editorial-olivo", "verde-menta"];
-  if (darkTemplates.includes(currentTemplate)) return true;
-  if (lightTemplates.includes(currentTemplate)) return false;
-
-  const color = getComputedStyle(document.body).backgroundColor
-    || getComputedStyle(document.documentElement).backgroundColor;
-  const match = color.match(/\d+(\.\d+)?/g);
-  if (!match || match.length < 3) return window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  const [r, g, b] = match.slice(0, 3).map(Number);
-  const luminance = (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
-  return luminance < 128;
-}
-
-function injectDemoPlansModalStyles() {
-  if (document.getElementById("dt-plans-modal-styles")) return;
-
-  const style = document.createElement("style");
-  style.id = "dt-plans-modal-styles";
-  style.textContent = `
-    .dt-plans-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      display: grid;
-      place-items: center;
-      padding: clamp(1rem, 4vw, 2rem);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .22s ease;
-    }
-    .dt-plans-modal.is-open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .dt-plans-modal__backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(8, 9, 22, .72);
-      backdrop-filter: blur(14px);
-    }
-    .dt-plans-modal__card {
-      position: relative;
-      width: min(980px, 100%);
-      max-height: calc(100svh - 2rem);
-      overflow: auto;
-      padding: clamp(.9rem, 2vw, 1.25rem);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 28px;
-      background: color-mix(in srgb, #ffffff 92%, #f2effb);
-      box-shadow: 0 28px 80px rgba(0, 0, 0, .32);
-      transform: translateY(14px) scale(.98);
-      transition: transform .22s ease;
-    }
-    .dt-plans-modal.is-open .dt-plans-modal__card {
-      transform: translateY(0) scale(1);
-    }
-    .dt-plans-modal__header {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 1rem;
-      margin: .2rem 3rem 1rem .2rem;
-      color: #17152a;
-    }
-    .dt-plans-modal__header span {
-      color: #7357ff;
-      font-size: .72rem;
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .dt-plans-modal__header h2 {
-      margin: 0;
-      font-family: "Poppins", system-ui, sans-serif;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-      line-height: 1.05;
-      text-align: right;
-    }
-    .dt-plans-modal__close {
-      position: absolute;
-      top: .9rem;
-      right: .9rem;
-      width: 40px;
-      height: 40px;
-      border: 1px solid rgba(23,21,42,.12);
-      border-radius: 999px;
-      color: #17152a;
-      background: rgba(255,255,255,.82);
-      font-size: 1.7rem;
-      line-height: 1;
-      cursor: pointer;
-    }
-    .dt-plans-modal__image {
-      width: 100%;
-      height: auto;
-      max-height: calc(100svh - 8rem);
-      object-fit: contain;
-      border-radius: 20px;
-    }
-    @media (prefers-color-scheme: dark) {
-      .dt-plans-modal__card {
-        background: color-mix(in srgb, #11142c 92%, #070816);
-      }
-      .dt-plans-modal__header {
-        color: #f8f4ff;
-      }
-      .dt-plans-modal__close {
-        color: #f8f4ff;
-        border-color: rgba(255,255,255,.16);
-        background: rgba(17,20,44,.88);
-      }
-    }
-    @media (max-width: 640px) {
-      .dt-plans-modal {
-        padding: .5rem;
-      }
-      .dt-plans-modal__backdrop {
-        background: rgba(8, 9, 22, .38);
-        backdrop-filter: none;
-      }
-      .dt-plans-modal__card {
-        width: 100%;
-        max-height: calc(100svh - 1rem);
-        padding: .45rem;
-        overflow: auto;
-        border: 0;
-        border-radius: 18px;
-        background: rgba(255,255,255,.98);
-        box-shadow: none;
-        -webkit-overflow-scrolling: touch;
-      }
-      .dt-plans-modal__header {
-        display: none;
-      }
-      .dt-plans-modal__close {
-        position: sticky;
-        top: .25rem;
-        left: calc(100% - 42px);
-        z-index: 2;
-        display: grid;
-        place-items: center;
-        margin-bottom: .35rem;
-      }
-      .dt-plans-modal__image {
-        width: auto;
-        min-width: 760px;
-        max-width: none;
-        max-height: none;
-        border-radius: 14px;
-      }
-    }
-  `;
-  document.head.append(style);
 }
 
 function initDemoCommercialCta() {
@@ -529,15 +438,435 @@ function initDemoCommercialCta() {
     if (actions.querySelector("[data-demo-return]")) return;
 
     const backLink = document.createElement("a");
-    backLink.href = "../../../#plantillas";
+    backLink.href = getDemoCatalogReturnUrl();
     backLink.textContent = "Volver";
     backLink.setAttribute("data-demo-return", "");
     actions.append(backLink);
   });
 }
 
+function getDemoCatalogReturnUrl() {
+  const filter = templateCatalogFilters[getCurrentTemplate()] || "quince";
+  return `../../../?categoria=${encodeURIComponent(filter)}#plantillas`;
+}
+
+function initDemoGalleryLightbox() {
+  const lightboxSelector = ".lightbox, .gallery-lightbox, .galeria-lb, [data-gallery-lightbox]";
+  const imageSelector = ".lightbox-img, .lightbox-image, .galeria-lb-img, [data-lightbox-image]";
+  const openSelector = ".lightbox.open, .galeria-lb.open, .gallery-lightbox[aria-hidden=\"false\"], [data-gallery-lightbox][aria-hidden=\"false\"]";
+
+  const getSources = () => {
+    const sources = [];
+    document.querySelectorAll(
+      ".galeria-item[data-src], .gallery-card[data-src], .gallery-card img[src], .galeria-item img[src]"
+    ).forEach(element => {
+      const src = element.dataset?.src || element.getAttribute("src");
+      if (src && !sources.includes(src)) sources.push(src);
+    });
+    return sources;
+  };
+
+  const getOpenLightbox = () => document.querySelector(openSelector);
+  const getLightboxImage = lightbox => lightbox?.querySelector(imageSelector);
+  const getGalleryObjectPosition = src => {
+    const normalized = decodeURIComponent(String(src || "")).toLowerCase();
+    if ((normalized.includes("verde-menta") || normalized.includes("neon-party")) && normalized.includes("foto horizontal 1")) return "78% center";
+    if ((normalized.includes("verde-menta") || normalized.includes("neon-party")) && normalized.includes("foto horizontal 2")) return "22% center";
+    if (normalized.includes("foto horizontal 1")) return "22% center";
+    if (normalized.includes("foto horizontal 2")) return "78% center";
+    return "center center";
+  };
+
+  const applyGalleryItemFocus = root => {
+    const scope = root instanceof Element ? root : document;
+    scope.querySelectorAll(".galeria-item, .gallery-card").forEach(item => {
+      if (!(item instanceof HTMLElement)) return;
+      const img = item.querySelector("img");
+      const position = getGalleryObjectPosition(item.dataset.src || img?.getAttribute("src") || "");
+      item.style.setProperty("background-position", position);
+      item.querySelectorAll("img").forEach(image => {
+        image.style.setProperty("object-position", position);
+      });
+    });
+  };
+
+  const getOrCreateSharedLightbox = () => {
+    let lightbox = document.querySelector("[data-dt-shared-lightbox]");
+    if (lightbox) return lightbox;
+
+    lightbox = document.createElement("div");
+    lightbox.className = "lightbox dt-shared-gallery-lightbox";
+    lightbox.setAttribute("data-dt-shared-lightbox", "");
+    lightbox.setAttribute("aria-hidden", "true");
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.innerHTML = `
+      <button class="lightbox-close" type="button" aria-label="Cerrar imagen">&times;</button>
+      <img class="lightbox-img" alt="Foto ampliada" data-lightbox-image>
+    `;
+    applySharedLightboxLayout(lightbox);
+
+    const close = () => closeSharedLightbox(lightbox);
+    lightbox.querySelector(".lightbox-close")?.addEventListener("click", event => {
+      event.stopPropagation();
+      close();
+    });
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) close();
+    });
+    document.body.append(lightbox);
+    return lightbox;
+  };
+
+  const applySharedLightboxLayout = lightbox => {
+    if (!(lightbox instanceof HTMLElement)) return;
+
+    const setImportant = (element, styles) => {
+      Object.entries(styles).forEach(([property, value]) => {
+        element.style.setProperty(property, value, "important");
+      });
+    };
+
+    setImportant(lightbox, {
+      position: "fixed",
+      inset: "0",
+      top: "0",
+      right: "0",
+      bottom: "0",
+      left: "0",
+      "z-index": "10040",
+      "flex-direction": "column",
+      "align-items": "center",
+      "justify-content": "center",
+      gap: ".85rem",
+      width: "100vw",
+      height: "100dvh",
+      "min-height": "100dvh",
+      "max-width": "none",
+      margin: "0",
+      padding: "clamp(1rem, 3vw, 2rem)",
+      overflow: "auto",
+      transform: "none",
+      background: "rgba(8, 9, 18, .72)",
+      "backdrop-filter": "blur(6px)",
+      "-webkit-backdrop-filter": "blur(6px)",
+    });
+
+    const closeButton = lightbox.querySelector(".lightbox-close");
+    if (closeButton instanceof HTMLElement) {
+      setImportant(closeButton, {
+        position: "fixed",
+        top: "max(1rem, env(safe-area-inset-top))",
+        right: "max(1rem, env(safe-area-inset-right))",
+        "z-index": "4",
+        width: "42px",
+        height: "42px",
+        display: "grid",
+        "place-items": "center",
+        border: "1px solid rgba(255, 255, 255, .2)",
+        "border-radius": "999px",
+        color: "#fff",
+        background: "rgba(255, 255, 255, .16)",
+        "box-shadow": "0 12px 28px rgba(0, 0, 0, .24)",
+        "font-size": "1.45rem",
+        "line-height": "1",
+        cursor: "pointer",
+        "backdrop-filter": "blur(10px)",
+        "-webkit-backdrop-filter": "blur(10px)",
+      });
+    }
+
+    const image = getLightboxImage(lightbox);
+    if (image instanceof HTMLElement) {
+      const objectPosition = getGalleryObjectPosition(image.getAttribute("src") || image.dataset.src || "");
+      setImportant(image, {
+        position: "static",
+        display: "block",
+        width: "auto",
+        height: "auto",
+        "max-width": "min(92vw, 640px)",
+        "max-height": "min(78dvh, 820px)",
+        "object-fit": "contain",
+        "object-position": objectPosition,
+        "border-radius": "18px",
+        background: "transparent",
+        "box-shadow": "0 22px 70px rgba(0, 0, 0, .28)",
+        transform: "none",
+        "user-select": "none",
+        "touch-action": "pan-y",
+      });
+    }
+
+    lightbox.querySelectorAll(".dt-lightbox-nav").forEach(nav => {
+      if (!(nav instanceof HTMLElement)) return;
+      setImportant(nav, {
+        position: "static",
+        display: "flex",
+        "justify-content": "center",
+        "align-items": "center",
+        gap: ".8rem",
+        width: "100%",
+        margin: "0",
+        padding: "0",
+        "z-index": "2",
+      });
+    });
+
+    lightbox.querySelectorAll("[data-dt-lightbox-prev], [data-dt-lightbox-next]").forEach(button => {
+      if (!(button instanceof HTMLElement)) return;
+      setImportant(button, {
+        position: "static",
+        transform: "none",
+        width: "48px",
+        height: "48px",
+        display: "inline-grid",
+        "place-items": "center",
+        "border-radius": "999px",
+        border: "1px solid rgba(255, 255, 255, .32)",
+        color: "#111",
+        background: "#fff",
+        "box-shadow": "0 12px 28px rgba(0, 0, 0, .22)",
+        "font-size": "1.25rem",
+        "font-weight": "800",
+        "line-height": "1",
+        cursor: "pointer",
+      });
+    });
+  };
+
+  const setSharedLightboxOpen = (lightbox, isOpen) => {
+    if (!(lightbox instanceof HTMLElement)) return;
+    applySharedLightboxLayout(lightbox);
+    lightbox.style.setProperty("display", isOpen ? "flex" : "none", "important");
+    document.body.classList.toggle("dt-gallery-modal-open", isOpen);
+    document.body.classList.toggle("dt-lightbox-open", isOpen);
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    document.querySelectorAll(".dt-plan-bar").forEach(bar => {
+      if (!(bar instanceof HTMLElement)) return;
+      bar.style.opacity = isOpen ? "0" : "";
+      bar.style.visibility = isOpen ? "hidden" : "";
+      bar.style.pointerEvents = isOpen ? "none" : "";
+      bar.style.transform = isOpen ? "translateY(-8px)" : "";
+    });
+  };
+
+  const closeSharedLightbox = lightbox => {
+    if (!lightbox) return;
+    lightbox.classList.remove("open");
+    lightbox.classList.remove("dt-gallery-lightbox-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    setSharedLightboxOpen(lightbox, false);
+  };
+
+  const openSharedLightbox = src => {
+    const lightbox = getOrCreateSharedLightbox();
+    const image = getLightboxImage(lightbox);
+    if (!image || !src) return;
+
+    image.src = src;
+    image.dataset.dtObjectPosition = getGalleryObjectPosition(src);
+    updateLightboxImageOrientation(image);
+    ensureNav(lightbox);
+    lightbox.classList.add("open", "dt-gallery-lightbox-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    setSharedLightboxOpen(lightbox, true);
+    window.requestAnimationFrame(() => setSharedLightboxOpen(lightbox, true));
+  };
+
+  const normalizeSrc = src => {
+    if (!src) return "";
+    try {
+      return new URL(src, window.location.href).href;
+    } catch {
+      return src;
+    }
+  };
+
+  const goTo = (lightbox, direction) => {
+    const image = getLightboxImage(lightbox);
+    const sources = getSources();
+    if (!image || sources.length < 2) return;
+
+    const currentSrc = normalizeSrc(image.currentSrc || image.src);
+    const currentIndex = Math.max(0, sources.findIndex(src => normalizeSrc(src) === currentSrc));
+    const nextIndex = (currentIndex + direction + sources.length) % sources.length;
+    image.src = sources[nextIndex];
+    image.dataset.dtLightboxIndex = String(nextIndex);
+    image.dataset.dtObjectPosition = getGalleryObjectPosition(sources[nextIndex]);
+    updateLightboxImageOrientation(image);
+    lightbox.querySelector("[data-lightbox-counter]")?.replaceChildren(document.createTextNode(`${nextIndex + 1} / ${sources.length}`));
+  };
+
+  const updateLightboxImageOrientation = image => {
+    if (!(image instanceof HTMLImageElement)) return;
+
+    const apply = () => {
+      const isLandscape = image.naturalWidth > image.naturalHeight;
+      image.classList.toggle("dt-lightbox-image--landscape", isLandscape);
+      image.classList.toggle("dt-lightbox-image--portrait", !isLandscape);
+      if (image.closest(lightboxSelector)) {
+        const objectPosition = image.dataset.dtObjectPosition || getGalleryObjectPosition(image.currentSrc || image.src);
+        const styles = isLandscape ? {
+          width: "min(92vw, 640px)",
+          height: "min(74dvh, 760px)",
+          "aspect-ratio": "4 / 5",
+          "object-fit": "cover",
+          "object-position": objectPosition,
+        } : {
+          width: "auto",
+          height: "auto",
+          "aspect-ratio": "auto",
+          "object-fit": "contain",
+          "object-position": objectPosition,
+        };
+        Object.entries(styles).forEach(([property, value]) => {
+          image.style.setProperty(property, value, "important");
+        });
+      }
+    };
+
+    if (image.complete && image.naturalWidth) {
+      apply();
+    } else {
+      image.addEventListener("load", apply, { once: true });
+    }
+  };
+
+  const clickExistingNav = (lightbox, direction) => {
+    const selector = direction < 0
+      ? ".lightbox-prev:not([data-dt-lightbox-prev]), .galeria-lb-prev"
+      : ".lightbox-next:not([data-dt-lightbox-next]), .galeria-lb-next";
+    const button = lightbox.querySelector(selector);
+    if (!button) return false;
+
+    button.click();
+    return true;
+  };
+
+  const moveExistingNavBelowImage = lightbox => {
+    if (lightbox.querySelector(".dt-lightbox-nav, .galeria-lb-arrows")) return;
+
+    const prev = lightbox.querySelector(".lightbox-prev");
+    const next = lightbox.querySelector(".lightbox-next");
+    if (!prev || !next) return;
+
+    const nav = document.createElement("div");
+    nav.className = "dt-lightbox-nav";
+    prev.before(nav);
+    nav.append(prev, next);
+
+    const figure = lightbox.querySelector(".lightbox-figure, .galeria-lb-figure");
+    const image = getLightboxImage(lightbox);
+    if (figure) {
+      figure.after(nav);
+    } else if (image) {
+      image.after(nav);
+    }
+  };
+
+  const ensureNav = lightbox => {
+    if (!lightbox || lightbox.dataset.dtGalleryReady === "1") return;
+    lightbox.dataset.dtGalleryReady = "1";
+
+    const image = getLightboxImage(lightbox);
+    if (image) {
+      image.decoding = "async";
+      updateLightboxImageOrientation(image);
+      image.addEventListener("load", () => updateLightboxImageOrientation(image));
+    }
+
+    moveExistingNavBelowImage(lightbox);
+
+    if (!lightbox.querySelector(".lightbox-prev, .galeria-lb-prev, [data-dt-lightbox-prev]")) {
+      const nav = document.createElement("div");
+      nav.className = "dt-lightbox-nav";
+      nav.innerHTML = `
+        <button type="button" data-dt-lightbox-prev aria-label="Foto anterior">&#8249;</button>
+        <button type="button" data-dt-lightbox-next aria-label="Foto siguiente">&#8250;</button>
+      `;
+      lightbox.append(nav);
+      nav.querySelector("[data-dt-lightbox-prev]")?.addEventListener("click", event => {
+        event.stopPropagation();
+        goTo(lightbox, -1);
+      });
+      nav.querySelector("[data-dt-lightbox-next]")?.addEventListener("click", event => {
+        event.stopPropagation();
+        goTo(lightbox, 1);
+      });
+      applySharedLightboxLayout(lightbox);
+    }
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lightbox.addEventListener("touchstart", event => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    }, { passive: true });
+
+    lightbox.addEventListener("touchend", event => {
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      if (Math.abs(deltaX) < 44 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+      const direction = deltaX < 0 ? 1 : -1;
+      if (!clickExistingNav(lightbox, direction)) goTo(lightbox, direction);
+    }, { passive: true });
+  };
+
+  const sync = () => {
+    applyGalleryItemFocus(document);
+    document.querySelectorAll(lightboxSelector).forEach(lightbox => {
+      ensureNav(lightbox);
+      if (lightbox.matches(openSelector)) applySharedLightboxLayout(lightbox);
+      lightbox.classList.toggle("dt-gallery-lightbox-open", lightbox.matches(openSelector));
+      updateLightboxImageOrientation(getLightboxImage(lightbox));
+    });
+    document.body.classList.toggle("dt-gallery-modal-open", Boolean(getOpenLightbox()));
+  };
+
+  document.addEventListener("click", event => {
+    const item = event.target.closest(".galeria-item[data-src], .gallery-card[data-src]");
+    if (!item || event.target.closest(lightboxSelector)) return;
+
+    const hasTemplateLightbox = Array.from(document.querySelectorAll(lightboxSelector))
+      .some(lightbox => !lightbox.hasAttribute("data-dt-shared-lightbox"));
+    if (hasTemplateLightbox) return;
+
+    event.preventDefault();
+    openSharedLightbox(item.dataset.src);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key !== "Escape") return;
+    const lightbox = document.querySelector("[data-dt-shared-lightbox].open");
+    if (lightbox) closeSharedLightbox(lightbox);
+  });
+
+  document.addEventListener("click", event => {
+    const prev = event.target.closest(".lightbox-prev, .galeria-lb-prev");
+    const next = event.target.closest(".lightbox-next, .galeria-lb-next");
+    if (!prev && !next) return;
+
+    const lightbox = event.target.closest(lightboxSelector);
+    if (!lightbox) return;
+    lightbox.dataset.dtLastNav = prev ? "prev" : "next";
+  }, true);
+
+  const observer = new MutationObserver(sync);
+  observer.observe(document.body, {
+    subtree: true,
+    attributes: true,
+    childList: true,
+    attributeFilter: ["class", "aria-hidden", "src"],
+  });
+  sync();
+}
+
 function initDemoLightboxState() {
-  const getOpenLightbox = () => document.querySelector(".lightbox.open");
+  const getOpenLightbox = () => document.querySelector(
+    ".lightbox.open, .galeria-lb.open, .gallery-lightbox[aria-hidden=\"false\"], [data-gallery-lightbox][aria-hidden=\"false\"]"
+  );
   const getOpenRsvp = () => document.querySelector(".rsvp-overlay.open");
   const galleryTarget = () => document.getElementById("galeria")
     || document.querySelector(".galeria-section")
@@ -643,24 +972,23 @@ function initDemoPlanSwitch() {
 
   setTimeout(() => {
     let elapsed = 0;
-    const MAX_WAIT = 60;
+    const MAX_WAIT = 3000;
     const INTERVAL = 80;
 
     const timer = setInterval(() => {
       elapsed += INTERVAL;
       if (elapsed > MAX_WAIT) { clearInterval(timer); return; }
 
-      const cover = document.getElementById("cover");
+      const cover = document.getElementById("cover") || document.getElementById("hero");
       if (!cover) { clearInterval(timer); return; }
-      if (cover.classList.contains("opening") || getComputedStyle(cover).display === "none") {
-        clearInterval(timer); return;
-      }
+      const alreadyOpen = cover.classList.contains("opening") || cover.classList.contains("hero--opening") || getComputedStyle(cover).display === "none";
+      if (alreadyOpen) { clearInterval(timer); return; }
 
-      const btn = document.getElementById("btn-cover");
+      const btn = document.getElementById("btn-cover") || document.getElementById("hero-cta");
       if (!btn) return;
 
       btn.click();
       clearInterval(timer);
     }, INTERVAL);
-  }, 3000);
+  }, 1500);
 }

@@ -144,12 +144,21 @@ function poblarFooter(c) {
 }
 
 // ── Galería ───────────────────────────────────────────
+function getGaleriaPosition(src) {
+  const normalized = String(src || '').toLowerCase();
+  if (normalized.includes('foto horizontal 1')) return '22% center';
+  if (normalized.includes('foto horizontal 2')) return '78% center';
+  return 'center center';
+}
+
 function renderGaleria(c) {
   const grid = document.getElementById('galeria-grid');
   if (!grid || !c.fotos?.length) return;
   grid.innerHTML = c.fotos.map(src => `
     <div class="galeria-item reveal"
-         style="background-image:url('${src}')"
+         data-bg-pending="true"
+         data-src="${src}"
+         style="background-position: ${getGaleriaPosition(src)}"
          role="img"
          aria-label="Foto de ${c.nombre}"></div>
   `).join('');
@@ -235,26 +244,61 @@ function initSplash(onReveal) {
   if (!cover || !cta) return;
 
   if (player) player.classList.add('oculto');
+  const previousBodyOverflow = document.body.style.overflow;
+  const previousBodyTouchAction = document.body.style.touchAction;
+  document.body.style.overflow = 'hidden';
+  document.body.style.touchAction = 'none';
+
+  let opened = false;
+  function forceHeroScroll() {
+    const target = document.getElementById('inv-hero');
+    if (!target) return;
+    target.scrollIntoView({ block: 'start', behavior: 'auto' });
+  }
+
+  function openInvitation() {
+    if (opened) return;
+    opened = true;
+
+    window.removeEventListener('wheel',      onScrollOpen);
+    window.removeEventListener('scroll',     onScrollOpen);
+    window.removeEventListener('touchstart', onScrollOpen);
+    window.removeEventListener('touchmove',  onScrollOpen);
+    window.removeEventListener('keydown',    onKeyOpen);
+
+    document.getElementById('player-btn')?.click();
+    cover.classList.add('hero--opening');
+    forceHeroScroll();
+
+    setTimeout(() => { if (onReveal) onReveal(); }, 900);
+
+    setTimeout(() => {
+      cover.style.display = 'none';
+      document.body.style.overflow = previousBodyOverflow;
+      document.body.style.touchAction = previousBodyTouchAction;
+      forceHeroScroll();
+      requestAnimationFrame(forceHeroScroll);
+      setTimeout(forceHeroScroll, 80);
+      if (player) player.classList.remove('oculto');
+    }, 1150);
+  }
+
+  function onScrollOpen() { openInvitation(); }
+  function onKeyOpen(e) {
+    if (['ArrowDown', 'PageDown', ' ', 'Enter'].includes(e.key)) openInvitation();
+  }
 
   cta.addEventListener('click', e => {
     e.preventDefault();
     e.stopImmediatePropagation();
-
-    document.getElementById('player-btn')?.click();
-    cover.classList.add('hero--opening');
-
-    // Inicia las animaciones de reveal cuando el cover está casi desaparecido
-    setTimeout(() => {
-      if (onReveal) onReveal();
-    }, 900);
-
-    // Oculta el cover del DOM y muestra el player
-    setTimeout(() => {
-      cover.style.display = 'none';
-      document.getElementById('inv-hero')?.scrollIntoView({ block: 'start' });
-      if (player) player.classList.remove('oculto');
-    }, 1150);
+    openInvitation();
   }, { once: true });
+
+  window.addEventListener('wheel',      onScrollOpen, { passive: true, once: true });
+  window.addEventListener('scroll',     onScrollOpen, { passive: true, once: true });
+  window.addEventListener('touchstart', onScrollOpen, { passive: true, once: true });
+  window.addEventListener('touchmove',  onScrollOpen, { passive: true, once: true });
+  window.addEventListener('keydown',    onKeyOpen, { once: true });
 }
 
 // ── Confirmación ──────────────────────────────────────────────

@@ -878,6 +878,8 @@ body.dark .badge {
 .template-card {
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 360px 520px;
   display: grid;
   padding: .9rem;
   min-height: 360px;
@@ -1382,6 +1384,59 @@ textarea:focus {
   transition: transform .22s ease;
 }
 
+.modal--more-models .modal__overlay {
+  background:
+    radial-gradient(circle at 50% 20%, rgba(115, 87, 255, .28), transparent 28rem),
+    rgba(6, 6, 18, .62);
+}
+
+.modal--more-models .modal__card {
+  width: min(560px, 100%);
+  padding: clamp(1.25rem, 4vw, 1.75rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--primary-2) 14%, transparent), transparent 15rem),
+    radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 16rem),
+    color-mix(in srgb, var(--surface-solid) 94%, transparent);
+}
+
+.modal--more-models .modal__card::before {
+  content: "";
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: .9rem;
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, transparent);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--primary) 14%, transparent), color-mix(in srgb, var(--primary-2) 12%, transparent)),
+    var(--surface);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.modal--more-models .modal__card::after {
+  content: "✦";
+  position: absolute;
+  top: 1.95rem;
+  left: 2.05rem;
+  color: var(--primary);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.modal--more-models .modal__card h2 {
+  margin-top: .35rem;
+}
+
+.modal--more-models .modal__actions .btn--primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+}
+
+.modal--more-models .modal__actions .btn--outline {
+  background: color-mix(in srgb, var(--surface-solid) 60%, transparent);
+}
+
 .modal.is-open .modal__card {
   transform: translateY(0) scale(1);
 }
@@ -1716,6 +1771,35 @@ textarea:focus {
 }
 
 @media (max-width: 600px) {
+  .modal {
+    padding: .85rem;
+  }
+
+  .modal--more-models .modal__card {
+    max-height: calc(100svh - 1.7rem);
+    padding: 1.15rem;
+    border-radius: 24px;
+  }
+
+  .modal--more-models .modal__card::before {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  .modal--more-models .modal__card::after {
+    top: 1.8rem;
+    left: 1.78rem;
+  }
+
+  .modal--more-models .modal__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .modal--more-models .modal__actions .btn {
+    width: 100%;
+  }
+
   .hero-grid {
     overflow: hidden;
   }

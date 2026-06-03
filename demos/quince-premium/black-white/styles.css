@@ -1070,6 +1070,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .cd-box { padding: 1.4rem 0.8rem; }
 }
 
+@media (min-width: 540px) {
+  /* Countdown: las unidades vw escalan con el viewport, no con el frame. Se fijan. */
+  .cd-num            { font-size: 2.4rem; }
+  .cd-bloque         { min-width: 3.8rem; }
+  .cd-sep            { font-size: 0.85rem; padding-top: 0.5rem; }
+  .countdown-grid    { gap: 0.55rem; }
+  .cd-box            { padding: 1.1rem 1.2rem; }
+}
+
 @media (min-width: 640px) {
   .confirmar-btns {
     flex-direction: row;
