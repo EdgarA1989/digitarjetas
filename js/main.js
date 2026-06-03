@@ -170,7 +170,7 @@ const templates = [
   {
     name: "Bautismo Celeste",
     slug: "bautismo-celeste",
-    category: "Bautismos y comuniones",
+    category: "Bautismos",
     style: "bautismos",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado, luminoso y elegante para bautismos. Incluye galería, música, dress code y datos de regalo.",
@@ -188,7 +188,7 @@ const templates = [
   {
     name: "Bautismo Rosa",
     slug: "bautismo-rosa",
-    category: "Bautismos y comuniones",
+    category: "Bautismos",
     style: "bautismos",
     availablePlans: ["esencial", "plus", "premium"],
     description: "Diseño delicado y femenino para bautismos de niña. Incluye galería asimétrica, música, dress code y datos de regalo.",
@@ -232,8 +232,8 @@ const templates = [
 
 const filters = [
   { label: "15 años", value: "quince" },
-  { label: "Bautismo", value: "bautismos" },
-  { label: "Casamiento", value: "casamientos" },
+  { label: "Bautismos", value: "bautismos" },
+  { label: "Casamientos", value: "casamientos" },
   { label: "Eventos", value: "eventos" },
   { label: "Ver todas", value: "all" },
 ];

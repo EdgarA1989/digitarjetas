@@ -471,7 +471,7 @@ function initDemoGalleryLightbox() {
   const getGalleryObjectPosition = src => {
     const normalized = decodeURIComponent(String(src || "")).toLowerCase();
     if ((normalized.includes("verde-menta") || normalized.includes("neon-party")) && normalized.includes("foto horizontal 1")) return "78% center";
-    if ((normalized.includes("verde-menta") || normalized.includes("neon-party")) && normalized.includes("foto horizontal 2")) return "22% center";
+    if ((normalized.includes("verde-menta") || normalized.includes("neon-party")) && normalized.includes("foto horizontal 2")) return "95% center";
     if (normalized.includes("foto horizontal 1")) return "22% center";
     if (normalized.includes("foto horizontal 2")) return "78% center";
     return "center center";

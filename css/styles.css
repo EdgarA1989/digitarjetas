@@ -426,15 +426,61 @@ p {
   font-size: clamp(1.02rem, 2.5vw, 1.22rem);
 }
 
-.hero-actions,
-.trust-strip {
+.hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: .8rem;
   margin-top: 1.6rem;
 }
 
-.trust-strip span {
+.trust-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 330px) auto;
+  align-items: center;
+  justify-content: start;
+  column-gap: .9rem;
+  row-gap: .65rem;
+  margin-top: 1.6rem;
+  width: min(100%, 444px);
+  max-width: 100%;
+}
+
+.hero-trust-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .8rem;
+  max-width: 100%;
+}
+
+.hero-eco {
+  display: inline-grid;
+  place-items: center;
+  width: clamp(78px, 8vw, 98px);
+  justify-self: start;
+}
+
+.hero-eco__img {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(36, 26, 84, .1));
+}
+
+.hero-eco__img--dark {
+  display: none;
+}
+
+body.dark .hero-eco__img--light {
+  display: none;
+}
+
+body.dark .hero-eco__img--dark {
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .22));
+}
+
+.hero-trust-tags span {
   padding: .55rem .8rem;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -1401,28 +1447,24 @@ textarea:focus {
 }
 
 .modal--more-models .modal__card::before {
-  content: "";
+  content: "D";
   display: grid;
   place-items: center;
-  width: 54px;
-  height: 54px;
-  margin-bottom: .9rem;
-  border: 1px solid color-mix(in srgb, var(--primary) 18%, transparent);
-  border-radius: 18px;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--primary) 14%, transparent), color-mix(in srgb, var(--primary-2) 12%, transparent)),
-    var(--surface);
-  box-shadow: 0 14px 30px color-mix(in srgb, var(--primary) 18%, transparent);
+  width: 38px;
+  height: 38px;
+  margin-bottom: .95rem;
+  border-radius: 13px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--rose));
+  box-shadow: 0 12px 26px rgba(115, 87, 255, .3);
+  font-family: var(--font-title);
+  font-size: .92rem;
+  font-weight: 800;
+  line-height: 1;
 }
 
 .modal--more-models .modal__card::after {
-  content: "✦";
-  position: absolute;
-  top: 1.95rem;
-  left: 2.05rem;
-  color: var(--primary);
-  font-size: 1.35rem;
-  line-height: 1;
+  content: none;
 }
 
 .modal--more-models .modal__card h2 {
@@ -1705,6 +1747,21 @@ textarea:focus {
   }
 }
 
+@media (max-width: 463px) {
+  .trust-strip {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .hero-trust-tags {
+    width: 100%;
+  }
+
+  .hero-eco {
+    justify-self: center;
+  }
+}
+
 @media (max-width: 430px) {
   .hero-actions {
     grid-template-columns: 1fr;
@@ -1713,6 +1770,11 @@ textarea:focus {
   .hero-actions .btn,
   .template-actions .btn {
     width: 100%;
+  }
+
+  .hero-eco {
+    width: clamp(68px, 19vw, 82px);
+    margin-left: 0;
   }
 
   .template-card {
@@ -1782,14 +1844,9 @@ textarea:focus {
   }
 
   .modal--more-models .modal__card::before {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
-  }
-
-  .modal--more-models .modal__card::after {
-    top: 1.8rem;
-    left: 1.78rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 13px;
   }
 
   .modal--more-models .modal__actions {

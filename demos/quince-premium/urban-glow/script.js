@@ -210,16 +210,35 @@ function initCover() {
   const btn   = document.getElementById('btn-cover');
   if (!cover || !btn) return;
 
-  document.body.style.overflow = 'hidden';
+  const previousHtmlOverflow = document.documentElement.style.overflow;
+  const previousBodyOverflow = document.body.style.overflow;
+  const previousBodyTouchAction = document.body.style.touchAction;
+
+  function lockCoverScroll() {
+    window.scrollTo(0, 0);
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+  }
+
+  function unlockCoverScroll() {
+    document.documentElement.style.overflow = previousHtmlOverflow;
+    document.body.style.overflow = previousBodyOverflow;
+    document.body.style.touchAction = previousBodyTouchAction;
+    window.scrollTo(0, 0);
+  }
+
+  lockCoverScroll();
 
   btn.addEventListener('click', () => {
     document.getElementById('musica-btn')?.click();
     cover.classList.add('opening');
-    document.body.style.overflow = '';
+    window.scrollTo(0, 0);
     setTimeout(() => {
-      window.scrollTo(0, 0);
+      unlockCoverScroll();
       cover.style.display = 'none';
       initReveal();
+      requestAnimationFrame(() => window.scrollTo(0, 0));
     }, 1200);
   });
 }
