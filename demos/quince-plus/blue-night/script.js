@@ -127,7 +127,7 @@ function renderRegalos(r) {
 // ══════════════════════════════════════════════════════
 //  GALERÍA CARD STACK
 // ══════════════════════════════════════════════════════
-const GC = { images:[], total:0, current:0, busy:false, dragging:false, dragStartX:0, dragDelta:0, didDrag:false };
+const GC = { images:[], total:0, current:0, busy:false, dragging:false, dragStartX:0, dragDelta:0, didDrag:false, lastDragEndedAt:0 };
 const GC_STACK = [
   { x:0,     z:0,    r:0, shadow:0    },
   { x:7.25,  z:-100, r:2, shadow:.15  },
@@ -139,6 +139,11 @@ const GC_VISIBLE = GC_STACK.length, GC_THRESHOLD = 60;
 
 function gcCard(gi) { return document.querySelector(`.gallery-card[data-gi="${gi}"]`); }
 function gcRelPos(gi) { return ((gi - GC.current) % GC.total + GC.total) % GC.total; }
+function getGalleryCardPosition(index) {
+  if (index === 0) return '82% center';
+  if (index === 5) return '18% center';
+  return 'center center';
+}
 function gcSetPos(card, pos, animate) {
   const hidden = pos >= GC_VISIBLE, st = GC_STACK[Math.min(pos, GC_VISIBLE - 1)];
   card.style.transition  = animate ? 'transform 0.38s cubic-bezier(0.25,0.1,0.25,1), opacity 0.3s ease' : 'none';
@@ -199,6 +204,7 @@ function gcDragEnd() {
   GC.dragging = false;
   const d = GC.dragDelta; GC.dragDelta = 0;
   if (!GC.didDrag) return;
+  GC.lastDragEndedAt = Date.now();
   if (d < -GC_THRESHOLD) gcGoNext(); else if (d > GC_THRESHOLD) gcGoPrev(); else gcRefresh(true);
 }
 function renderGallery(fotos) {
@@ -207,13 +213,18 @@ function renderGallery(fotos) {
   GC.images = fotos; GC.total = fotos.length; GC.current = 0; GC.busy = false;
   carousel.innerHTML = fotos.map((src, i) => `
     <div class="gallery-card" data-gi="${i}">
-      <img src="${src}" alt="Foto ${i + 1}" loading="lazy">
+      <img src="${src}" alt="Foto ${i + 1}" loading="lazy" style="object-position: ${getGalleryCardPosition(i)}">
       <div class="gallery-card__shadow" aria-hidden="true"></div>
     </div>`).join('');
   carousel.querySelectorAll('img').forEach(img => img.addEventListener('error', () => img.closest('.gallery-card')?.classList.add('is-missing')));
   gcRefresh(false);
   gcInitDrag(carousel);
-  carousel.addEventListener('click', e => { if (GC.didDrag) return; const card = e.target.closest('.gallery-card[data-gi]'); if (card && gcRelPos(Number(card.dataset.gi)) === 0) openLightbox(GC.current); });
+  carousel.addEventListener('click', e => {
+    if (Date.now() - GC.lastDragEndedAt < 260) return;
+    GC.didDrag = false;
+    const card = e.target.closest('.gallery-card[data-gi]');
+    if (card && gcRelPos(Number(card.dataset.gi)) === 0) openLightbox(GC.current);
+  });
   document.querySelector('.gallery-prev')?.addEventListener('click', gcGoPrev);
   document.querySelector('.gallery-next')?.addEventListener('click', gcGoNext);
 }
