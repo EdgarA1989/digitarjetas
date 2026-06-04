@@ -966,7 +966,6 @@ body.dark .template-card {
   border-radius: 28px;
   background:
     linear-gradient(180deg, rgba(255,255,255,.16), rgba(9, 8, 24, .18)),
-    var(--template-image),
     var(--template-bg);
   background-position: center;
   background-size: cover;

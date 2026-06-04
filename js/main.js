@@ -16,6 +16,8 @@ const PLAN_SHORT_LABELS = {
   completo: "Completo",
 };
 
+let revealObserver;
+
 // Agregar nuevas plantillas aca:
 // - availablePlans: indicar los planes disponibles: ["esencial"], ["plus"], ["premium"] o combinados.
 // - demos: cambiar los links relativos cuando subas nuevas demos.
@@ -782,15 +784,17 @@ function initReveal() {
     return;
   }
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.12 });
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+  }
 
-  elements.forEach(element => observer.observe(element));
+  elements.forEach(element => revealObserver.observe(element));
 }
 
 function setYear() {

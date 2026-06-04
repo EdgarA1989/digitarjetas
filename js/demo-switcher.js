@@ -249,8 +249,6 @@ function initDemoAudioLifecycle() {
     ));
   };
 
-  const hasBlockingOverlay = () => null;
-
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") pauseDemoAudio();
   });
@@ -262,15 +260,6 @@ function initDemoAudioLifecycle() {
       pauseDemoAudio();
     }
   }, true);
-
-  const observer = new MutationObserver(() => {
-    if (hasBlockingOverlay()) pauseDemoAudio();
-  });
-  observer.observe(document.body, {
-    subtree: true,
-    attributes: true,
-    attributeFilter: ["class", "hidden", "aria-hidden"],
-  });
 }
 
 function getCurrentTemplate() {
@@ -460,16 +449,26 @@ function initDemoGalleryLightbox() {
   const lightboxSelector = ".lightbox, .gallery-lightbox, .galeria-lb, [data-gallery-lightbox]";
   const imageSelector = ".lightbox-img, .lightbox-image, .galeria-lb-img, [data-lightbox-image]";
   const openSelector = ".lightbox.open, .galeria-lb.open, .gallery-lightbox[aria-hidden=\"false\"], [data-gallery-lightbox][aria-hidden=\"false\"]";
+  let cachedSources = [];
+  let sourcesDirty = true;
+  let syncScheduled = false;
 
   const getSources = () => {
+    if (!sourcesDirty) return cachedSources;
+
     const sources = [];
+    const seen = new Set();
     document.querySelectorAll(
       ".galeria-item[data-src], .gallery-card[data-src], .gallery-card img[src], .galeria-item img[src]"
     ).forEach(element => {
       const src = element.dataset?.src || element.getAttribute("src");
-      if (src && !sources.includes(src)) sources.push(src);
+      if (!src || seen.has(src)) return;
+      seen.add(src);
+      sources.push(src);
     });
-    return sources;
+    cachedSources = sources;
+    sourcesDirty = false;
+    return cachedSources;
   };
 
   const getOpenLightbox = () => document.querySelector(openSelector);
@@ -488,8 +487,12 @@ function initDemoGalleryLightbox() {
     scope.querySelectorAll(".galeria-item, .gallery-card").forEach(item => {
       if (!(item instanceof HTMLElement)) return;
       const img = item.querySelector("img");
-      const position = getGalleryObjectPosition(item.dataset.src || img?.getAttribute("src") || "");
+      const src = item.dataset.src || img?.getAttribute("src") || "";
+      if (item.dataset.dtGalleryFocusSrc === src) return;
+
+      const position = getGalleryObjectPosition(src);
       item.style.setProperty("background-position", position);
+      item.dataset.dtGalleryFocusSrc = src;
       item.querySelectorAll("img").forEach(image => {
         image.style.setProperty("object-position", position);
       });
@@ -821,6 +824,7 @@ function initDemoGalleryLightbox() {
   };
 
   const sync = () => {
+    syncScheduled = false;
     applyGalleryItemFocus(document);
     document.querySelectorAll(lightboxSelector).forEach(lightbox => {
       ensureNav(lightbox);
@@ -829,6 +833,12 @@ function initDemoGalleryLightbox() {
       updateLightboxImageOrientation(getLightboxImage(lightbox));
     });
     document.body.classList.toggle("dt-gallery-modal-open", Boolean(getOpenLightbox()));
+  };
+
+  const scheduleSync = () => {
+    if (syncScheduled) return;
+    syncScheduled = true;
+    window.requestAnimationFrame(sync);
   };
 
   document.addEventListener("click", event => {
@@ -859,7 +869,15 @@ function initDemoGalleryLightbox() {
     lightbox.dataset.dtLastNav = prev ? "prev" : "next";
   }, true);
 
-  const observer = new MutationObserver(sync);
+  const observer = new MutationObserver(mutations => {
+    sourcesDirty = true;
+    mutations.forEach(mutation => {
+      if (mutation.type === "attributes" && mutation.target instanceof HTMLElement) {
+        mutation.target.removeAttribute("data-dt-gallery-focus-src");
+      }
+    });
+    scheduleSync();
+  });
   observer.observe(document.body, {
     subtree: true,
     attributes: true,
