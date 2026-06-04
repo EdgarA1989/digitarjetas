@@ -225,7 +225,15 @@ function pauseDemoAudio() {
 }
 
 function initDemoAudioLifecycle() {
+  const opensInternalRsvpFlow = target => {
+    if (target.closest("#btn-asiste")) return true;
+    if (target.closest("[data-plus-rsvp-close], [data-plus-rsvp-minus], [data-plus-rsvp-plus]")) return true;
+    return Boolean(target.closest("#btn-wa, #btn-whatsapp") && document.querySelector(".plus-rsvp"));
+  };
+
   const shouldPauseForClick = target => {
+    if (opensInternalRsvpFlow(target)) return false;
+
     const externalLink = target.closest("a[href]");
     if (externalLink) {
       const href = externalLink.getAttribute("href") || "";
@@ -235,15 +243,13 @@ function initDemoAudioLifecycle() {
     }
 
     return Boolean(target.closest(
-      "#btn-asiste, #btn-wa, #btn-whatsapp, #btn-ics, #btn-calendario, " +
+      "#btn-wa, #btn-whatsapp, #btn-ics, #btn-calendario, " +
       "[data-plus-rsvp-submit], [data-demo-plan-button], [data-demo-plans], " +
       "[data-demo-return], [data-demo-whatsapp]"
     ));
   };
 
-  const hasBlockingOverlay = () => document.querySelector(
-    ".rsvp-overlay.open, .plus-rsvp:not([hidden])"
-  );
+  const hasBlockingOverlay = () => null;
 
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") pauseDemoAudio();
