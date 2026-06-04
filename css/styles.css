@@ -812,6 +812,17 @@ body.dark .badge {
   box-shadow: var(--shadow);
 }
 
+.plan-card--recommended > .badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  margin-bottom: 0;
+}
+
+.plan-card--recommended > h3 {
+  padding-right: 8.5rem;
+}
+
 .plan-price {
   margin: 1.15rem 0 1.25rem;
   padding: 1rem;
