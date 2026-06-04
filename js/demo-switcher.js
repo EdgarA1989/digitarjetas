@@ -242,7 +242,7 @@ function initDemoAudioLifecycle() {
   };
 
   const hasBlockingOverlay = () => document.querySelector(
-    ".lightbox.open, .rsvp-overlay.open, .plus-rsvp:not([hidden])"
+    ".rsvp-overlay.open, .plus-rsvp:not([hidden])"
   );
 
   document.addEventListener("visibilitychange", () => {
