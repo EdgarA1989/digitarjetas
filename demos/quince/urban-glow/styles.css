@@ -425,11 +425,11 @@ body {
 .countdown-grid {
   display: inline-flex;
   align-items: center;
-  gap: .55rem;
+  gap: .4rem;
 }
 
 .countdown-box {
-  width: 74px;
+  width: 68px;
   flex-shrink: 0;
   background: rgba(255,255,255,.03);
   border: 1px solid var(--border);
@@ -1251,10 +1251,15 @@ body {
 /* ══════════════════════════════════════════════════════
    DESKTOP 900px+
    ══════════════════════════════════════════════════════ */
+@media (min-width: 500px) {
+  .countdown-grid { gap: .55rem; }
+  .countdown-box  { width: 84px; }
+}
+
 @media (min-width: 600px) {
   :root { --max: 540px; }
   .galeria-grid { gap: 8px; padding: 0 1.2rem; }
-  .countdown-box { width: 82px; }
+  .countdown-box { width: 104px; }
 }
 
 @media (min-width: 900px) {
@@ -1282,5 +1287,5 @@ body {
 
   .galeria-grid { max-width: 680px; padding: 0 2rem; gap: 10px; }
   .galeria-item { border-radius: 6px; }
-  .countdown-box { width: 88px; }
+  .countdown-box { width: 112px; }
 }

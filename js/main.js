@@ -17,6 +17,7 @@ const PLAN_SHORT_LABELS = {
 };
 
 let revealObserver;
+let pendingTemplateReturnSlug = null;
 
 // Agregar nuevas plantillas aca:
 // - availablePlans: indicar los planes disponibles: ["esencial"], ["plus"], ["premium"] o combinados.
@@ -310,6 +311,12 @@ function renderFeatures() {
 function getInitialTemplateFilter() {
   const params = new URLSearchParams(window.location.search);
   const category = params.get("categoria") || params.get("category") || "";
+  pendingTemplateReturnSlug = params.get("plantilla") || params.get("template") || null;
+  if (pendingTemplateReturnSlug) {
+    const selectedTemplate = templates.find(template => template.slug === pendingTemplateReturnSlug);
+    if (selectedTemplate) return selectedTemplate.style;
+  }
+
   const normalized = category.toLowerCase();
   const allowedFilters = filters.map(filter => filter.value);
   const aliases = {
@@ -364,7 +371,7 @@ function renderTemplates() {
   });
 
   grid.innerHTML = visibleTemplates.map(template => `
-    <article class="template-card reveal">
+    <article class="template-card reveal" id="plantilla-${template.slug}" data-template-card="${template.slug}">
       <div class="template-card__body${template.decorativeMedia ? " template-card__body--decorative-media" : ""}" style="--template-bg: ${template.bg}; --template-image: url('${template.image}')">
         <div class="template-card__media">
           <div class="template-mini-phone${template.darkPreview ? " template-mini-phone--light-frame" : ""}" aria-hidden="true">
@@ -394,6 +401,7 @@ function renderTemplates() {
   empty?.classList.toggle("is-visible", visibleTemplates.length === 0);
   renderMoreModelsCta(visibleTemplates.length);
   initReveal();
+  restoreTemplateReturnPosition();
 }
 
 function renderBenefits() {
@@ -478,6 +486,21 @@ function setActiveFilter(filter) {
   });
   renderTemplates();
   document.getElementById("plantillas")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function restoreTemplateReturnPosition() {
+  if (!pendingTemplateReturnSlug) return;
+
+  const slug = pendingTemplateReturnSlug;
+  pendingTemplateReturnSlug = null;
+
+  window.setTimeout(() => {
+    const card = document.querySelector(`[data-template-card="${slug}"]`);
+    if (!card) return;
+
+    card.scrollIntoView({ behavior: "auto", block: "center" });
+    card.classList.add("is-visible");
+  }, 80);
 }
 
 function initTheme() {
@@ -643,7 +666,10 @@ function handleDemoAction(template) {
   const plans = getAvailableDemoPlans(template);
   if (plans.length === 1) {
     const url = getDemoUrl(template, plans[0]);
-    if (url) window.location.href = url;
+    if (url) {
+      rememberTemplateReturn(template);
+      window.location.href = url;
+    }
     return;
   }
 
@@ -711,7 +737,10 @@ function openPlanModal({ title, text, template, action }) {
       closeModal();
       if (action === "demo") {
         const url = getDemoUrl(template, plan);
-        if (url) window.location.href = url;
+        if (url) {
+          rememberTemplateReturn(template);
+          window.location.href = url;
+        }
       } else {
         window.open(getWhatsappUrl(getTemplateMessage(template, plan)), "_blank", "noopener");
       }
@@ -765,6 +794,29 @@ function closeModal() {
 
 function getDemoUrl(template, plan) {
   return template.demos?.[plan] || "";
+}
+
+function rememberTemplateReturn(template) {
+  if (!template?.slug) return;
+
+  const filter = template.style || activeFilter || "quince";
+  const returnState = {
+    slug: template.slug,
+    filter,
+    scrollY: window.scrollY,
+  };
+
+  try {
+    sessionStorage.setItem("dt-template-return", JSON.stringify(returnState));
+  } catch (_) {}
+
+  if (window.history?.replaceState) {
+    const returnUrl = new URL(window.location.href);
+    returnUrl.searchParams.set("categoria", filter);
+    returnUrl.searchParams.set("plantilla", template.slug);
+    returnUrl.hash = "plantillas";
+    history.replaceState(history.state, "", returnUrl);
+  }
 }
 
 function getTemplateMessage(template, plan) {

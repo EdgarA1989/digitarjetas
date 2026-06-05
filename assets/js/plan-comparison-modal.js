@@ -3,6 +3,7 @@
   const TRIGGER_SELECTOR = "[data-open-plan-comparison]";
   let lastFocusedElement = null;
   let previousBodyOverflow = "";
+  let historyStateActive = false;
 
   function getData() {
     return window.PlanComparisonData || { title: "", subtitle: "", featureTitle: "", features: [], plans: [] };
@@ -128,9 +129,21 @@
     return "light";
   }
 
+  function closeSilent() {
+    const modal = document.getElementById(MODAL_ID);
+    if (!modal || !modal.classList.contains("is-open")) return;
+
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = previousBodyOverflow;
+    lastFocusedElement?.focus?.();
+    lastFocusedElement = null;
+  }
+
   function open(options = {}) {
     const modal = getModal();
     const theme = normalizeTheme(options.theme);
+    const isAlreadyOpen = modal.classList.contains("is-open");
     lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     previousBodyOverflow = document.body.style.overflow || "";
 
@@ -138,6 +151,11 @@
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+
+    if (!isAlreadyOpen && !historyStateActive && window.history?.pushState) {
+      history.pushState({ planComparisonModal: true }, "");
+      historyStateActive = true;
+    }
 
     window.setTimeout(() => {
       modal.querySelector(".pcm-close")?.focus();
@@ -148,11 +166,13 @@
     const modal = document.getElementById(MODAL_ID);
     if (!modal || !modal.classList.contains("is-open")) return;
 
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = previousBodyOverflow;
-    lastFocusedElement?.focus?.();
-    lastFocusedElement = null;
+    if (historyStateActive && history.state?.planComparisonModal) {
+      history.back();
+      return;
+    }
+
+    historyStateActive = false;
+    closeSilent();
   }
 
   function onKeydown(event) {
@@ -188,6 +208,13 @@
       open({ theme: trigger.dataset.theme });
     });
     document.addEventListener("keydown", onKeydown);
+    window.addEventListener("popstate", () => {
+      const modal = document.getElementById(MODAL_ID);
+      if (!modal || !modal.classList.contains("is-open")) return;
+
+      historyStateActive = false;
+      closeSilent();
+    });
   }
 
   function init() {

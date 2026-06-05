@@ -441,8 +441,28 @@ function initDemoCommercialCta() {
 }
 
 function getDemoCatalogReturnUrl() {
+  const storedReturnUrl = getStoredDemoCatalogReturnUrl();
+  if (storedReturnUrl) return storedReturnUrl;
+
   const filter = templateCatalogFilters[getCurrentTemplate()] || "quince";
-  return `../../../?categoria=${encodeURIComponent(filter)}#plantillas`;
+  const template = getCurrentTemplate();
+  return `../../../?categoria=${encodeURIComponent(filter)}&plantilla=${encodeURIComponent(template)}#plantillas`;
+}
+
+function getStoredDemoCatalogReturnUrl() {
+  try {
+    const rawState = sessionStorage.getItem("dt-template-return");
+    if (!rawState) return "";
+
+    const state = JSON.parse(rawState);
+    const currentTemplate = getCurrentTemplate();
+    if (!state?.slug || state.slug !== currentTemplate) return "";
+
+    const filter = state.filter || templateCatalogFilters[currentTemplate] || "quince";
+    return `../../../?categoria=${encodeURIComponent(filter)}&plantilla=${encodeURIComponent(state.slug)}#plantillas`;
+  } catch (_) {
+    return "";
+  }
 }
 
 function initDemoGalleryLightbox() {
