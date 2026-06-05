@@ -920,12 +920,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 4px;
 }
 .galeria-item {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
   background-size: cover;
   background-position: center;
   background-color: #102a46;
   aspect-ratio: 1;
   transition: opacity 0.4s;
   overflow: hidden;
+  cursor: pointer;
 }
 .galeria-item:first-child,
 .galeria-item:last-child {
@@ -934,6 +939,108 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background-color: #071a2f;
 }
 .galeria-item:hover { opacity: 0.85; }
+
+.galeria-item--2,
+.galeria-item--5 {
+  background-position: center 18%;
+}
+
+.galeria-item:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, .84);
+  outline-offset: -5px;
+}
+
+.galeria-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10040;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .85rem;
+  width: 100vw;
+  height: 100dvh;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: rgba(8, 9, 18, .72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease;
+}
+
+.galeria-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.galeria-lightbox__close {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top));
+  right: max(1rem, env(safe-area-inset-right));
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, .16);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.galeria-lightbox__image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(92vw, 640px);
+  max-height: min(78dvh, 820px);
+  border-radius: 18px;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+  box-shadow: 0 22px 70px rgba(0, 0, 0, .28);
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.galeria-lightbox__image.is-landscape {
+  width: min(92vw, 640px);
+  height: min(74dvh, 760px);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.galeria-lightbox__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .8rem;
+  width: 100%;
+}
+
+.galeria-lightbox__arrow {
+  width: 48px;
+  height: 48px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .32);
+  border-radius: 999px;
+  color: #111;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .22);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
 
 /* =====================================================
    CONFIRMAR

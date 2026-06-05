@@ -808,12 +808,116 @@ function poblarFooter(c) {
 function renderGaleria(c) {
   const grid = document.getElementById('galeria-grid');
   if (!grid || !c.fotos?.length) return;
-  grid.innerHTML = c.fotos.map(src => `
-    <div class="galeria-item reveal"
+  grid.innerHTML = c.fotos.map((src, index) => `
+    <button class="galeria-item galeria-item--${index + 1} reveal"
+         type="button"
+         data-src="${escapeAttr(src)}"
+         data-index="${index}"
          style="background-image:url('${src}')"
-         role="img"
-         aria-label="Foto de ${c.nombre}"></div>
+         aria-label="Ampliar foto ${index + 1} de ${escapeAttr(c.nombre)}"></button>
   `).join('');
+  initGaleriaLightbox(c.fotos, c.nombre);
+}
+
+function initGaleriaLightbox(fotos, nombre) {
+  if (!Array.isArray(fotos) || !fotos.length || document.body.dataset.melodyGalleryReady === '1') return;
+  document.body.dataset.melodyGalleryReady = '1';
+
+  const lightbox = document.createElement('div');
+  lightbox.className = 'galeria-lightbox';
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.innerHTML = `
+    <button class="galeria-lightbox__close" type="button" aria-label="Cerrar imagen">&times;</button>
+    <img class="galeria-lightbox__image" alt="Foto ampliada de ${escapeAttr(nombre)}">
+    <div class="galeria-lightbox__nav" aria-label="NavegaciÃ³n de fotos">
+      <button class="galeria-lightbox__arrow" type="button" data-gallery-prev aria-label="Foto anterior">&#8249;</button>
+      <button class="galeria-lightbox__arrow" type="button" data-gallery-next aria-label="Foto siguiente">&#8250;</button>
+    </div>
+  `;
+  document.body.append(lightbox);
+
+  const image = lightbox.querySelector('.galeria-lightbox__image');
+  const close = lightbox.querySelector('.galeria-lightbox__close');
+  const prev = lightbox.querySelector('[data-gallery-prev]');
+  const next = lightbox.querySelector('[data-gallery-next]');
+  let currentIndex = 0;
+  let previousOverflow = '';
+  let lastFocusedElement = null;
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  const updateOrientation = () => {
+    const isLandscape = image.naturalWidth > image.naturalHeight;
+    image.classList.toggle('is-landscape', isLandscape);
+    image.classList.toggle('is-portrait', !isLandscape);
+  };
+
+  const show = index => {
+    currentIndex = (index + fotos.length) % fotos.length;
+    image.src = fotos[currentIndex];
+    image.alt = `Foto ${currentIndex + 1} de ${nombre}`;
+    if (image.complete && image.naturalWidth) updateOrientation();
+    else image.addEventListener('load', updateOrientation, { once: true });
+  };
+
+  const open = index => {
+    previousOverflow = document.body.style.overflow || '';
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    show(index);
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('dt-lightbox-open');
+    document.body.style.overflow = 'hidden';
+    close.focus();
+  };
+
+  const closeLightbox = () => {
+    if (!lightbox.classList.contains('is-open')) return;
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('dt-lightbox-open');
+    document.body.style.overflow = previousOverflow;
+    lastFocusedElement?.focus?.();
+    lastFocusedElement = null;
+  };
+
+  const goToPrev = () => show(currentIndex - 1);
+  const goToNext = () => show(currentIndex + 1);
+
+  document.addEventListener('click', event => {
+    if (!(event.target instanceof Element)) return;
+    const item = event.target.closest('.galeria-item[data-src]');
+    if (!item) return;
+    open(Number(item.dataset.index || 0));
+  });
+
+  close.addEventListener('click', closeLightbox);
+  prev.addEventListener('click', event => { event.stopPropagation(); goToPrev(); });
+  next.addEventListener('click', event => { event.stopPropagation(); goToNext(); });
+  lightbox.addEventListener('click', event => {
+    if (event.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', event => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowLeft') goToPrev();
+    if (event.key === 'ArrowRight') goToNext();
+  });
+  lightbox.addEventListener('touchstart', event => {
+    const touch = event.changedTouches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', event => {
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
+    if (Math.abs(deltaX) < 44 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+    if (deltaX < 0) goToNext();
+    else goToPrev();
+  }, { passive: true });
 }
 
 // ── Countdown ─────────────────────────────────────────
@@ -1041,4 +1145,12 @@ function updateMeta(c) {
 function setText(id, val) {
   const el = document.getElementById(id);
   if (el && val !== undefined) el.textContent = val;
+}
+
+function escapeAttr(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
