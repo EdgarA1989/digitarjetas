@@ -941,6 +941,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .galeria-item:hover { opacity: 0.85; }
 
 .galeria-item--2,
+.galeria-item--3,
+.galeria-item--4,
 .galeria-item--5 {
   background-position: center 18%;
 }
