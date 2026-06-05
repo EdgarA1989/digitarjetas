@@ -714,6 +714,7 @@ poblarHero(c);
   initRsvp(c);
   initGuardarFecha(c);
   initPlayer(c);
+  initAudioLifecycle();
   initCopiar();
   updateMeta(c);
 
@@ -1083,6 +1084,49 @@ function initPlayer(c) {
 }
 
 // ── Copiar al portapapeles ────────────────────────────
+function pausePlayerAudio() {
+  const audio = document.getElementById('player-audio');
+  const btn   = document.getElementById('player-btn');
+  const play  = btn?.querySelector('.icon-play');
+  const pause = btn?.querySelector('.icon-pause');
+  if (!audio || !btn || audio.paused) return;
+
+  audio.pause();
+  if (play)  play.style.display = '';
+  if (pause) pause.style.display = 'none';
+  btn.classList.remove('playing');
+  btn.setAttribute('aria-label', 'Reproducir');
+}
+
+function initAudioLifecycle() {
+  if (document.body.dataset.melodyAudioLifecycle === '1') return;
+  document.body.dataset.melodyAudioLifecycle = '1';
+
+  const isInternalModalInteraction = target => Boolean(target.closest(
+    '#btn-asiste, #rsvp-modal, .galeria-item, .galeria-lightbox'
+  ));
+
+  const shouldPauseForClick = target => {
+    if (isInternalModalInteraction(target)) return false;
+    if (target.closest('#btn-calendario')) return true;
+
+    const externalLink = target.closest('a[href]');
+    if (!externalLink) return false;
+
+    const href = externalLink.getAttribute('href') || '';
+    return /^(https?:|mailto:|tel:)/i.test(href) || externalLink.target === '_blank';
+  };
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') pausePlayerAudio();
+  });
+  window.addEventListener('pagehide', pausePlayerAudio);
+  document.addEventListener('click', event => {
+    if (!(event.target instanceof Element)) return;
+    if (shouldPauseForClick(event.target)) pausePlayerAudio();
+  }, true);
+}
+
 function initCopiar() {
   document.addEventListener('click', e => {
     const btn = e.target.closest('.rc-copiar');
