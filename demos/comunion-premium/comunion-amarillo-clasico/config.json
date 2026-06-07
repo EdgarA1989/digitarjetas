@@ -1,0 +1,85 @@
+﻿{
+  "plan": "premium",
+  "name": "Agustín",
+  "eventType": "Mi Primera Comunión",
+  "dateISO": "2027-05-23T10:30:00-03:00",
+  "dateLabel": "Domingo 23 de Mayo de 2027",
+  "mainPhrase": "Hoy Jesús llega a mi corazón.",
+  "welcomeText": "Queremos compartir con ustedes un día muy especial para Agustín y nuestra familia. Su presencia hará que este momento sea aún más hermoso.",
+  "finalMessage": "Gracias por acompañarnos en este día tan importante.",
+  "images": {
+    "heroCover": "../../../assets/img/demos/comunion-amarillo-clasico/hero-cover.jpg",
+    "heroChild":  "../../../assets/img/demos/comunion-amarillo-clasico/hero-nina.jpg"
+  },
+  "ceremony": {
+    "place":   "Parroquia Nuestra Señora del Carmen",
+    "address": "Av. Principal 1234, Buenos Aires",
+    "time":    "10:30 hs",
+    "map":     "https://www.google.com/maps/search/?api=1&query=Parroquia%20Nuestra%20Senora%20del%20Carmen%20Buenos%20Aires"
+  },
+  "celebration": {
+    "title":   "Almuerzo familiar",
+    "place":   "Salón Las Rosas",
+    "address": "Mitre 845, Buenos Aires",
+    "time":    "13:00 hs",
+    "map":     "https://www.google.com/maps/search/?api=1&query=Salon%20Las%20Rosas%20Buenos%20Aires"
+  },
+  "timeline": [
+    { "time": "10:30", "label": "Ceremonia" },
+    { "time": "11:45", "label": "Fotos familiares" },
+    { "time": "13:00", "label": "Almuerzo" },
+    { "time": "15:00", "label": "Mesa dulce" },
+    { "time": "16:00", "label": "Brindis familiar" }
+  ],
+  "features": {
+    "plusDetails": true
+  },
+  "gallery": {
+    "enabled":  true,
+    "title":    "Momentos especiales",
+    "subtitle": "Deslizá para ver las fotos o tocá una imagen para ampliarla.",
+    "images": [
+      "../../../assets/img/demos/comunion-amarillo-clasico/comunion1.jpg",
+      "../../../assets/img/demos/comunion-amarillo-clasico/comunion2.jpg",
+      "../../../assets/img/demos/comunion-amarillo-clasico/comunion3.jpg",
+      "../../../assets/img/demos/comunion-amarillo-clasico/comunion4.jpg",
+      "../../../assets/img/demos/comunion-amarillo-clasico/comunion5.jpg",
+      "../../../assets/img/demos/comunion-amarillo-clasico/comunion6.jpg"
+    ]
+  },
+  "music": {
+    "enabled": true,
+    "src":     "../../../assets/music/bautismo-clasico.mp3"
+  },
+  "dressCode": {
+    "title": "Elegante sport",
+    "note":  "Sugerimos tonos claros, neutros o pasteles suaves para acompañar la estética de la celebración."
+  },
+  "gift": {
+    "text":   "Lo más importante es compartir este día en familia. Si desean acompañar a Agustín con un detalle, les dejamos estos datos.",
+    "alias":  "agustin.comunion",
+    "holder": "Familia Rodríguez",
+    "bank":   "Mercado Pago"
+  },
+  "whatsapp": {
+    "number":        "5491151498796",
+    "maxGuests":     6,
+    "simpleMessage": "Hola, confirmo asistencia a la comunión de Agustín."
+  },
+  "rsvpForm": {
+    "enabled":      true,
+    "mode":         "modal",
+    "title":        "Confirmación de asistencia",
+    "description":  "Completá los datos de quienes asistirán para ayudarnos a organizar este día especial.",
+    "defaultGuests": 1,
+    "maxGuests":    6,
+    "fields": {
+      "firstName":    true,
+      "lastName":     true,
+      "age":          true,
+      "observations": true
+    },
+    "submitMode": "demo"
+  }
+}
+

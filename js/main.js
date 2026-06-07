@@ -206,6 +206,23 @@ const templates = [
     bg: "linear-gradient(145deg, #f2c4d5, #f9dde8 54%, #e8d09a)",
   },
   {
+    name: "Comunión Amarillo Clásico",
+    slug: "comunion-amarillo-clasico",
+    category: "Comuniones",
+    style: "eventos",
+    availablePlans: ["esencial", "plus", "premium"],
+    description: "Una invitación clásica y elegante para Primera Comunión, con tonos amarillo dorado, marfil y detalles negros editoriales.",
+    image: "assets/img/demos/comunion-amarillo-clasico/preview.png",
+    previewImage: "assets/img/demos/comunion-amarillo-clasico/preview.png",
+    previewType: "demo",
+    demos: {
+      esencial: "./demos/comunion-esencial/comunion-amarillo-clasico/",
+      plus: "./demos/comunion-plus/comunion-amarillo-clasico/",
+      premium: "./demos/comunion-premium/comunion-amarillo-clasico/",
+    },
+    bg: "linear-gradient(145deg, #faeecb, #fef9e6 55%, #f2d88a)",
+  },
+  {
     name: "Golden Party",
     slug: "golden-party",
     category: "Cumpleaños adultos",
@@ -217,19 +234,6 @@ const templates = [
     previewType: "preview",
     demos: { esencial: "", plus: "#", premium: "" },
     bg: "linear-gradient(145deg, #17120c, #c89534 52%, #ffe29a)",
-  },
-  {
-    name: "Corporate Link",
-    slug: "corporate-link",
-    category: "Eventos empresariales",
-    style: "eventos",
-    availablePlans: ["esencial", "premium"],
-    description: "Invitaciones digitales sobrias y profesionales para eventos corporativos.",
-    image: "assets/img/template-corporate-link.jpg",
-    previewImage: "assets/img/template-corporate-link.jpg",
-    previewType: "preview",
-    demos: { esencial: "#", plus: "", premium: "#" },
-    bg: "linear-gradient(145deg, #0b1120, #2d5bff 56%, #9fb3ff)",
   },
 ];
 

@@ -70,6 +70,12 @@ const templateLinks = {
     premium:  "../../casamiento-premium/casamiento-dorado/",
     label:    "Casamiento Dorado",
   },
+  "comunion-amarillo-clasico": {
+    esencial: "../../comunion-esencial/comunion-amarillo-clasico/",
+    plus: "../../comunion-plus/comunion-amarillo-clasico/",
+    premium: "../../comunion-premium/comunion-amarillo-clasico/",
+    label: "Comunión Amarillo Clásico",
+  },
 };
 
 const demoPlanLabels = {
@@ -94,6 +100,7 @@ const templateCatalogFilters = {
   "bautismo-rosa": "bautismos",
   "casamiento-editorial-olivo": "casamientos",
   "casamiento-dorado": "casamientos",
+  "comunion-amarillo-clasico": "eventos",
 };
 
 const demoSwitcherBaseUrl = (() => {
@@ -1028,7 +1035,7 @@ function initDemoPlanSwitch() {
       const alreadyOpen = cover.classList.contains("opening") || cover.classList.contains("hero--opening") || getComputedStyle(cover).display === "none";
       if (alreadyOpen) { clearInterval(timer); return; }
 
-      const btn = document.getElementById("btn-cover") || document.getElementById("hero-cta");
+      const btn = document.getElementById("btn-cover") || document.getElementById("open-invitation") || document.getElementById("hero-cta");
       if (!btn) return;
 
       btn.click();
