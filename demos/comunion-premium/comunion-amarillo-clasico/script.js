@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       initReveal();
     })
     .catch(err => {
-      console.warn("[Comunion Rosa Perla] No se pudo cargar config.json", err);
+      console.warn("[Comunion Amarillo Clasico] No se pudo cargar config.json", err);
       initCover();
       initReveal();
     });
@@ -177,13 +177,13 @@ function openLightbox(index) {
   document.getElementById("gallery-lightbox")?.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   if (!lightboxHistory) {
-    history.pushState({ rosaPerlalightbox: true }, "");
+    history.pushState({ comunionLightbox: true }, "");
     lightboxHistory = true;
   }
 }
 
 function closeLightbox() {
-  if (lightboxHistory && history.state?.rosaPerlalightbox) { history.back(); return; }
+  if (lightboxHistory && history.state?.comunionLightbox) { history.back(); return; }
   closeLightboxSilent();
 }
 
@@ -253,6 +253,9 @@ function initRsvp() {
     document.querySelectorAll("[data-close-plus-rsvp]").forEach(el => el.addEventListener("click", closePlusRsvp));
 
   } else if (plan === "premium") {
+    if (typeof RsvpModal !== 'undefined') {
+      RsvpModal.init(get("rsvpForm", {}), get("name"));
+    }
     if (simple)  simple.hidden  = true;
     if (premium) premium.hidden = false;
     premium?.addEventListener("click", openPremiumRsvp);
@@ -297,13 +300,13 @@ function openPlusRsvp() {
   document.getElementById("plus-rsvp-modal")?.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   if (!plusRsvpHistory) {
-    history.pushState({ rosaPerlaPlusRsvp: true }, "");
+    history.pushState({ comunionPlusRsvp: true }, "");
     plusRsvpHistory = true;
   }
 }
 
 function closePlusRsvp() {
-  if (plusRsvpHistory && history.state?.rosaPerlaPlusRsvp) { history.back(); return; }
+  if (plusRsvpHistory && history.state?.comunionPlusRsvp) { history.back(); return; }
   closePlusRsvpSilent();
 }
 
@@ -319,13 +322,13 @@ function openPremiumRsvp() {
   document.getElementById("premium-rsvp-modal")?.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   if (!premiumRsvpHistory) {
-    history.pushState({ rosaPerlaPremiumRsvp: true }, "");
+    history.pushState({ comunionPremiumRsvp: true }, "");
     premiumRsvpHistory = true;
   }
 }
 
 function closePremiumRsvp() {
-  if (premiumRsvpHistory && history.state?.rosaPerlaPremiumRsvp) { history.back(); return; }
+  if (premiumRsvpHistory && history.state?.comunionPremiumRsvp) { history.back(); return; }
   closePremiumRsvpSilent();
 }
 

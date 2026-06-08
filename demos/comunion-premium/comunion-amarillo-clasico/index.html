@@ -208,12 +208,9 @@
         <span class="confirmar-bloom" aria-hidden="true">✦</span>
         <h2 class="confirmar-titulo">¿Nos acompañás?</h2>
         <p class="confirmar-sub">Confirmá tu asistencia para ayudarnos a organizar este día tan especial.</p>
-        <a class="btn-wa" id="simple-rsvp" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.849L.073 23.927l6.266-1.443A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.578-.477-5.083-1.314l-.365-.215-3.716.856.879-3.62-.237-.371A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Confirmar por WhatsApp
-        </a>
-        <button class="btn-rsvp-modal" id="plus-rsvp" type="button" hidden>Confirmar asistencia</button>
-        <button class="btn-rsvp-modal" data-open-rsvp-modal type="button" hidden>Confirmar asistencia</button>
+        <div class="rsvp-confirmar-btns">
+          <button id="btn-asiste" class="btn-rsvp btn-rsvp--asiste">Confirmar asistencia</button>
+        </div>
       </div>
     </div>
 
@@ -245,50 +242,48 @@
     </div>
   </div>
 
-  <!-- ══ MODAL PLUS ══ -->
-  <div class="rsvp-modal" id="plus-rsvp-modal" aria-hidden="true">
-    <div class="rsvp-modal__overlay" data-close-plus-rsvp></div>
-    <div class="rsvp-modal__panel" role="dialog" aria-modal="true" aria-labelledby="plusRsvpTitle">
-      <button class="rsvp-modal__close" data-close-plus-rsvp type="button" aria-label="Cerrar">×</button>
-      <span class="section-eyebrow">confirmación</span>
-      <h2 id="plusRsvpTitle">Confirmar asistencia</h2>
-      <p>Elegí cuántos invitados querés confirmar y preparamos el mensaje para WhatsApp.</p>
-      <div class="qty-control">
-        <button type="button" id="qty-minus" aria-label="Restar invitado">−</button>
-        <strong id="qty-value">1</strong>
-        <button type="button" id="qty-plus" aria-label="Sumar invitado">+</button>
-      </div>
-      <button class="btn-rsvp-modal" id="plus-rsvp-submit" type="button">Continuar por WhatsApp</button>
-    </div>
-  </div>
+  <!-- ══ RSVP MODAL ══ -->
+  <div id="rsvp-modal" class="rsvp-overlay" role="dialog" aria-modal="true" aria-labelledby="rsvp-titulo" aria-hidden="true">
+    <div class="rsvp-backdrop" id="rsvp-backdrop"></div>
+    <div class="rsvp-modal">
+      <button type="button" class="rsvp-close" id="rsvp-close" aria-label="Cerrar">✕</button>
 
-  <!-- ══ MODAL PREMIUM ══ -->
-  <div class="rsvp-modal" id="premium-rsvp-modal" aria-hidden="true">
-    <div class="rsvp-modal__overlay" data-close-rsvp-modal></div>
-    <div class="rsvp-modal__panel rsvp-modal__panel--wide" role="dialog" aria-modal="true" aria-labelledby="rsvpModalTitle">
-      <button class="rsvp-modal__close" data-close-rsvp-modal type="button" aria-label="Cerrar formulario">×</button>
-      <span class="section-eyebrow">confirmación</span>
-      <h2 id="rsvpModalTitle">Confirmación de asistencia</h2>
-      <p id="rsvpModalDesc">Completá los datos de quienes asistirán para ayudarnos a organizar este día especial.</p>
-      <div class="qty-control">
-        <button type="button" id="form-qty-minus" aria-label="Restar asistente">−</button>
-        <strong id="form-qty-value">1</strong>
-        <button type="button" id="form-qty-plus" aria-label="Sumar asistente">+</button>
+      <div id="rsvp-form-body">
+        <h3 class="rsvp-titulo" id="rsvp-titulo">Confirmar asistencia</h3>
+        <p class="rsvp-subtitulo" id="rsvp-subtitulo">Completá los datos de las personas que asistirán.</p>
+        <div class="rsvp-qty" id="rsvp-qty">
+          <p class="rsvp-qty-label">¿Cuántas personas asisten?</p>
+          <div class="rsvp-qty-ctrl">
+            <button type="button" class="rsvp-qty-btn" id="rsvp-qty-minus" aria-label="Restar">−</button>
+            <span class="rsvp-qty-num" id="rsvp-qty-num">1</span>
+            <button type="button" class="rsvp-qty-btn" id="rsvp-qty-plus" aria-label="Sumar">+</button>
+          </div>
+        </div>
+        <div class="rsvp-guests" id="rsvp-guests"></div>
+        <button type="button" class="rsvp-btn-submit" id="rsvp-submit">Confirmar asistencia</button>
       </div>
-      <form id="premium-rsvp-form">
-        <div id="guest-fields"></div>
-        <label class="form-field">Observaciones
-          <textarea id="observations" rows="3" placeholder="Alergias, comentarios o información importante"></textarea>
-        </label>
-        <div class="rsvp-summary" id="rsvp-summary">Total: 1 · Adultos: 1 · Menores: 0</div>
-        <button class="btn-rsvp-modal" type="submit">Enviar confirmación</button>
-      </form>
-      <p class="success-message" id="premium-success" hidden>¡Confirmación recibida! Te esperamos el día de la comunión de Agustín.</p>
+
+      <div id="rsvp-loading" aria-hidden="true" style="display:none">
+        <div class="rsvp-spinner"></div>
+      </div>
+
+      <div id="rsvp-success" aria-hidden="true" style="display:none">
+        <div class="rsvp-success-icon" aria-hidden="true">✓</div>
+        <p class="rsvp-success-msg" id="rsvp-success-msg">¡Confirmación recibida!</p>
+        <button type="button" class="rsvp-btn-close-success" id="rsvp-close-success">Cerrar</button>
+      </div>
+
+      <div id="rsvp-error" aria-hidden="true" style="display:none">
+        <p class="rsvp-error-msg" id="rsvp-error-msg">Ocurrió un error. Intentá de nuevo.</p>
+        <button type="button" class="rsvp-btn-retry" id="rsvp-retry">Reintentar</button>
+      </div>
     </div>
   </div>
 
   <script>const CURRENT_TEMPLATE = "comunion-amarillo-clasico"; const CURRENT_PLAN = "premium";</script>
   <script src="script.js"></script>
+  <script src="../rsvpService.js"></script>
+  <script src="../rsvpModal.js"></script>
   <script src="../../../js/demo-switcher.js"></script>
 </body>
 </html>

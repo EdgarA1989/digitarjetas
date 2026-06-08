@@ -32,7 +32,7 @@
   }
 
   function getMaxGuests(config) {
-    const configuredMax = Number(config.plusWhatsapp?.maxGuests);
+    const configuredMax = Number(config.plusWhatsapp?.maxGuests || config.whatsapp?.maxGuests);
     if (!Number.isInteger(configuredMax) || configuredMax < 1) {
       return DEFAULT_MAX_GUESTS;
     }
@@ -40,7 +40,7 @@
   }
 
   function getWhatsappNumber(config) {
-    return config.whatsapp?.numero || config.whatsappNumber || "";
+    return config.whatsapp?.numero || config.whatsapp?.number || config.whatsappNumber || "";
   }
 
   function getEventName(config) {
@@ -50,6 +50,7 @@
     if (couple) return `el casamiento de ${couple}`;
     if (config.childName) return `el bautismo de ${config.childName}`;
     if (config.nombre) return `los 15 de ${config.nombre}`;
+    if (config.name) return `la comunión de ${config.name}`;
 
     return "el evento";
   }

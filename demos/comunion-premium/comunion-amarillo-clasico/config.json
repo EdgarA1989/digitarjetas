@@ -67,19 +67,11 @@
     "simpleMessage": "Hola, confirmo asistencia a la comunión de Agustín."
   },
   "rsvpForm": {
-    "enabled":      true,
-    "mode":         "modal",
-    "title":        "Confirmación de asistencia",
-    "description":  "Completá los datos de quienes asistirán para ayudarnos a organizar este día especial.",
-    "defaultGuests": 1,
-    "maxGuests":    6,
-    "fields": {
-      "firstName":    true,
-      "lastName":     true,
-      "age":          true,
-      "observations": true
-    },
-    "submitMode": "demo"
+    "submitMode":        "demo",
+    "maxGuests":         6,
+    "hideDeclineButton": true,
+    "includeSongRequest": false,
+    "perGuestDetails":   true
   }
 }
 
