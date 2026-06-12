@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /evento/
-
-Sitemap: https://digitarjetas.com.ar/sitemap.xml

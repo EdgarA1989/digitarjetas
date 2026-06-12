@@ -380,7 +380,7 @@ function renderTemplates() {
         <div class="template-card__media">
           <div class="template-mini-phone${template.darkPreview ? " template-mini-phone--light-frame" : ""}" aria-hidden="true">
             <div class="template-mini-screen">
-              ${template.previewImage ? `<img class="template-preview-media template-preview-media--${template.slug}" src="${template.previewImage}" alt="Vista previa de invitación digital ${template.name}" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.display='none'">` : ""}
+              ${template.previewImage ? `<img class="template-preview-media template-preview-media--${template.slug}" src="${template.previewImage}" alt="" aria-hidden="true" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.display='none'">` : ""}
             </div>
           </div>
         </div>
@@ -430,23 +430,23 @@ function getAvailableDemoPlans(template) {
 function getMoreModelsInfo(filter) {
   const categories = {
     all: {
-      url: "./catalogo/",
+      url: "./plantillas/",
       text: "Explorá todos los modelos visuales disponibles.",
     },
     quince: {
-      url: "./catalogo/?categoria=quince",
+      url: "./plantillas/?categoria=quince",
       text: "Explorá más modelos visuales de quince años.",
     },
     bautismos: {
-      url: "./catalogo/?categoria=bautismo",
+      url: "./plantillas/?categoria=bautismo",
       text: "Explorá más modelos visuales de bautismo y comunión.",
     },
     casamientos: {
-      url: "./catalogo/?categoria=casamiento",
+      url: "./plantillas/?categoria=casamiento",
       text: "Explorá más modelos visuales de casamiento.",
     },
     eventos: {
-      url: "./catalogo/?categoria=eventos",
+      url: "./plantillas/?categoria=eventos",
       text: "Explorá más modelos visuales para eventos especiales.",
     },
   };
