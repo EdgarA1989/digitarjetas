@@ -733,7 +733,7 @@ html.dt-cover-lock body[data-template="verde"] {
 }
 
 body[data-template="verde"] .cover-content {
-  transform: translateY(clamp(7rem, 24dvh, 14rem));
+  transform: translateY(0);
 }
 
 @media (max-width: 420px) {
@@ -772,7 +772,7 @@ body[data-template="verde"] .cover-content {
 
 @media (min-width: 421px) and (max-width: 639px) {
   body[data-template="verde"] .cover-content {
-    transform: translateY(clamp(5rem, 20dvh, 10rem));
+    transform: translateY(0);
   }
 }
 
