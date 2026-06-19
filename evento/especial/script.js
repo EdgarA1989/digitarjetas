@@ -303,6 +303,24 @@ function runCountdown(n, interval, el, onDone) {
 function showFinal() {
   const screen = $('final-screen');
   screen.hidden = false;
+  requestAnimationFrame(() => {
+    screen.classList.add('active');
+    setupFinalBtns();
+  });
+}
+
+function setupFinalBtns() {
+  $('btn-si').addEventListener('click', showRespuesta);
+  $('btn-no').addEventListener('click', () => {
+    const btn = $('btn-no');
+    btn.textContent = 'Pensalo bien… ♡';
+    btn.style.pointerEvents = 'none';
+  });
+}
+
+function showRespuesta() {
+  const screen = $('respuesta-screen');
+  screen.hidden = false;
   requestAnimationFrame(() => screen.classList.add('active'));
 }
 
