@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Una historia especial</title>
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/img/ui/icons/favicon.svg">
+  <meta name="description" content="Una experiencia íntima y especial" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══ PORTADA INICIAL ═══ -->
+  <div id="cover" class="cover" role="dialog" aria-label="Abrir experiencia">
+    <div class="cover-texture" aria-hidden="true"></div>
+    <div class="cover-card">
+      <div class="cover-ornament-top" aria-hidden="true">
+        <svg viewBox="0 0 120 30" width="120" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="0" y1="15" x2="44" y2="15" stroke="#D6B27A" stroke-width="0.8" opacity="0.7"/>
+          <path d="M52 15 C52 11 56 8 60 11 C64 8 68 11 68 15 C68 20 60 25 60 25 C60 25 52 20 52 15Z" fill="#D6B27A" opacity="0.5"/>
+          <line x1="76" y1="15" x2="120" y2="15" stroke="#D6B27A" stroke-width="0.8" opacity="0.7"/>
+        </svg>
+      </div>
+      <p class="cover-eyebrow">para vos</p>
+      <h1 class="cover-title">Abrir invitación</h1>
+      <p class="cover-subtitle">Hay algo que quiero compartir con vos</p>
+      <div class="cover-ornament-bottom" aria-hidden="true">
+        <svg viewBox="0 0 120 30" width="120" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="0" y1="15" x2="44" y2="15" stroke="#D6B27A" stroke-width="0.8" opacity="0.7"/>
+          <path d="M52 15 C52 11 56 8 60 11 C64 8 68 11 68 15 C68 20 60 25 60 25 C60 25 52 20 52 15Z" fill="#D6B27A" opacity="0.5"/>
+          <line x1="76" y1="15" x2="120" y2="15" stroke="#D6B27A" stroke-width="0.8" opacity="0.7"/>
+        </svg>
+      </div>
+      <button class="cover-btn" id="btn-cover">
+        <span id="cover-btn-text">Abrir invitación</span>
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <main id="main" aria-hidden="true">
+
+    <!-- ── BOTÓN MÚSICA ── -->
+    <button class="music-btn" id="btn-music" aria-label="Reproducir música">
+      <svg id="icon-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+
+    <!-- ── HERO ── -->
+    <!-- Fondo: mármol marfil generado con CSS (sin imagen externa) -->
+    <section id="hero" class="hero-section">
+      <div class="hero-content">
+        <p class="hero-eyebrow reveal">10 años juntos</p>
+        <div class="hero-portrait-wrap reveal">
+          <!-- Reemplazá portada.jpg con la foto real -->
+          <img class="hero-portrait-img" id="hero-img" src="" alt="Portada"
+               onerror="this.parentElement.classList.add('no-photo')" />
+        </div>
+        <h2 class="hero-title reveal" id="hero-title">Felices 10 años mi amor</h2>
+        <div class="hero-divider reveal" aria-hidden="true"></div>
+        <p class="hero-subtitle reveal" id="hero-subtitle">Quiero contarte una historia</p>
+        <p class="hero-text reveal" id="hero-text">Una historia que empezó hace tiempo, pero que sigue creciendo cada día.</p>
+        <button class="hero-btn reveal" id="btn-hero">
+          <span id="hero-btn-text">Comenzar</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── CALENDARIO ── -->
+    <section id="calendario" class="calendario-section">
+      <div class="calendario-inner">
+        <p class="calendario-eyebrow reveal" id="calendario-eyebrow">el comienzo de todo</p>
+        <h2 class="calendario-titulo reveal" id="calendario-titulo">Nuestro día especial</h2>
+        <div class="calendario-card reveal" id="calendario-card"></div>
+      </div>
+    </section>
+
+    <!-- ── SECCIONES DE HISTORIA ── -->
+    <div id="history-container"></div>
+
+    <!-- ── CIERRE ── -->
+    <section id="final-step" class="final-step-section">
+      <div class="final-step-inner">
+        <div class="ornament-wrap" aria-hidden="true">
+          <div class="ornament-line"></div>
+          <span class="ornament-heart">♡</span>
+          <div class="ornament-line"></div>
+        </div>
+        <p class="final-step-text reveal" id="final-step-text">Si llegaste hasta acá, entonces ya sabés que esta no era una historia cualquiera…</p>
+        <p class="final-step-subtitle reveal" id="final-step-subtitle">Pero todavía queda un último capítulo.</p>
+        <button class="final-step-btn reveal" id="btn-final-step">
+          <span id="final-step-btn-text">Abrir el último capítulo</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ MODAL ═══ -->
+  <div id="modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Confirmación" hidden>
+    <div class="modal-card">
+      <div class="ornament-wrap modal-ornament" aria-hidden="true">
+        <div class="ornament-line"></div>
+        <span class="ornament-heart">♡</span>
+        <div class="ornament-line"></div>
+      </div>
+      <h3 class="modal-title" id="modal-title">¿Estás segura de querer abrir este último capítulo?</h3>
+      <p class="modal-text" id="modal-text">Lo que viene después puede cambiar esta historia para siempre.</p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn--confirm" id="btn-modal-confirm">Sí, quiero</button>
+        <button class="modal-btn modal-btn--cancel" id="btn-modal-cancel">Esperá un segundo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA TRANSICIÓN ═══ -->
+  <div id="transition-screen" class="transition-screen" hidden>
+    <div class="transition-content">
+      <h2 class="transition-title" id="transition-title">Ahora cerrá los ojos</h2>
+      <p class="transition-text" id="transition-text">Respirá hondo… y contá hasta 5 conmigo</p>
+      <div class="countdown-wrap" id="countdown-wrap">
+        <span class="countdown-number" id="countdown-number"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA FINAL ═══ -->
+  <div id="final-screen" class="final-screen" hidden>
+    <div class="final-content">
+      <div class="final-ornament" aria-hidden="true">
+        <svg viewBox="0 0 60 36" width="60" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 18 C10 10 18 4 26 10 C30 4 34 4 38 10 C46 4 50 10 50 18 C50 28 30 36 30 36 C30 36 10 28 10 18Z" fill="#D6B27A" opacity="0.35"/>
+        </svg>
+      </div>
+      <p class="final-subtitle" id="final-subtitle">Abrí los ojos…</p>
+      <h1 class="final-title" id="final-title">¿Querés casarte conmigo?</h1>
+    </div>
+  </div>
+
+  <!-- ═══ AUDIO ═══ -->
+  <!-- Reemplazá cancion.mp3 con la canción real -->
+  <audio id="audio" loop preload="none"></audio>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
