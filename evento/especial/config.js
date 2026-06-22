@@ -28,8 +28,8 @@ const specialConfig = {
     {
       id: "s1",
       layout: "featured",
-      title: "Donde todo empezó",
-      text: "A veces las historias más importantes comienzan sin hacer ruido. Sin darnos cuenta, entre momentos simples y encuentros que parecían uno más, algo empezó a crecer entre nosotros. Y aunque en ese momento no podíamos imaginar todo lo que vendría, hoy sé que ahí comenzó una de las partes más hermosas de mi vida.",
+      title: "El comienzo",
+      text: "A veces la vida te sorprende, yo habia dejado de creer en el amor no queria saber mas nada...pero el amor es asi indesifrable tenia un capitulo mas para mi, que se llamaba Ceci, llegaste para enseñarme lo que es el amor verdadero nunca senti lo que siento por vos por nadie, y no solo me hiciste creer de nuevo en el amor sino que me curaste para",
       shortText: "Fue el inicio de algo que terminaría cambiándolo todo.",
       images: [
         "../../assets/img/clientes/especial/historia-1-1.jpg",
@@ -42,7 +42,7 @@ const specialConfig = {
       id: "s2",
       layout: "grid",
       title: "Los primeros recuerdos",
-      text: "Entre charlas, risas, salidas y momentos compartidos, empezamos a conocernos de verdad. Y sin buscarlo demasiado, fuimos construyendo recuerdos que con el tiempo se volvieron inolvidables. Cada momento fue sumando algo, y poco a poco lo nuestro dejó de ser casual para convertirse en algo real y profundo.",
+      text: "Entre charlas, risas, salidas y momentos compartidos, esos momentos que buscamos siempre aunque sea unos minutos después del trabajo, acompañandome al curso, las charlas interminables, todo fue hermoso sentia un amor inmenso, tanto que quise que conocieras mi tesoro mas preciado obvio yo también conoci el tuyo, xq todo lo que era importante para vos lo era para mi te acordas? Y sin darme cuenta ellas hicieron que esta historia sea mi historia favorita la mas hermosa de todas",
       shortText: "Lo que empezó con pequeños momentos, se transformó en una gran historia.",
       images: [
         "../../assets/img/clientes/especial/historia-2-1.jpg",
@@ -79,7 +79,7 @@ const specialConfig = {
     },
     {
       id: "s5",
-      layout: "emotional",
+      layout: "album",
       title: "Después de 10 años…",
       text: "Hoy, después de todo lo vivido, sigo sintiendo que sos vos. Sos la persona con la que compartí momentos inolvidables, con la que crecí, con la que aprendí, y con la que quiero seguir escribiendo cada capítulo que venga. Después de 10 años, mi corazón sigue eligiéndote con la misma emoción, pero con una certeza mucho más grande: quiero seguir caminando esta vida con vos.",
       shortText: "Y siento que nuestra historia todavía tiene mucho más por vivir.",
@@ -87,7 +87,11 @@ const specialConfig = {
         "../../assets/img/clientes/especial/historia-5-1.jpg",
         "../../assets/img/clientes/especial/historia-5-2.jpg",
         "../../assets/img/clientes/especial/historia-5-3.jpg",
-        "../../assets/img/clientes/especial/historia-5-4.jpg"
+        "../../assets/img/clientes/especial/historia-5-4.jpg",
+        "../../assets/img/clientes/especial/historia-5-5.jpg",
+        "../../assets/img/clientes/especial/historia-5-6.jpg",
+        "../../assets/img/clientes/especial/historia-5-7.jpg",
+        "../../assets/img/clientes/especial/historia-5-8.jpg"
       ]
     }
   ],
