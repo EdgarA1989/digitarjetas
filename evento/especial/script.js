@@ -415,7 +415,14 @@ function revealLoop() {
   const vh = document.documentElement.clientHeight;
   const items = document.querySelectorAll('.reveal:not(.visible)');
   items.forEach((el) => {
-    if (el.getBoundingClientRect().top < vh) el.classList.add('visible');
+    if (el.getBoundingClientRect().top < vh) {
+      el.classList.add('visible');
+      // Si es parte de un collage, revela todas las imágenes del mismo collage a la vez
+      const collage = el.closest('.gallery-collage');
+      if (collage) {
+        collage.querySelectorAll('.img-wrap.reveal:not(.visible)').forEach(w => w.classList.add('visible'));
+      }
+    }
   });
   if (items.length > 0) {
     requestAnimationFrame(revealLoop);
