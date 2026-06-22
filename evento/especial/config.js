@@ -99,7 +99,7 @@ const specialConfig = {
   finalStep: {
     text: "Si llegaste hasta acá, entonces ya sabés que esta no era una historia cualquiera…",
     subtitle: "Pero todavía queda un último capítulo.",
-    button: "Abrir el último capítulo"
+    button: "Ver próximo capítulo"
   },
 
   modal: {
