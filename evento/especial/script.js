@@ -336,16 +336,13 @@ function setupLightbox() {
   if (!lb) return;
 
   let idx = 0;
-  let lbImages = [];
   let lbScrollY = 0;
   let touchStartX = 0;
 
-  // Recolecta todas las imágenes de la galería en orden
-  function buildImageList() {
-    lbImages = Array.from(document.querySelectorAll('.img-wrap img'))
-      .map(el => el.src)
-      .filter(src => src && !src.endsWith('#'));
-  }
+  // Todas las imágenes en orden de config (igual al orden DOM de renderSections)
+  const lbImages = specialConfig.sections.flatMap(sec => sec.images);
+
+  const allWraps = () => Array.from(document.querySelectorAll('#history-container .img-wrap'));
 
   const goTo = (i) => {
     idx = (i + lbImages.length) % lbImages.length;
@@ -353,7 +350,6 @@ function setupLightbox() {
   };
 
   const openLb = (i) => {
-    buildImageList();
     lbScrollY = window.scrollY;
     idx = i;
     img.src = lbImages[idx];
@@ -378,14 +374,12 @@ function setupLightbox() {
     window.scrollTo({ top: lbScrollY, behavior: 'instant' });
   };
 
-  // Click en cualquier foto de galería
+  // Click en cualquier foto de galería — índice por posición DOM
   document.getElementById('history-container').addEventListener('click', (e) => {
     const wrap = e.target.closest('.img-wrap');
     if (!wrap) return;
-    buildImageList();
-    const wrapImg = wrap.querySelector('img');
-    const i = lbImages.indexOf(wrapImg?.src);
-    if (i !== -1) openLb(i);
+    const i = allWraps().indexOf(wrap);
+    if (i !== -1 && lbImages[i]) openLb(i);
   });
 
   close.addEventListener('click', closeLb);
