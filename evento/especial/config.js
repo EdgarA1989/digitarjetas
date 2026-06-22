@@ -98,7 +98,7 @@ const specialConfig = {
 
   finalStep: {
     text: "Si llegaste hasta acá, entonces ya sabés que esta no era una historia cualquiera…",
-    subtitle: "Pero todavía queda un último capítulo.",
+    subtitle: "Pero todavía quedan más capítulos por construir.",
     button: "Ver próximo capítulo"
   },
 
