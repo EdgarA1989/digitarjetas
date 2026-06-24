@@ -103,7 +103,7 @@ const specialConfig = {
   },
 
   modal: {
-    title: "¿Estás segura de querer abrir este último capítulo?",
+    title: "¿Estás segura de querer abrir un nuevo capítulo?",
     text: "Lo que viene después puede cambiar esta historia para siempre.",
     confirm: "Sí, quiero",
     cancel: "Esperá un segundo"
@@ -120,7 +120,7 @@ const specialConfig = {
   },
 
   final: {
-    title: "¿Querés casarte conmigo?",
+    title: "¿Chanchi querés casarte conmigo?",
     subtitle: "Abrí los ojos…"
   }
 };

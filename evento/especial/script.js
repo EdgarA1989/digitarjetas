@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHero();
   renderCalendario();
   renderSections();
+  setupGalleryObserver();
   setupLightbox();
   renderFinalStep();
   renderModal();
@@ -96,9 +97,10 @@ function renderSections() {
     section.className = 'history-section';
     section.id = sec.id;
 
-    const ordinal = String(i + 1).padStart(2, '0');
+    const ordinal  = String(i + 1).padStart(2, '0');
+    const isFirst  = i === 0;
     section.innerHTML = `
-      <div class="history-header">
+      <div class="history-header${isFirst ? ' section-one-copy' : ''}">
         <span class="history-number reveal">Capítulo ${ordinal}</span>
         <h2 class="history-title reveal">${sec.title}</h2>
         <p class="history-text reveal">${sec.text}</p>
@@ -131,11 +133,9 @@ function buildGallery(layout, images, altBase) {
   }[layout] || 'gallery-grid';
 
   const items = images.map((src, i) => `
-    <div class="img-wrap reveal">
-      <!-- Reemplazá la imagen con la real -->
+    <div class="img-wrap reveal-photo" style="--delay: ${i * 140}ms">
       <img src="${src}" alt="${altBase} — foto ${i + 1}" loading="lazy" onerror="this.style.background='#EFE3D0';this.removeAttribute('src')" />
-    </div>
-  `).join('');
+    </div>`).join('');
 
   return `<div class="${wrapClass}">${items}</div>`;
 }
@@ -268,6 +268,7 @@ function closeModal() {
 function showTransition() {
   const screen = $('transition-screen');
   screen.hidden = false;
+  document.body.style.overflow = 'hidden';
   requestAnimationFrame(() => screen.classList.add('active'));
 
   const { from, interval } = specialConfig.countdown;
@@ -276,11 +277,11 @@ function showTransition() {
   // pequeña pausa antes de empezar el countdown
   setTimeout(() => {
     runCountdown(from, interval, numEl, () => {
-      screen.classList.remove('active');
+      showFinal();
       setTimeout(() => {
-        screen.hidden = true;
-        showFinal();
-      }, 600);
+        screen.classList.remove('active');
+        setTimeout(() => { screen.hidden = true; }, 600);
+      }, 80);
     });
   }, 1800);
 }
@@ -305,6 +306,7 @@ function runCountdown(n, interval, el, onDone) {
 function showFinal() {
   const screen = $('final-screen');
   screen.hidden = false;
+  document.body.style.overflow = 'hidden';
   requestAnimationFrame(() => {
     screen.classList.add('active');
     setupFinalBtns();
@@ -324,6 +326,35 @@ function showRespuesta() {
   const screen = $('respuesta-screen');
   screen.hidden = false;
   requestAnimationFrame(() => screen.classList.add('active'));
+}
+
+// ── IntersectionObserver: imágenes de todas las secciones ──
+function setupGalleryObserver() {
+  const photos = document.querySelectorAll('.reveal-photo');
+  if (!photos.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      // El collage entra todo junto para preservar el efecto escalonado desde lados
+      const collage = el.closest('.gallery-collage');
+      if (collage) {
+        collage.querySelectorAll('.reveal-photo').forEach(w => {
+          w.classList.add('is-visible');
+          observer.unobserve(w);
+        });
+      } else {
+        el.classList.add('is-visible');
+        observer.unobserve(el);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  photos.forEach(el => observer.observe(el));
 }
 
 // ── Lightbox ──
@@ -417,11 +448,6 @@ function revealLoop() {
   items.forEach((el) => {
     if (el.getBoundingClientRect().top < vh) {
       el.classList.add('visible');
-      // Si es parte de un collage, revela todas las imágenes del mismo collage a la vez
-      const collage = el.closest('.gallery-collage');
-      if (collage) {
-        collage.querySelectorAll('.img-wrap.reveal:not(.visible)').forEach(w => w.classList.add('visible'));
-      }
     }
   });
   if (items.length > 0) {

@@ -147,31 +147,56 @@ p { font-weight: 600; }
 ════════════════════════════════ */
 .music-btn {
   position: fixed;
-  top: 18px;
-  right: 18px;
+  top: 12px;
+  right: 14px;
   z-index: 500;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(248,244,238,.88);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(214,178,122,.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ink-soft);
-  box-shadow: 0 2px 12px rgba(58,46,39,.1);
-  transition: background var(--trans-fast), color var(--trans-fast), transform var(--trans-fast);
+  width: 54px;
+  height: 54px;
+  background: none;
+  border: none;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
   opacity: 0;
   pointer-events: none;
+  transition: opacity var(--trans-fast), transform var(--trans-fast);
+}
+.music-btn::before {
+  content: '♥';
+  position: absolute;
+  font-size: 3.2rem;
+  line-height: 1;
+  color: rgba(214,178,122,.5);
+  filter: drop-shadow(0 2px 8px rgba(58,46,39,.18));
+  transition: color var(--trans-fast);
+}
+.music-btn svg {
+  position: relative;
+  z-index: 1;
+  color: var(--ink-soft);
+  transition: color var(--trans-fast);
 }
 .music-btn.visible {
   opacity: 1;
   pointer-events: auto;
 }
-.music-btn:hover { background: var(--champagne); color: var(--ivory); }
-.music-btn:active { transform: scale(0.93); }
-.music-btn.playing { background: var(--champagne); color: var(--ivory); }
+.music-btn:hover::before  { color: var(--champagne); }
+.music-btn:hover svg      { color: #fff; }
+.music-btn:active         { transform: scale(0.92); }
+.music-btn.playing::before {
+  color: var(--champagne);
+  animation: heartbeat-btn 1.5s ease-in-out infinite;
+}
+.music-btn.playing svg { color: #fff; }
+
+@keyframes heartbeat-btn {
+  0%,  100% { transform: scale(1);    }
+  14%        { transform: scale(1.22); }
+  28%        { transform: scale(1.05); }
+  42%        { transform: scale(1.18); }
+  60%        { transform: scale(1);   }
+}
 
 /* ════════════════════════════════
    CONTENIDO PRINCIPAL
@@ -578,6 +603,9 @@ p { font-weight: 600; }
 .gallery-featured .img-wrap:not(:first-child) {
   aspect-ratio: 4/3;
 }
+.gallery-featured .img-wrap:nth-child(4) img {
+  object-position: center top;
+}
 
 /* Layout: grid (2x2 uniforme) */
 .gallery-grid {
@@ -606,19 +634,14 @@ p { font-weight: 600; }
   aspect-ratio: 4/3;
 }
 
-/* Entradas escalonadas desde distintas direcciones */
-.gallery-collage .img-wrap.reveal {
-  transition: opacity 0.75s ease, transform 0.75s ease;
+/* Entradas escalonadas desde lados — sobreescriben el translateY base de reveal-photo */
+@media (prefers-reduced-motion: no-preference) {
+  .gallery-collage .img-wrap.reveal-photo:nth-child(1) { transform: translateX(-32px) scale(0.96); }
+  .gallery-collage .img-wrap.reveal-photo:nth-child(2),
+  .gallery-collage .img-wrap.reveal-photo:nth-child(3),
+  .gallery-collage .img-wrap.reveal-photo:nth-child(4) { transform: translateX(32px) scale(0.96); }
+  .gallery-collage .img-wrap.reveal-photo.is-visible { transform: translateX(0) scale(1); }
 }
-.gallery-collage .img-wrap:nth-child(1).reveal { transform: translateX(-28px) translateY(0); }
-.gallery-collage .img-wrap:nth-child(2).reveal { transform: translateX(28px) translateY(0); }
-.gallery-collage .img-wrap:nth-child(3).reveal { transform: translateX(28px) translateY(0); }
-.gallery-collage .img-wrap:nth-child(4).reveal { transform: translateX(28px) translateY(0); }
-
-.gallery-collage .img-wrap:nth-child(1).reveal.visible { transform: translateX(0); transition-delay:   0ms; }
-.gallery-collage .img-wrap:nth-child(2).reveal.visible { transform: translateX(0); transition-delay: 180ms; }
-.gallery-collage .img-wrap:nth-child(3).reveal.visible { transform: translateX(0); transition-delay: 340ms; }
-.gallery-collage .img-wrap:nth-child(4).reveal.visible { transform: translateX(0); transition-delay: 500ms; }
 
 /* Layout: polaroid (4 con rotación sutil) */
 .gallery-polaroid {
@@ -656,6 +679,35 @@ p { font-weight: 600; }
   aspect-ratio: 1;
 }
 
+/* ── Sección 1: reveal progresivo por foto ── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-photo {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+    filter: blur(2px);
+    transition:
+      opacity   900ms ease,
+      transform 900ms ease,
+      filter    900ms ease;
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal-photo.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-photo {
+    opacity: 0;
+    transition: opacity 400ms ease;
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal-photo.is-visible {
+    opacity: 1;
+  }
+}
+
 /* Layout álbum — 8 fotos: primera y última full-width, 6 del medio en 2×3 */
 .gallery-album {
   display: grid;
@@ -685,8 +737,10 @@ p { font-weight: 600; }
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
-.img-wrap:hover img { transform: scale(1.04); }
+.img-wrap:hover img { transform: translateZ(0) scale(1.04); }
 
 /* ── Lightbox ── */
 .lightbox {
@@ -971,7 +1025,7 @@ p { font-weight: 600; }
 .final-screen {
   position: fixed;
   inset: 0;
-  z-index: 800;
+  z-index: 810;
   background: linear-gradient(135deg, var(--cream) 0%, var(--ivory) 60%, rgba(214,178,122,.12) 100%);
   display: flex;
   align-items: center;
@@ -1083,27 +1137,6 @@ p { font-weight: 600; }
 }
 .respuesta-screen.active .respuesta-img { opacity: 1; }
 
-.respuesta-overlay {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 24px;
-}
-.respuesta-msg {
-  font-family: var(--font-serif);
-  font-size: clamp(28px, 8vw, 56px);
-  font-weight: 300;
-  font-style: italic;
-  color: #fff;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 1s ease 0.8s, transform 1s ease 0.8s;
-}
-.respuesta-screen.active .respuesta-msg {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* ════════════════════════════════
    RESPONSIVE DESKTOP
@@ -1162,5 +1195,55 @@ p { font-weight: 600; }
   }
   .modal-btn {
     flex: 1;
+  }
+}
+
+/* ════════════════════════════════
+   MOBILE FRAME — centrado en desktop
+════════════════════════════════ */
+:root {
+  --frame-w: min(100%, 480px);
+}
+
+@media (min-width: 640px) {
+  html {
+    min-height: 100%;
+    background:
+      radial-gradient(ellipse 60% 40% at 25% 0%,  rgba(214,178,122,.14), transparent),
+      radial-gradient(ellipse 50% 50% at 75% 100%, rgba(201,165,165,.10), transparent),
+      #1A1510;
+  }
+
+  body {
+    width: var(--frame-w);
+    min-height: 100vh;
+    margin-inline: auto;
+    position: relative;
+    overflow-x: hidden;
+    box-shadow:
+      0 0 0 1px rgba(214,178,122,.18),
+      0 32px 100px rgba(26,21,16,.5);
+  }
+
+  /* Todos los fixed del frame */
+  .cover,
+  .lightbox,
+  .transition-screen,
+  .final-screen,
+  .respuesta-screen,
+  .modal-overlay {
+    width: var(--frame-w) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+  }
+
+  /* Overrides de transform en estados activos */
+  .cover.opening        { transform: translateX(-50%) scale(1.04); }
+  .modal-overlay.active { transform: translateX(-50%); }
+
+  /* Botón música anclado al borde derecho del frame */
+  .music-btn {
+    right: max(14px, calc((100vw - 480px) / 2 + 14px));
   }
 }
