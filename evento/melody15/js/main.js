@@ -935,7 +935,7 @@ function startCountdown(fechaISO) {
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000)  / 60000);
     const s = Math.floor((diff % 60000)    / 1000);
-    setText('cd-dias',  String(d).padStart(3, '0'));
+    setText('cd-dias',  String(d));
     setText('cd-horas', String(h).padStart(2, '0'));
     setText('cd-min',   String(m).padStart(2, '0'));
     setText('cd-seg',   String(s).padStart(2, '0'));
