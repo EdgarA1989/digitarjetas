@@ -934,13 +934,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: 100%;
   padding: 0;
   border: 0;
-  background-size: cover;
-  background-position: center;
   background-color: #102a46;
   aspect-ratio: 1;
   transition: opacity 0.4s;
   overflow: hidden;
   cursor: pointer;
+}
+.galeria-item__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: auto;
 }
 .galeria-item:first-child,
 .galeria-item:last-child {
@@ -950,11 +956,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .galeria-item:hover { opacity: 0.85; }
 
-.galeria-item--2,
-.galeria-item--3,
-.galeria-item--4,
-.galeria-item--5 {
-  background-position: center 18%;
+.galeria-item--2 .galeria-item__image,
+.galeria-item--3 .galeria-item__image,
+.galeria-item--4 .galeria-item__image,
+.galeria-item--5 .galeria-item__image {
+  object-position: center 18%;
 }
 
 .galeria-item:focus-visible {
@@ -1031,12 +1037,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 @media (max-width: 640px) {
-  .galeria-item--4 {
-    background-position: 72% bottom;
+  .galeria-item--4 .galeria-item__image {
+    object-position: 58% center;
   }
 
   .galeria-lightbox__image.is-landscape[data-gallery-index="4"] {
-    object-position: 72% bottom;
+    width: min(92vw, 640px);
+    height: auto;
+    max-height: min(74dvh, 760px);
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center;
   }
 }
 
@@ -1133,7 +1144,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    ===================================================== */
 .footer {
   background: var(--negro2);
-  padding: 4.5rem 1.5rem;
+  padding: 4.5rem 1.5rem calc(8rem + env(safe-area-inset-bottom));
   text-align: center;
 }
 .footer-inner {

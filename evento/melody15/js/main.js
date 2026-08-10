@@ -815,8 +815,13 @@ function renderGaleria(c) {
          type="button"
          data-src="${escapeAttr(src)}"
          data-index="${index}"
-         style="background-image:url('${src}')"
-         aria-label="Ampliar foto ${index + 1} de ${escapeAttr(c.nombre)}"></button>
+         aria-label="Ampliar foto ${index + 1} de ${escapeAttr(c.nombre)}">
+      <img class="galeria-item__image"
+           src="${escapeAttr(src)}"
+           alt=""
+           loading="lazy"
+           decoding="async">
+    </button>
   `).join('');
   initGaleriaLightbox(c.fotos, c.nombre);
 }
