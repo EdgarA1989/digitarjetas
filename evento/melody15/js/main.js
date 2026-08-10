@@ -791,6 +791,7 @@ function poblarDonde(c) {
 
 function poblarDresscode(c) {
   setText('dc-texto', c.dresscode.texto);
+  setText('dc-aviso', c.dresscode.aviso);
   setText('dc-nota',  c.dresscode.nota);
 }
 

@@ -814,6 +814,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--negro);
   margin-bottom: 1rem;
 }
+.dc-aviso {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 3vw, 1.15rem);
+  font-weight: 400;
+  color: var(--negro);
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  max-width: 460px;
+  margin: 0 auto 1rem;
+}
 .dc-nota {
   font-family: var(--font-sans);
   font-size: 0.8rem;

@@ -20,6 +20,7 @@
               },
     "dresscode":  {
                       "texto":  "Elegante · Formal",
+                      "aviso":  "Los colores Azul y Bordo se encuentran reservados para la mesa principal.",
                       "nota":  "Te esperamos con muchas ganas de celebrar juntos."
                   },
     "regalos":  {
@@ -33,9 +34,9 @@
                      "mensaje":  "¡Hola! Confirmo mi asistencia a los 15 de Melody"
                  },
     "musica":  {
-                   "src":  "../../assets/music/party-soft.mp3",
-                   "titulo":  "Canción del evento",
-                   "artista":  "Melody 15"
+                   "src":  "../../assets/music/clientes/melody15/The Goo Goo Dolls - Iris.mp3",
+                   "titulo":  "Iris",
+                   "artista":  "The Goo Goo Dolls"
                },
     "fotos":  [
                   "foto-1.webp",
@@ -72,7 +73,7 @@
              },
     "assets":  {
                    "imagesBasePath":  "../../assets/img/clientes/melody15/",
-                   "musicPath":  "../../assets/music/party-soft.mp3",
+                   "musicPath":  "../../assets/music/clientes/melody15/The Goo Goo Dolls - Iris.mp3",
                    "heroImage":  "portada.webp",
                    "coverImage":  "portada.webp",
                    "gallery":  [
