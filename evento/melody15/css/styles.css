@@ -1030,6 +1030,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   object-fit: cover;
 }
 
+@media (max-width: 640px) {
+  .galeria-item--4 {
+    background-position: 76% center;
+  }
+
+  .galeria-lightbox__image.is-landscape[data-gallery-index="4"] {
+    object-position: 76% center;
+  }
+}
+
 .galeria-lightbox__nav {
   display: flex;
   justify-content: center;

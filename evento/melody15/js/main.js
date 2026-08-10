@@ -860,6 +860,7 @@ function initGaleriaLightbox(fotos, nombre) {
     currentIndex = (index + fotos.length) % fotos.length;
     image.src = fotos[currentIndex];
     image.alt = `Foto ${currentIndex + 1} de ${nombre}`;
+    image.dataset.galleryIndex = String(currentIndex + 1);
     if (image.complete && image.naturalWidth) updateOrientation();
     else image.addEventListener('load', updateOrientation, { once: true });
   };
