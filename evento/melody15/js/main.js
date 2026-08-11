@@ -102,7 +102,7 @@ const RsvpService = (() => {
   function buildGoogleSheetsPayload(payload, cfg) {
     const origen = cfg?.origen || cfg?.eventId || payload.origen || 'melody15';
     const estado = cfg?.estado || 'VALIDO';
-    const submittedAt = payload.submittedAt || new Date().toISOString();
+    const submittedAt = payload.submittedAtArgentina || formatArgentinaDateTime(payload.submittedAt);
     const records = payload.guests.map(guest => ({
       id_confirmacion: `${origen}-${Date.now()}-${guest.number}`,
       fecha_confirmacion: submittedAt,
@@ -125,6 +125,22 @@ const RsvpService = (() => {
       duplicateKey: cfg?.duplicateKey || ['nombre', 'apellido', 'edad'],
       records,
     };
+  }
+
+  function formatArgentinaDateTime(value = new Date()) {
+    const date = value instanceof Date ? value : new Date(value);
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Argentina/Buenos_Aires',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }).formatToParts(isNaN(date) ? new Date() : date);
+    const get = type => parts.find(part => part.type === type)?.value || '00';
+    return `${get('year')}-${get('month')}-${get('day')} ${get('hour')}:${get('minute')}:${get('second')}`;
   }
 
   function normalizeDuplicateKey(guest) {

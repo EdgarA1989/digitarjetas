@@ -15,7 +15,8 @@ const SHEET_RESUMEN = "Resumen";
 const ORIGEN_EVENTO = "melody15";
 const ESTADO_VALIDO = "VALIDO";
 const ESTADO_DUPLICADO = "DUPLICADO";
-const API_VERSION = "melody15-sin-observaciones-2026-05-28";
+const TIME_ZONE = "America/Argentina/Buenos_Aires";
+const API_VERSION = "melody15-fecha-argentina-2026-08-11";
 
 const HEADERS_CONFIRMACIONES = [
   "id_confirmacion",
@@ -116,7 +117,7 @@ function normalizeRecords(data) {
   return incoming.map((record, index) => {
     const origen = valueOrDefault(record.origen || data.origen || data.eventId, ORIGEN_EVENTO);
     const estado = valueOrDefault(record.estado || data.estado, ESTADO_VALIDO);
-    const fecha = valueOrDefault(record.fecha_confirmacion || data.submittedAt, new Date().toISOString());
+    const fecha = formatArgentinaDateTime(record.fecha_confirmacion || data.submittedAt || new Date());
     const nombre = clean(record.nombre);
     const apellido = clean(record.apellido);
     const edad = clean(record.edad);
@@ -422,6 +423,16 @@ function valueOrDefault(value, fallback) {
   return cleaned || fallback;
 }
 
+function formatArgentinaDateTime(value) {
+  const cleaned = clean(value);
+  if (/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}$/.test(cleaned)) {
+    return cleaned.replace("T", " ");
+  }
+
+  const date = parseDate(value) || new Date();
+  return Utilities.formatDate(date, TIME_ZONE, "yyyy-MM-dd HH:mm:ss");
+}
+
 function parseDate(value) {
   if (Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value)) return value;
   const date = new Date(value);
@@ -429,7 +440,7 @@ function parseDate(value) {
 }
 
 function formatDate(date) {
-  return Utilities.formatDate(date, Session.getScriptTimeZone(), "dd/MM/yyyy HH:mm:ss");
+  return Utilities.formatDate(date, TIME_ZONE, "dd/MM/yyyy HH:mm:ss");
 }
 
 function getErrorMessage(error) {
