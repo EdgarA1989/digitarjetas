@@ -1176,7 +1176,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .footer-credit {
-  margin: 1.2rem 0 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .65rem;
+  margin: 1.2rem auto 0;
   color: rgba(255, 255, 255, 0.68);
   font-size: 0.74rem;
   font-weight: 300;
@@ -1184,11 +1188,26 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-transform: uppercase;
 }
 
-.footer-credit a {
+.footer-credit__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
   color: rgba(255, 255, 255);
   text-decoration: none;
-  border-bottom: 1px solid currentColor;
   font-weight: bold;
+  line-height: 1.2;
+}
+
+.footer-credit__icon {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  color: #fff;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* El cover (#hero) es fixed y cubre todo; al hacer clic desaparece con .hero--opening */
