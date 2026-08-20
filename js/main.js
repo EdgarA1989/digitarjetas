@@ -599,9 +599,10 @@ function initForm() {
   const message = document.getElementById("form-message");
   if (!form || !message) return;
 
-  form.addEventListener("submit", event => {
+  form.addEventListener("submit", async event => {
     event.preventDefault();
     const fields = [...form.querySelectorAll("[required]")];
+    const submitButton = form.querySelector("[type='submit']");
     let isValid = true;
 
     fields.forEach(field => {
@@ -616,13 +617,41 @@ function initForm() {
       return;
     }
 
-    form.reset();
-    message.textContent = "Gracias por tu consulta. Te vamos a contactar a la brevedad.";
+    const originalButtonText = submitButton?.textContent;
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Enviando...";
+    }
+
+    message.textContent = "Estamos enviando tu consulta...";
     message.classList.add("is-visible");
 
-    setTimeout(() => {
-      message.classList.remove("is-visible");
-    }, 6500);
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData
+      });
+
+      if (!response.ok) throw new Error("No se pudo enviar la consulta.");
+
+      form.reset();
+      message.textContent = "Gracias por tu consulta. Te vamos a contactar a la brevedad.";
+
+      setTimeout(() => {
+        message.classList.remove("is-visible");
+      }, 6500);
+    } catch (error) {
+      message.textContent = "No pudimos enviar la consulta. Probá de nuevo o escribinos por WhatsApp.";
+      message.classList.add("is-visible");
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    }
   });
 
   form.querySelectorAll("input, select, textarea").forEach(field => {
