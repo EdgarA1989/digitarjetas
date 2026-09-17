@@ -1,6 +1,6 @@
 // DigiTarjetas
 // Cambiar este numero por el WhatsApp real, solo numeros con codigo de pais.
-const WHATSAPP_NUMBER = "5491151498796";
+const WHATSAPP_NUMBER = "5491171048820";
 
 const PLAN_LABELS = {
   esencial: "Plan Esencial",
