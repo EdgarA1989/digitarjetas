@@ -88,7 +88,7 @@ const RsvpService = (() => {
     });
 
     const text = await response.text();
-    const data = text ? JSON.parse(text) : {};
+    const data = parseGoogleSheetsResponse(text);
     if (!response.ok || data.ok === false) {
       const isDuplicate = data.code === 'DUPLICATE' || data.duplicado === true || data.duplicate === true;
       const duplicateMessage = cfg?.duplicateMessage || 'Ya existe una confirmación registrada con esos datos.';
@@ -97,6 +97,20 @@ const RsvpService = (() => {
       throw error;
     }
     return data;
+  }
+
+  function parseGoogleSheetsResponse(text) {
+    const body = String(text || '').trim();
+    if (!body) return {};
+
+    try {
+      return JSON.parse(body);
+    } catch (error) {
+      if (/^<!doctype html/i.test(body) || /^<html/i.test(body)) {
+        throw new Error('Google Sheets devolvió una página de error. Revisá que el Apps Script esté publicado como Web App con acceso para cualquiera.');
+      }
+      throw new Error('Google Sheets respondió con un formato inesperado.');
+    }
   }
 
   function buildGoogleSheetsPayload(payload, cfg) {
