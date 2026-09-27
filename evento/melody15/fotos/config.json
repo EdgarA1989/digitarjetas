@@ -10,11 +10,11 @@
     "url": "https://docs.google.com/forms/d/e/1FAIpQLSfr2IvjBl4JFpQSHZ1D0YGqLTU7xJVd6gvXSaOyyIsscNKdmw/viewform?usp=publish-editor"
   },
   "gallery": {
-    "enabled": false,
-    "label": "Ver fotos y videos",
+    "enabled": true,
+    "label": "Ver fotos y videos de la noche",
     "url": "https://drive.google.com/drive/folders/1KtjWVOF20xjWmodw0cyKBMHmTwsh7fHh8_RHFLWx9ycEjKfLRT0-GBFHRNB5NBGOoXLTvWAm",
-    "lockedText": "Disponible proximamente",
-    "description": "El album se habilitara despues del evento, cuando la familia revise y organice las fotos y videos."
+    "lockedText": "Album disponible",
+    "description": "Ya podes entrar al album para ver las fotos y videos compartidos de los 15 de Melody."
   },
   "closingText": "Gracias por compartir tus recuerdos con Melody."
 }

@@ -16,11 +16,11 @@
       url: "PEGAR_URL_GOOGLE_FORM"
     },
     gallery: {
-      enabled: false,
-      label: "Ver fotos y videos",
+      enabled: true,
+      label: "Ver fotos y videos de la noche",
       url: "PEGAR_URL_CARPETA_FOTOS_DRIVE",
-      lockedText: "Disponible proximamente",
-      description: "El album se habilitara despues del evento, cuando la familia revise y organice las fotos y videos."
+      lockedText: "Album disponible",
+      description: "Ya podes entrar al album para ver las fotos y videos compartidos de los 15 de Melody."
     },
     closingText: "Gracias por compartir tus recuerdos con Melody."
   };
@@ -87,7 +87,7 @@
 
     if (data.gallery.enabled && galleryUrl) {
       enableLink(els.galleryLink, galleryUrl);
-      setText(els.galleryStatus, "Album habilitado");
+      setText(els.galleryStatus, data.gallery.lockedText || "Album disponible");
     } else {
       disableLink(els.galleryLink);
       setText(els.galleryStatus, data.gallery.lockedText);

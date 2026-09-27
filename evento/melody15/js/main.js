@@ -961,11 +961,14 @@ function initGaleriaLightbox(fotos, nombre) {
 // ── Countdown ─────────────────────────────────────────
 function startCountdown(fechaISO) {
   const target = new Date(fechaISO).getTime();
+  let timerId;
 
   const tick = () => {
     const diff = target - Date.now();
     if (diff <= 0) {
       ['cd-dias','cd-horas','cd-min','cd-seg'].forEach(id => setText(id, '00'));
+      showCountdownReady();
+      if (timerId) clearInterval(timerId);
       return;
     }
     const d = Math.floor(diff / 86400000);
@@ -979,7 +982,13 @@ function startCountdown(fechaISO) {
   };
 
   tick();
-  setInterval(tick, 1000);
+  timerId = setInterval(tick, 1000);
+}
+
+function showCountdownReady() {
+  const ready = document.getElementById('countdown-event-ready');
+  if (!ready || !ready.hidden) return;
+  ready.hidden = false;
 }
 
 // ── Calendario del mes ────────────────────────────────

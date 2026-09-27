@@ -563,6 +563,55 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   letter-spacing: 0;
 }
 
+.countdown-ready {
+  max-width: 30rem;
+  margin: 2rem auto 0;
+  animation: fadeUp 0.75s ease both;
+}
+
+.countdown-ready[hidden] {
+  display: none;
+}
+
+.countdown-ready__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 10vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-dark-main);
+}
+
+.countdown-ready__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.3rem;
+  margin-top: 1.35rem;
+  padding: 0.9rem 1.45rem;
+  border: 1px solid var(--color-dark-main);
+  border-radius: 6px;
+  background: var(--color-dark-main);
+  color: var(--color-text-light);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.countdown-ready__btn:hover,
+.countdown-ready__btn:focus-visible {
+  transform: translateY(-2px);
+  background: transparent;
+  color: var(--color-dark-main);
+}
+
+.countdown-ready__btn:focus-visible {
+  outline: 2px solid var(--color-dark-main);
+  outline-offset: 3px;
+}
+
 /* =====================================================
    BIENVENIDA
    ===================================================== */
