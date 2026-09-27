@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Subi tus fotos y videos y ayuda a guardar los recuerdos de Melody 15." />
+  <meta property="og:title" content="Comparti tus fotos y videos de Melody 15" />
+  <meta property="og:description" content="Subi tus fotos y videos y ayuda a guardar los recuerdos de esta noche especial." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://digitarjetas.com.ar/evento/melody15/fotos/" />
+  <meta property="og:image" content="https://digitarjetas.com.ar/assets/img/clientes/melody15/portada.webp" />
+  <title>Fotos | Melody 15</title>
+
+  <link rel="icon" type="image/svg+xml" href="../../../assets/img/ui/icons/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="photo-page" aria-labelledby="page-title">
+    <section class="hero">
+      <div class="hero__media" aria-hidden="true"></div>
+      <div class="hero__overlay"></div>
+
+      <div class="hero__content">
+        <p class="eyebrow" id="event-name">Melody 15</p>
+        <h1 id="page-title">Comparti tus fotos y videos de Melody 15</h1>
+        <p class="subtitle" id="subtitle">Gracias por ser parte de esta noche especial.</p>
+        <p class="description" id="description">
+          Subi tus mejores fotos y videos y ayudanos a guardar los recuerdos de Melody 15.
+        </p>
+
+        <div class="actions" aria-label="Acciones de fotos y videos del evento">
+          <a class="action action--primary is-loading" id="upload-link" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">
+            <span id="upload-label">Subir fotos y videos</span>
+          </a>
+
+          <a class="action action--secondary is-disabled" id="gallery-link" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">
+            <span id="gallery-label">Ver fotos y videos</span>
+            <small id="gallery-status">Disponible proximamente</small>
+          </a>
+        </div>
+
+        <div class="notice" id="notice" role="status" aria-live="polite">
+          Preparando los enlaces...
+        </div>
+
+        <p class="gallery-description" id="gallery-description">
+          El album se habilitara despues del evento, cuando la familia revise y organice las fotos y videos.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p id="closing-text">Gracias por compartir tus recuerdos con Melody.</p>
+      <a href="https://digitarjetas.com.ar/" target="_blank" rel="noopener noreferrer">DigiTarjetas</a>
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

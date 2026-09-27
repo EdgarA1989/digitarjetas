@@ -1,0 +1,20 @@
+{
+  "eventId": "melody15",
+  "eventName": "Melody 15",
+  "title": "Comparti tus fotos y videos de Melody 15",
+  "subtitle": "Gracias por ser parte de esta noche especial.",
+  "description": "Subi tus mejores fotos y videos y ayudanos a guardar los recuerdos de Melody 15.",
+  "upload": {
+    "enabled": true,
+    "label": "Subir fotos y videos",
+    "url": "https://docs.google.com/forms/d/e/1FAIpQLSfr2IvjBl4JFpQSHZ1D0YGqLTU7xJVd6gvXSaOyyIsscNKdmw/viewform?usp=publish-editor"
+  },
+  "gallery": {
+    "enabled": false,
+    "label": "Ver fotos y videos",
+    "url": "https://drive.google.com/drive/folders/1KtjWVOF20xjWmodw0cyKBMHmTwsh7fHh8_RHFLWx9ycEjKfLRT0-GBFHRNB5NBGOoXLTvWAm",
+    "lockedText": "Disponible proximamente",
+    "description": "El album se habilitara despues del evento, cuando la familia revise y organice las fotos y videos."
+  },
+  "closingText": "Gracias por compartir tus recuerdos con Melody."
+}
